@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://atascap.com/sitemap.xml

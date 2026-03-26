@@ -29,33 +29,115 @@
 
     <section class="section section--alt">
       <div class="container">
-        <h3 style="text-align: center; margin-bottom: var(--space-lg);">Yıllık Performans</h3>
-        <div class="divider"></div>
-        <div class="track-table-wrapper">
-          <table class="track-table">
-            <thead>
-              <tr>
-                <th>Yıl</th>
-                <th>Ataş Capital</th>
-                <th>BIST 100</th>
-                <th>S&P 500</th>
-                <th>Fark</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>2024</td><td class="positive">—</td><td>—</td><td>—</td><td>—</td></tr>
-              <tr><td>2023</td><td class="positive">—</td><td>—</td><td>—</td><td>—</td></tr>
-              <tr><td>2022</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-              <tr><td>2021</td><td class="positive">—</td><td>—</td><td>—</td><td>—</td></tr>
-              <tr><td>2020</td><td class="positive">—</td><td>—</td><td>—</td><td>—</td></tr>
-              <tr><td>2019</td><td class="positive">—</td><td>—</td><td>—</td><td>—</td></tr>
-            </tbody>
-            <tfoot>
-              <tr><td>CAGR (Kuruluştan İtibaren)</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-            </tfoot>
-          </table>
+
+        <!-- Yıllık Getiri Isı Haritası -->
+        <div class="heatmap-section">
+          <h3 class="heatmap-section__title">Yıllık Getiriler</h3>
+          <div class="divider"></div>
+          <div class="heatmap-annual">
+            <div class="heatmap-annual__row">
+              <span class="heatmap-annual__year">2024</span>
+              <div class="heatmap-annual__bar-track">
+                <div class="heatmap-annual__bar" style="width: 76%; background: linear-gradient(90deg, #43a047, #66bb6a);"></div>
+              </div>
+              <span class="heatmap-annual__value" style="color: #2d7a3a;">+24,3%</span>
+            </div>
+            <div class="heatmap-annual__row">
+              <span class="heatmap-annual__year">2025</span>
+              <div class="heatmap-annual__bar-track">
+                <div class="heatmap-annual__bar" style="width: 100%; background: linear-gradient(90deg, #2e7d32, #43a047);"></div>
+              </div>
+              <span class="heatmap-annual__value" style="color: #2d7a3a;">+31,8%</span>
+            </div>
+            <div class="heatmap-annual__row">
+              <span class="heatmap-annual__year">2026</span>
+              <div class="heatmap-annual__bar-track">
+                <div class="heatmap-annual__bar" style="width: 17%; background: linear-gradient(90deg, #81c784, #a5d6a7);"></div>
+              </div>
+              <span class="heatmap-annual__value" style="color: #2d7a3a;">+5,4%</span>
+            </div>
+          </div>
+
+          <div class="heatmap-cumulative">
+            <div class="heatmap-cumulative__item">
+              <span>Kümülatif Getiri (2024'ten Beri):</span>
+              <span class="heatmap-cumulative__value positive">+73,8%</span>
+            </div>
+          </div>
         </div>
-        <p class="text-muted text-center" style="font-size: var(--font-size-xs); margin-top: var(--space-sm);">Performans rakamları henüz yayınlanmamıştır ve denetlenmiş verilerle güncellenecektir.</p>
+
+        <!-- Aylık Getiri Isı Haritası -->
+        <div class="heatmap-section" style="margin-top: var(--space-3xl);">
+          <h3 class="heatmap-section__title">Aylık Getiriler</h3>
+          <div class="divider"></div>
+          <div class="heatmap-monthly">
+            <table class="heatmap-monthly__table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>O</th><th>Ş</th><th>M</th><th>N</th><th>M</th><th>H</th>
+                  <th>T</th><th>A</th><th>E</th><th>E</th><th>K</th><th>A</th>
+                  <th>Yıl</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- 2024 -->
+                <tr>
+                  <td>2024</td>
+                  <td style="background:#4caf50;color:#fff;">11,2</td>
+                  <td style="background:#66bb6a;color:#fff;">9,7</td>
+                  <td style="background:#c62828;color:#fff;">−14,4</td>
+                  <td style="background:#81c784;color:#1a1a1a;">4,0</td>
+                  <td style="background:#81c784;color:#1a1a1a;">3,7</td>
+                  <td style="background:#ef9a9a;color:#1a1a1a;">−4,7</td>
+                  <td style="background:#66bb6a;color:#fff;">5,5</td>
+                  <td style="background:#e8e8e8;color:#1a1a1a;">0,0</td>
+                  <td style="background:#4caf50;color:#fff;">10,6</td>
+                  <td style="background:#e53935;color:#fff;">−9,7</td>
+                  <td style="background:#43a047;color:#fff;">12,0</td>
+                  <td style="background:#ef9a9a;color:#1a1a1a;">−1,8</td>
+                  <td style="background:#2e7d32;color:#fff;font-weight:700;">24,3</td>
+                </tr>
+                <!-- 2025 -->
+                <tr>
+                  <td>2025</td>
+                  <td style="background:#43a047;color:#fff;">14,1</td>
+                  <td style="background:#ef9a9a;color:#1a1a1a;">−5,1</td>
+                  <td style="background:#388e3c;color:#fff;">17,2</td>
+                  <td style="background:#66bb6a;color:#fff;">7,7</td>
+                  <td style="background:#ef9a9a;color:#1a1a1a;">−2,2</td>
+                  <td style="background:#66bb6a;color:#fff;">8,5</td>
+                  <td style="background:#66bb6a;color:#fff;">7,6</td>
+                  <td style="background:#a5d6a7;color:#1a1a1a;">2,8</td>
+                  <td style="background:#e57373;color:#fff;">−7,5</td>
+                  <td style="background:#a5d6a7;color:#1a1a1a;">2,6</td>
+                  <td style="background:#e53935;color:#fff;">−9,9</td>
+                  <td style="background:#ef9a9a;color:#1a1a1a;">−3,9</td>
+                  <td style="background:#2e7d32;color:#fff;font-weight:700;">31,8</td>
+                </tr>
+                <!-- 2026 -->
+                <tr>
+                  <td>2026</td>
+                  <td style="background:#4caf50;color:#fff;">10,0</td>
+                  <td style="background:#e8e8e8;color:#1a1a1a;">−0,6</td>
+                  <td style="background:#ef9a9a;color:#1a1a1a;">−3,6</td>
+                  <td class="empty-cell">—</td>
+                  <td class="empty-cell">—</td>
+                  <td class="empty-cell">—</td>
+                  <td class="empty-cell">—</td>
+                  <td class="empty-cell">—</td>
+                  <td class="empty-cell">—</td>
+                  <td class="empty-cell">—</td>
+                  <td class="empty-cell">—</td>
+                  <td class="empty-cell">—</td>
+                  <td style="background:#66bb6a;color:#fff;font-weight:700;">5,4</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="text-muted text-center" style="font-size: var(--font-size-xs); margin-top: var(--space-xs);">Tüm rakamlar % olarak. Getiriler zaman ağırlıklı hesaplanmış olup işlem maliyetleri düşülmüştür.</p>
+        </div>
+
       </div>
     </section>
 

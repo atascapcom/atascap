@@ -198,7 +198,6 @@
                 <ul>
                   <li><a href="mailto:askin@atascap.com">askin@atascap.com</a></li>
                   <li><a href="https://linkedin.com/in/askinatas" target="_blank" rel="noopener">LinkedIn</a></li>
-                  <li><a href="https://x.com/asaborsa" target="_blank" rel="noopener">X / Twitter</a></li>
                 </ul>
               </div>
             </div>

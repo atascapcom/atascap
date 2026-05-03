@@ -1,0 +1,52 @@
+---
+import { performanceData, returnToColor, formatReturn } from '@data/performance';
+import type { Lang } from '@data/translations';
+import { LANGUAGES } from '@data/translations';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const monthLabels = LANGUAGES[lang].monthLabels;
+const { records } = performanceData;
+---
+
+<div class="heatmap-monthly">
+  <table class="heatmap-monthly__table">
+    <thead>
+      <tr>
+        <th></th>
+        {monthLabels.map((m) => <th>{m}</th>)}
+        <th>Year</th>
+      </tr>
+    </thead>
+    <tbody>
+      {records.map((record) => {
+        const annualColor = returnToColor(record.annual);
+        return (
+          <tr>
+            <td>{record.year}</td>
+            {record.months.map((m) => {
+              const c = returnToColor(m.value);
+              return (
+                <td
+                  style={`background:${c.bg};color:${c.fg};`}
+                  class={m.value === null ? 'empty-cell' : undefined}
+                >
+                  {formatReturn(m.value)}
+                </td>
+              );
+            })}
+            <td style={`background:${annualColor.bg};color:${annualColor.fg};font-weight:700;`}>
+              {formatReturn(record.annual)}
+            </td>
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+</div>
+<p class="text-muted text-center" style="font-size: var(--font-size-xs); margin-top: var(--space-xs);">
+  All figures in %. Returns are time-weighted and net of transaction costs.
+</p>

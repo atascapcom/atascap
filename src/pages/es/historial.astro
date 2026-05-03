@@ -1,0 +1,76 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PerformanceChart from '@components/PerformanceChart.astro';
+import PerformanceHeatmap from '@components/PerformanceHeatmap.astro';
+---
+
+<BaseLayout
+  lang="es"
+  pageKey="trackRecord"
+  title="Historial — Ataş Capital"
+  description="El historial de inversiones de Ataş Capital: rendimiento anual, enfoque de cartera y posiciones actuales."
+>
+  <section class="page-header">
+    <h1>HISTORIAL</h1>
+    <p>Rendimiento construido sobre paciencia, disciplina y convicción.</p>
+  </section>
+
+  <section class="section">
+    <div class="container--narrow">
+      <div class="content-block">
+        <p>Desde su inicio, Ataş Capital ha seguido un enfoque concentrado y a largo plazo para la asignación de capital. La siguiente tabla refleja el rendimiento de nuestra cartera compuesta, neto de todos los costos.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="heatmap-section">
+        <h3 class="heatmap-section__title">Rendimientos Anuales</h3>
+        <div class="divider"></div>
+        <PerformanceChart />
+      </div>
+      <div class="heatmap-section" style="margin-top: var(--space-3xl);">
+        <h3 class="heatmap-section__title">Rendimientos Mensuales</h3>
+        <div class="divider"></div>
+        <PerformanceHeatmap lang="es" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section__header"><h2>Enfoque de Cartera</h2><div class="divider"></div></div>
+      <div class="stats-grid">
+        <div class="stat-card"><span class="stat-card__value">4–6</span><span class="stat-card__label">Posiciones Principales</span></div>
+        <div class="stat-card"><span class="stat-card__value">5+ Años</span><span class="stat-card__label">Período Promedio de Tenencia</span></div>
+        <div class="stat-card"><span class="stat-card__value">Simple</span><span class="stat-card__label">Método de Análisis</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section__header">
+        <h2>Universo de Inversión</h2>
+        <div class="divider"></div>
+        <p>Nos centramos en negocios profundamente infravalorados con ventajas competitivas duraderas, principalmente en los mercados de renta variable turcos y globales.</p>
+      </div>
+      <div class="grid-3">
+        <div class="holding-card"><span class="holding-card__tag">Renta Variable Turca</span><h4>Mercado BIST</h4><p>Oportunidades de valor profundo en el mercado de valores turco — un mercado poco seguido y estructuralmente ineficiente.</p></div>
+        <div class="holding-card"><span class="holding-card__tag">Renta Variable Global</span><h4>Mercados Internacionales</h4><p>Invertido selectivamente en negocios globales de alta calidad cuando el precio presenta un margen de seguridad claro.</p></div>
+        <div class="holding-card"><span class="holding-card__tag">Oportunista</span><h4>Situaciones Especiales</h4><p>Posiciones ocasionales en situaciones especiales donde las dislocaciones temporales crean una relación riesgo-recompensa asimétrica.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--bordered">
+    <div class="container--narrow">
+      <div class="content-block">
+        <p class="text-muted" style="font-size: var(--font-size-sm); line-height: 1.7;">
+          <strong>Nota metodológica:</strong> Los rendimientos de la cartera se calculan utilizando una metodología de rendimiento ponderado por tiempo. Todos los rendimientos se presentan netos de costos de transacción. El rendimiento pasado no es indicativo de resultados futuros.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

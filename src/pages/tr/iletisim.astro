@@ -1,0 +1,49 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { SITE } from '@data/site';
+---
+
+<BaseLayout
+  lang="tr"
+  pageKey="contact"
+  title="İletişim — Ataş Capital"
+  description="Ataş Capital ile iletişime geçin. Nitelikli yatırımcılardan ve araştırma iş birlikçilerinden gelen sorular memnuniyetle karşılanır."
+>
+  <section class="page-header">
+    <h1>İLETİŞİM</h1>
+    <p>Düşünceli yazışmaları memnuniyetle karşılıyoruz.</p>
+  </section>
+
+  <section class="section">
+    <div class="container--tight">
+      <div class="content-block">
+        <p>Ataş Capital özel, yalnızca davetle çalışır. Ancak ciddi yatırımcılardan, potansiyel araştırma iş birlikçilerinden ve uzun vadeli yatırım felsefemizi paylaşan bireylerden gelen sorguları memnuniyetle karşılıyoruz.</p>
+      </div>
+      <div style="margin-top: var(--space-2xl);">
+        <div class="contact-info">
+          <div class="contact-info__item">
+            <span class="contact-info__label">E-posta</span>
+            <a href={`mailto:${SITE.email}`} style="font-size: var(--font-size-lg); color: var(--color-text);">{SITE.email}</a>
+          </div>
+          <div class="contact-info__item" style="margin-top: var(--space-lg);">
+            <span class="contact-info__label">Konum</span>
+            <span style="font-size: var(--font-size-md);">Calle Alcala 124 Madrid, İspanya</span>
+          </div>
+          <div class="contact-info__item" style="margin-top: var(--space-lg);">
+            <span class="contact-info__label">Sosyal</span>
+            <span style="font-size: var(--font-size-md);">
+              <a href={SITE.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+              {' · '}
+              <a href={SITE.twitter} target="_blank" rel="noopener">X / Twitter</a>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: var(--space-3xl); padding-top: var(--space-xl); border-top: 1px solid var(--color-border);">
+        <p class="text-muted" style="font-size: var(--font-size-sm);">
+          Tüm önemli sorulara makul bir süre içinde yanıt vermeye çalışıyoruz. Ataş Capital kayıtlı bir yatırım danışmanı değildir ve halka yatırım danışmanlığı hizmeti sunmamaktadır.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

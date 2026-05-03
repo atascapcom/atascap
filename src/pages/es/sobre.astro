@@ -1,0 +1,44 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { SITE } from '@data/site';
+---
+
+<BaseLayout
+  lang="es"
+  pageKey="about"
+  title="Sobre Nosotros — Ataş Capital"
+  description="Sobre Aşkın Ataş y Ataş Capital. Un emprendedor e inversor dedicado a la disciplina, la independencia y el pensamiento a largo plazo."
+>
+  <section class="page-header">
+    <h1>SOBRE NOSOTROS</h1>
+    <p>La historia detrás de la práctica.</p>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="bio-section">
+        <div class="bio-sidebar">
+          <h3>{SITE.founderName}</h3>
+          <div class="divider divider--left"></div>
+          <p class="bio-sidebar__detail">Fundador y Gestor de Cartera</p>
+          <p class="bio-sidebar__detail">Madrid, España</p>
+          <p class="bio-sidebar__detail" style="margin-top: var(--space-md);">
+            <a href={`mailto:${SITE.email}`} style="color: var(--color-accent);">{SITE.email}</a>
+          </p>
+          <p class="bio-sidebar__detail">
+            <a href={SITE.linkedin} target="_blank" rel="noopener" style="color: var(--color-text-muted);">LinkedIn</a>
+          </p>
+        </div>
+        <div class="content-block" style="max-width: none;">
+          <p>Ataş Capital fue fundada por Aşkın Ataş — un emprendedor, inversor y pensador independiente dedicado a la disciplina, la curiosidad intelectual y la creación de valor a largo plazo.</p>
+          <p>Antes de dedicarse completamente a la asignación de capital, Aşkın fundó y dirigió varias empresas de éxito en Turquía y España, incluidos negocios en hostelería, marketing digital y educación en línea. Su carrera emprendedora abarcó la gestión hotelera en Alanya, el pionero de prácticas SEO para el mercado turco, y la fundación de <a href={SITE.borsaadam} target="_blank" rel="noopener" style="color: var(--color-accent);">borsaadam.com</a> — una de las principales plataformas de educación e inversión bursátil de Turquía.</p>
+          <h3>Enfoque de Inversión</h3>
+          <p>La filosofía de inversión de Aşkın fue moldeada por los escritos de Warren Buffett, Charlie Munger, Benjamin Graham y Howard Marks. Cree en posiciones concentradas, investigación profunda, largos períodos de tenencia y el coraje de alejarse del consenso del mercado cuando la evidencia lo respalda.</p>
+          <h3>La Visión</h3>
+          <p>Ataş Capital fue creada con una ambición simple: acumular riqueza con integridad, paciencia y honestidad intelectual — para la familia de Aşkın y para un pequeño círculo de socios de confianza que comparten estos valores.</p>
+          <blockquote>"Quiero ser conocido no por los rendimientos que produje, sino por los principios que me negué a comprometer."</blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

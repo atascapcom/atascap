@@ -1,0 +1,119 @@
+---
+import { performanceData, annualBarWidth } from '@data/performance';
+
+const { records, cumulativeReturn, inceptionYear } = performanceData;
+const dataJson = JSON.stringify({ records, cumulativeReturn, inceptionYear });
+---
+
+<!-- Static fallback: CSS horizontal bars (always visible, no-JS friendly) -->
+<div class="heatmap-annual" id="annualBars">
+  {records.map((record) => {
+    const width = annualBarWidth(record.annual, records);
+    const isPositive = record.annual >= 0;
+    const barColor = isPositive
+      ? `linear-gradient(90deg, #2e7d32, #43a047)`
+      : `linear-gradient(90deg, #c62828, #e53935)`;
+    const valueColor = isPositive ? '#2d7a3a' : '#b33a3a';
+    return (
+      <div class="heatmap-annual__row">
+        <span class="heatmap-annual__year">{record.year}</span>
+        <div class="heatmap-annual__bar-track">
+          <div
+            class="heatmap-annual__bar"
+            style={`width: ${width}%; background: ${barColor};`}
+          ></div>
+        </div>
+        <span class="heatmap-annual__value" style={`color: ${valueColor};`}>
+          {record.annual > 0 ? '+' : ''}{record.annual.toFixed(1)}%
+        </span>
+      </div>
+    );
+  })}
+</div>
+
+<!-- Chart.js interactive overlay (lazy-loaded when visible) -->
+<div style="max-width:700px;margin:0 auto;display:none;" id="chartWrapper">
+  <canvas id="annualChart" data-performance={dataJson} height="200"></canvas>
+</div>
+
+<div class="heatmap-cumulative">
+  <div class="heatmap-cumulative__item">
+    <span>Cumulative Return (Since {inceptionYear}):</span>
+    <span class={`heatmap-cumulative__value ${cumulativeReturn >= 0 ? 'positive' : 'negative'}`}>
+      {cumulativeReturn > 0 ? '+' : ''}{cumulativeReturn.toFixed(1)}%
+    </span>
+  </div>
+</div>
+
+<script>
+  (async () => {
+    const canvas = document.getElementById('annualChart') as HTMLCanvasElement | null;
+    const chartWrapper = document.getElementById('chartWrapper') as HTMLElement | null;
+    const staticBars = document.getElementById('annualBars') as HTMLElement | null;
+    if (!canvas || !chartWrapper || !staticBars) return;
+
+    const observer = new IntersectionObserver(async ([entry]) => {
+      if (!entry.isIntersecting) return;
+      observer.disconnect();
+
+      try {
+        const {
+          Chart,
+          BarController,
+          BarElement,
+          CategoryScale,
+          LinearScale,
+          Tooltip,
+        } = await import('chart.js');
+        Chart.register(BarController, BarElement, CategoryScale, LinearScale, Tooltip);
+
+        const rawData = JSON.parse(canvas.dataset.performance!);
+
+        new Chart(canvas, {
+          type: 'bar',
+          data: {
+            labels: rawData.records.map((r: { year: number }) => String(r.year)),
+            datasets: [
+              {
+                data: rawData.records.map((r: { annual: number }) => r.annual),
+                backgroundColor: rawData.records.map((r: { annual: number }) =>
+                  r.annual >= 0 ? '#43a047' : '#e53935'
+                ),
+                borderRadius: 4,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: (ctx) =>
+                    `${ctx.parsed.y > 0 ? '+' : ''}${ctx.parsed.y.toFixed(1)}%`,
+                },
+              },
+            },
+            scales: {
+              y: {
+                ticks: { callback: (v) => `${v}%` },
+                grid: { color: 'rgba(0,0,0,0.06)' },
+              },
+              x: {
+                grid: { display: false },
+              },
+            },
+          },
+        });
+
+        // Swap static bars for interactive chart
+        staticBars.style.display = 'none';
+        chartWrapper.style.display = 'block';
+      } catch {
+        // Chart.js unavailable — static bars remain visible
+      }
+    }, { threshold: 0.1 });
+
+    observer.observe(canvas);
+  })();
+</script>

@@ -1,0 +1,44 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { SITE } from '@data/site';
+---
+
+<BaseLayout
+  lang="tr"
+  pageKey="about"
+  title="Hakkında — Ataş Capital"
+  description="Aşkın Ataş ve Ataş Capital hakkında. Disiplin, bağımsızlık ve uzun vadeli düşünceye adanmış bir girişimci ve yatırımcı."
+>
+  <section class="page-header">
+    <h1>HAKKINDA</h1>
+    <p>Pratiğin ardındaki hikaye.</p>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="bio-section">
+        <div class="bio-sidebar">
+          <h3>{SITE.founderName}</h3>
+          <div class="divider divider--left"></div>
+          <p class="bio-sidebar__detail">Kurucu &amp; Portföy Yöneticisi</p>
+          <p class="bio-sidebar__detail">Madrid, İspanya</p>
+          <p class="bio-sidebar__detail" style="margin-top: var(--space-md);">
+            <a href={`mailto:${SITE.email}`} style="color: var(--color-accent);">{SITE.email}</a>
+          </p>
+          <p class="bio-sidebar__detail">
+            <a href={SITE.linkedin} target="_blank" rel="noopener" style="color: var(--color-text-muted);">LinkedIn</a>
+          </p>
+        </div>
+        <div class="content-block" style="max-width: none;">
+          <p>Ataş Capital, disiplin, entelektüel merak ve uzun vadeli değer yaratmaya adanmış bir girişimci, yatırımcı ve bağımsız düşünür olan Aşkın Ataş tarafından kurulmuştur.</p>
+          <p>Sermaye tahsisine tamamen kendini adamadan önce Aşkın, Türkiye ve İspanya'da konaklama, dijital pazarlama ve çevrimiçi eğitim alanlarında başarılı girişimler kurdu ve yönetti. Kariyeri; Alanya'da otel yönetimi, Türkiye pazarı için SEO öncülüğü ve 100'den fazla üyesi olan özel bir birlikte yatırım grubuyla Türkiye'nin önde gelen borsa eğitimi platformlarından biri olan <a href={SITE.borsaadam} target="_blank" rel="noopener" style="color: var(--color-accent);">borsaadam.com</a>'u kurmayı kapsıyor.</p>
+          <h3>Yatırım Yaklaşımı</h3>
+          <p>Aşkın'ın yatırım felsefesi, Warren Buffett, Charlie Munger, Benjamin Graham ve Howard Marks'ın yazıları tarafından şekillendirilmiştir. Konsantre pozisyonlara, derin araştırmaya, uzun tutma sürelerine ve kanıtlar desteklediğinde piyasa konsensüsünden ayrılma cesaretine inanmaktadır.</p>
+          <h3>Vizyon</h3>
+          <p>Ataş Capital basit bir hırsla kuruldu: Aşkın'ın kendi ailesi ve bu değerleri paylaşan küçük bir güvenilir ortaklar çevresi için dürüstlük, sabır ve entelektüel dürüstlükle servet biriktirmek.</p>
+          <blockquote>"Ürettiğim getirilerle değil, uzlaşmayı reddettiğim ilkelerle anılmak istiyorum."</blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

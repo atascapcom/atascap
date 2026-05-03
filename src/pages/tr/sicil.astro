@@ -1,0 +1,76 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PerformanceChart from '@components/PerformanceChart.astro';
+import PerformanceHeatmap from '@components/PerformanceHeatmap.astro';
+---
+
+<BaseLayout
+  lang="tr"
+  pageKey="trackRecord"
+  title="Sicil — Ataş Capital"
+  description="Ataş Capital'ın yatırım sicili: yıllık performans, portföy yaklaşımı ve mevcut pozisyonlar."
+>
+  <section class="page-header">
+    <h1>SİCİL</h1>
+    <p>Sabır, disiplin ve inanç üzerine inşa edilmiş performans.</p>
+  </section>
+
+  <section class="section">
+    <div class="container--narrow">
+      <div class="content-block">
+        <p>Kuruluşundan bu yana Ataş Capital, sermaye tahsisinde konsantre ve uzun vadeli bir yaklaşım izlemiştir. Aşağıdaki tablo, tüm maliyetler dahil net olarak bileşik portföy performansımızı yansıtmaktadır.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="heatmap-section">
+        <h3 class="heatmap-section__title">Yıllık Getiriler</h3>
+        <div class="divider"></div>
+        <PerformanceChart />
+      </div>
+      <div class="heatmap-section" style="margin-top: var(--space-3xl);">
+        <h3 class="heatmap-section__title">Aylık Getiriler</h3>
+        <div class="divider"></div>
+        <PerformanceHeatmap lang="tr" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section__header"><h2>Portföy Yaklaşımı</h2><div class="divider"></div></div>
+      <div class="stats-grid">
+        <div class="stat-card"><span class="stat-card__value">4–6</span><span class="stat-card__label">Temel Pozisyon</span></div>
+        <div class="stat-card"><span class="stat-card__value">5+ Yıl</span><span class="stat-card__label">Ortalama Tutma Süresi</span></div>
+        <div class="stat-card"><span class="stat-card__value">Sade</span><span class="stat-card__label">Analiz Yöntemi</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section__header">
+        <h2>Yatırım Evreni</h2>
+        <div class="divider"></div>
+        <p>Başta Türk ve küresel hisse senedi piyasalarında, kalıcı rekabet avantajlarına sahip derin değerli işletmelere odaklanıyoruz.</p>
+      </div>
+      <div class="grid-3">
+        <div class="holding-card"><span class="holding-card__tag">Türk Hisseleri</span><h4>BIST Piyasası</h4><p>Takip edilmeyen, yapısal olarak verimsiz Türk borsasında derin değer fırsatları — disiplinli yatırımcılar için cazip uzun vadeli getiriler.</p></div>
+        <div class="holding-card"><span class="holding-card__tag">Küresel Hisseler</span><h4>Uluslararası Piyasalar</h4><p>Fiyatın içsel değere göre açık bir güvenlik marjı sunduğu durumlarda seçici biçimde yüksek kaliteli küresel işletmelere yatırım.</p></div>
+        <div class="holding-card"><span class="holding-card__tag">Fırsatçı</span><h4>Özel Durumlar</h4><p>Geçici bozulmaların asimetrik risk-ödül yarattığı özel durumlarda ara sıra pozisyon alınması.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--bordered">
+    <div class="container--narrow">
+      <div class="content-block">
+        <p class="text-muted" style="font-size: var(--font-size-sm); line-height: 1.7;">
+          <strong>Metodoloji notu:</strong> Portföy getirileri, zamana göre ağırlıklı getiri metodolojisi kullanılarak hesaplanmaktadır. Tüm getiriler işlem maliyetleri net olarak sunulmaktadır. Geçmiş performans gelecekteki sonuçların göstergesi değildir.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

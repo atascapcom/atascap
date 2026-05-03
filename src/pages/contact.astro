@@ -1,0 +1,136 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { SITE } from '@data/site';
+---
+
+<BaseLayout
+  lang="en"
+  pageKey="contact"
+  title="Contact — Ataş Capital"
+  description="Get in touch with Ataş Capital. Inquiries from qualified investors and research collaborators are welcome."
+>
+  <section class="page-header">
+    <h1>CONTACT</h1>
+    <p>We welcome thoughtful correspondence.</p>
+  </section>
+
+  <section class="section">
+    <div class="container--tight">
+      <div class="content-block">
+        <p>Ataş Capital operates on a private, invitation-only basis. However, we welcome inquiries from serious investors, potential research collaborators, and individuals who share our long-term investment philosophy.</p>
+      </div>
+
+      <form
+        action="https://formspree.io/f/YOUR_FORM_ID"
+        method="POST"
+        class="contact-form"
+        style="margin-top: var(--space-2xl);"
+      >
+        <div class="form-group">
+          <label for="name" class="contact-info__label">Name</label>
+          <input type="text" id="name" name="name" required autocomplete="name" />
+        </div>
+        <div class="form-group">
+          <label for="email" class="contact-info__label">Email</label>
+          <input type="email" id="email" name="email" required autocomplete="email" />
+        </div>
+        <div class="form-group">
+          <label for="message" class="contact-info__label">Message</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Send Message</button>
+      </form>
+
+      <div style="margin-top: var(--space-2xl);">
+        <div class="contact-info">
+          <div class="contact-info__item">
+            <span class="contact-info__label">Email</span>
+            <a href={`mailto:${SITE.email}`} style="font-size: var(--font-size-lg); color: var(--color-text);">
+              {SITE.email}
+            </a>
+          </div>
+          <div class="contact-info__item" style="margin-top: var(--space-lg);">
+            <span class="contact-info__label">Location</span>
+            <span style="font-size: var(--font-size-md);">Calle Alcala 124 Madrid, Spain</span>
+          </div>
+          <div class="contact-info__item" style="margin-top: var(--space-lg);">
+            <span class="contact-info__label">Social</span>
+            <span style="font-size: var(--font-size-md);">
+              <a href={SITE.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+              {' · '}
+              <a href={SITE.twitter} target="_blank" rel="noopener">X / Twitter</a>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: var(--space-3xl); padding-top: var(--space-xl); border-top: 1px solid var(--color-border);">
+        <p class="text-muted" style="font-size: var(--font-size-sm);">
+          We aim to respond to all substantive inquiries within a reasonable timeframe. Please note that we do not provide investment advice to the general public, and any communication does not constitute an advisory relationship.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    padding: var(--space-2xl);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background: var(--color-surface);
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: var(--space-sm) var(--space-md);
+    transition: border-color var(--transition);
+    width: 100%;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .btn-submit {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--color-bg);
+    background: var(--color-text);
+    border: 1px solid var(--color-text);
+    padding: var(--space-sm) var(--space-xl);
+    cursor: pointer;
+    transition: all var(--transition);
+    align-self: flex-start;
+  }
+
+  .btn-submit:hover {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+</style>

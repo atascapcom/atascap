@@ -1,0 +1,48 @@
+---
+import type { Lang } from '@data/translations';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+const text = {
+  en: 'This site uses cookies for analytics. You can accept or decline.',
+  es: 'Este sitio utiliza cookies para análisis. Puedes aceptar o rechazar.',
+  tr: 'Bu site analitik için çerezler kullanır. Kabul edebilir veya reddedebilirsiniz.',
+};
+
+const buttons = {
+  en: { accept: 'Accept', decline: 'Decline' },
+  es: { accept: 'Aceptar', decline: 'Rechazar' },
+  tr: { accept: 'Kabul Et', decline: 'Reddet' },
+};
+---
+
+<div class="cookie-banner" id="cookieBanner">
+  <span>{text[lang]}</span>
+  <div>
+    <button onclick="acceptCookies()">{buttons[lang].accept}</button>
+    <button onclick="declineCookies()">{buttons[lang].decline}</button>
+  </div>
+</div>
+
+<script>
+  if (localStorage.getItem('cookiesAccepted') !== null) {
+    const banner = document.getElementById('cookieBanner');
+    if (banner) banner.style.display = 'none';
+  }
+
+  (window as any).acceptCookies = () => {
+    localStorage.setItem('cookiesAccepted', 'true');
+    const banner = document.getElementById('cookieBanner');
+    if (banner) banner.style.display = 'none';
+  };
+
+  (window as any).declineCookies = () => {
+    localStorage.setItem('cookiesAccepted', 'false');
+    const banner = document.getElementById('cookieBanner');
+    if (banner) banner.style.display = 'none';
+  };
+</script>

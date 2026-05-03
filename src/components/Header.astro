@@ -1,0 +1,70 @@
+---
+import { LANGUAGES, buildLangSwitcher, pageHref } from '@data/translations';
+import type { Lang, PageSlug } from '@data/translations';
+
+interface Props {
+  lang: Lang;
+  pageKey: keyof PageSlug;
+}
+
+const { lang, pageKey } = Astro.props;
+const t = LANGUAGES[lang];
+const langSwitcher = buildLangSwitcher(pageKey, lang);
+
+const navEntries = Object.entries(t.nav) as [keyof PageSlug, string][];
+---
+
+<header class="site-header">
+  <div class="container">
+    <a href={pageHref(lang, 'home')} class="logo">
+      ATAŞ CAPITAL
+    </a>
+    <nav class="site-nav" id="siteNav">
+      <ul class="site-nav__links">
+        {navEntries.map(([key, label]) => {
+          const href = pageHref(lang, key);
+          const isActive = key === pageKey;
+          return (
+            <li>
+              <a href={href} class={isActive ? 'active' : undefined}>{label}</a>
+            </li>
+          );
+        })}
+      </ul>
+      <div class="lang-switcher">
+        {langSwitcher.map(({ href, label, isActive }, i) => (
+          <>
+            {i > 0 && <span class="lang-switcher__sep">·</span>}
+            <a href={href} class={isActive ? 'active' : undefined}>{label}</a>
+          </>
+        ))}
+      </div>
+    </nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
+  </div>
+</header>
+<div class="nav-overlay" id="navOverlay"></div>
+
+<script>
+  const toggle = document.getElementById('menuToggle');
+  const nav = document.getElementById('siteNav');
+  const overlay = document.getElementById('navOverlay');
+
+  function openMenu(e: Event) {
+    e.preventDefault();
+    e.stopPropagation();
+    nav?.classList.toggle('open');
+    overlay?.classList.toggle('active');
+  }
+
+  function closeMenu() {
+    nav?.classList.remove('open');
+    overlay?.classList.remove('active');
+  }
+
+  toggle?.addEventListener('click', openMenu);
+  overlay?.addEventListener('click', closeMenu);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
+</script>

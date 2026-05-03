@@ -1,0 +1,40 @@
+---
+import BaseHead from '@components/BaseHead.astro';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+import CookieBanner from '@components/CookieBanner.astro';
+import type { Lang, PageSlug } from '@data/translations';
+
+interface Props {
+  lang: Lang;
+  pageKey: keyof PageSlug;
+  title: string;
+  description: string;
+  ogTitle?: string;
+  ogDescription?: string;
+}
+
+const { lang, pageKey, title, description, ogTitle, ogDescription } = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <BaseHead
+      lang={lang}
+      pageKey={pageKey}
+      title={title}
+      description={description}
+      ogTitle={ogTitle}
+      ogDescription={ogDescription}
+    />
+  </head>
+  <body>
+    <Header lang={lang} pageKey={pageKey} />
+    <main>
+      <slot />
+    </main>
+    <Footer lang={lang} pageKey={pageKey} />
+    <CookieBanner lang={lang} />
+  </body>
+</html>

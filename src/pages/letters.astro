@@ -1,0 +1,117 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { SITE } from '@data/site';
+
+const allLetters = await getCollection('letters', ({ data }) =>
+  data.lang === 'en' && !data.draft
+);
+const letters = allLetters.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout
+  lang="en"
+  pageKey="letters"
+  title="Letters & Insights — Ataş Capital"
+  description="Investor letters, market commentary, and investment insights from Ataş Capital."
+>
+  <section class="page-header">
+    <h1>LETTERS &amp; INSIGHTS</h1>
+    <p>Reflections on markets, investing, and the pursuit of lasting value.</p>
+  </section>
+
+  <section class="section">
+    <div class="container--narrow">
+      <div class="content-block">
+        <p>We believe that the best investors are also the clearest thinkers — and the best way to sharpen thinking is through writing. These letters share our perspective on markets, individual businesses, and the principles that guide our capital allocation decisions.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container--narrow">
+      {letters.length > 0 ? (
+        <ul class="letters-list">
+          {letters.map((letter) => (
+            <li class="letter-item">
+              <span class="letter-item__date">
+                {letter.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}
+              </span>
+              <div class="letter-item__content">
+                <h3>
+                  <a href={`/letters/${letter.slug}/`}>{letter.data.title}</a>
+                </h3>
+                <p>{letter.data.description}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div class="empty-state">
+          <p>Our first investor letter is being prepared.</p>
+          <p style="margin-top: var(--space-sm); font-size: var(--font-size-sm); font-style: normal; color: var(--color-text-light);">
+            Subscribe to receive new letters and insights directly.
+          </p>
+          <form
+            action="https://formspree.io/f/YOUR_NEWSLETTER_FORM_ID"
+            method="POST"
+            class="newsletter-form"
+          >
+            <input type="email" name="email" placeholder="your@email.com" required />
+            <button type="submit">Subscribe</button>
+          </form>
+          <p style="margin-top: var(--space-md); font-size: var(--font-size-sm); font-style: normal;">
+            <a href={`mailto:${SITE.email}`} style="color: var(--color-accent); border-bottom: 1px solid var(--color-accent);">
+              {SITE.email}
+            </a>
+          </p>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .newsletter-form {
+    display: flex;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .newsletter-form input[type="email"] {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: var(--space-xs) var(--space-md);
+    min-width: 240px;
+  }
+
+  .newsletter-form input[type="email"]:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+
+  .newsletter-form button {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--color-bg);
+    background: var(--color-text);
+    border: 1px solid var(--color-text);
+    padding: var(--space-xs) var(--space-lg);
+    cursor: pointer;
+    transition: all var(--transition);
+  }
+
+  .newsletter-form button:hover {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+</style>

@@ -1,0 +1,65 @@
+---
+import { LANGUAGES, buildLangSwitcher, pageHref } from '@data/translations';
+import { SITE } from '@data/site';
+import type { Lang, PageSlug } from '@data/translations';
+
+interface Props {
+  lang: Lang;
+  pageKey: keyof PageSlug;
+}
+
+const { lang, pageKey } = Astro.props;
+const t = LANGUAGES[lang];
+const langSwitcher = buildLangSwitcher(pageKey, lang);
+const year = new Date().getFullYear();
+const rights = t.footer.rights.replace('YEAR', String(year));
+
+const navEntries = Object.entries(t.nav) as [keyof PageSlug, string][];
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href={pageHref(lang, 'home')} class="logo">
+          ATAŞ CAPITAL
+        </a>
+        <p>{t.footer.tagline}</p>
+      </div>
+      <div class="footer-nav">
+        <div class="footer-nav__col">
+          <h4>{t.footer.colPages}</h4>
+          <ul>
+            {navEntries.map(([key, label]) => {
+              const href = pageHref(lang, key);
+              return <li><a href={href}>{label}</a></li>;
+            })}
+          </ul>
+        </div>
+        <div class="footer-nav__col">
+          <h4>{t.footer.colConnect}</h4>
+          <ul>
+            <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+            <li>
+              <a href={SITE.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-disclaimer">
+      {t.footer.disclaimer}
+    </div>
+    <div class="footer-bottom">
+      <span>{rights}</span>
+      <div class="lang-switcher">
+        {langSwitcher.map(({ href, label, isActive }, i) => (
+          <>
+            {i > 0 && <span class="lang-switcher__sep">·</span>}
+            <a href={href} class={isActive ? 'active' : undefined}>{label}</a>
+          </>
+        ))}
+      </div>
+    </div>
+  </div>
+</footer>

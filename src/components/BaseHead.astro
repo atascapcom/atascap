@@ -1,0 +1,94 @@
+---
+import { LANGUAGES, buildLangSwitcher, pageHref } from '@data/translations';
+import { SITE } from '@data/site';
+import type { Lang, PageSlug } from '@data/translations';
+
+interface Props {
+  lang: Lang;
+  pageKey: keyof PageSlug;
+  title: string;
+  description: string;
+  ogTitle?: string;
+  ogDescription?: string;
+}
+
+const {
+  lang,
+  pageKey,
+  title,
+  description,
+  ogTitle,
+  ogDescription,
+} = Astro.props;
+
+const t = LANGUAGES[lang];
+const canonicalURL = new URL(pageHref(lang, pageKey), SITE.domain).href;
+
+const langSwitcher = buildLangSwitcher(pageKey, lang);
+// TODO: Replace og-image.svg with a proper PNG (1200×630) for best social sharing support
+const ogImageURL = `${SITE.domain}/og-image.svg`;
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE.name,
+  url: SITE.domain,
+  email: SITE.email,
+  founder: {
+    '@type': 'Person',
+    name: SITE.founderName,
+    url: SITE.founderLinkedin,
+  },
+});
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{title}</title>
+<meta name="description" content={description} />
+
+<!-- Open Graph -->
+<meta property="og:title" content={ogTitle ?? title} />
+<meta property="og:description" content={ogDescription ?? description} />
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:image" content={ogImageURL} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:site_name" content={SITE.name} />
+
+<!-- Canonical & hreflang -->
+<link rel="canonical" href={canonicalURL} />
+{langSwitcher.map(({ lang: l, href }) => (
+  <link rel="alternate" hreflang={l} href={`${SITE.domain}${href}`} />
+))}
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+<!-- RSS -->
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title={`${SITE.name} — Letters`}
+  href="/rss.xml"
+/>
+
+<!-- Stylesheet -->
+<link rel="stylesheet" href="/style.css" />
+
+<!-- JSON-LD -->
+<script type="application/ld+json" set:html={jsonLd} />
+
+<!-- Plausible Analytics -->
+<script defer data-domain="atascap.com" src="https://plausible.io/js/script.js"></script>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap"
+  rel="stylesheet"
+/>

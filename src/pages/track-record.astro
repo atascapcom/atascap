@@ -1,0 +1,101 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PerformanceChart from '@components/PerformanceChart.astro';
+import PerformanceHeatmap from '@components/PerformanceHeatmap.astro';
+---
+
+<BaseLayout
+  lang="en"
+  pageKey="trackRecord"
+  title="Track Record — Ataş Capital"
+  description="Ataş Capital's investment track record: annual performance, portfolio approach, and current holdings."
+>
+  <section class="page-header">
+    <h1>TRACK RECORD</h1>
+    <p>Performance built on patience, discipline, and conviction.</p>
+  </section>
+
+  <section class="section">
+    <div class="container--narrow">
+      <div class="content-block">
+        <p>Since inception, Ataş Capital has pursued a concentrated, long-term approach to capital allocation. The following table reflects our composite portfolio performance, net of all costs. We measure ourselves not by quarterly fluctuations, but by the long-term compounding of intrinsic value.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="heatmap-section">
+        <h3 class="heatmap-section__title">Annual Returns</h3>
+        <div class="divider"></div>
+        <PerformanceChart />
+      </div>
+
+      <div class="heatmap-section" style="margin-top: var(--space-3xl);">
+        <h3 class="heatmap-section__title">Monthly Returns</h3>
+        <div class="divider"></div>
+        <PerformanceHeatmap lang="en" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section__header">
+        <h2>Portfolio Approach</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-card__value">4–6</span>
+          <span class="stat-card__label">Core Positions</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-card__value">5+ Years</span>
+          <span class="stat-card__label">Average Holding Period</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-card__value">Simple</span>
+          <span class="stat-card__label">Analysis Method</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section__header">
+        <h2>Investment Universe</h2>
+        <div class="divider"></div>
+        <p>We focus on deeply undervalued businesses with durable competitive advantages, primarily in Turkish and global equity markets.</p>
+      </div>
+      <div class="grid-3">
+        <div class="holding-card">
+          <span class="holding-card__tag">Turkish Equities</span>
+          <h4>BIST Market</h4>
+          <p>Deep value opportunities in the Turkish stock market — an underfollowed, structurally inefficient market offering compelling long-term returns for disciplined investors.</p>
+        </div>
+        <div class="holding-card">
+          <span class="holding-card__tag">Global Equities</span>
+          <h4>International Markets</h4>
+          <p>Selectively invested in high-quality global businesses when price presents a clear margin of safety relative to intrinsic value.</p>
+        </div>
+        <div class="holding-card">
+          <span class="holding-card__tag">Opportunistic</span>
+          <h4>Special Situations</h4>
+          <p>Occasional positions in special situations, corporate events, or cyclically depressed sectors where temporary dislocations create asymmetric risk-reward.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--bordered">
+    <div class="container--narrow">
+      <div class="content-block">
+        <p class="text-muted" style="font-size: var(--font-size-sm); line-height: 1.7;">
+          <strong>Methodology note:</strong> Portfolio returns are calculated using a time-weighted return methodology. All returns are presented net of transaction costs. Individual portfolio performance may differ based on timing of contributions and specific allocations. Past performance is not indicative of future results. All investments involve risk, including possible loss of principal.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

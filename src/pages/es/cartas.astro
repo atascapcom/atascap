@@ -1,0 +1,60 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { SITE } from '@data/site';
+
+const allLetters = await getCollection('letters', ({ data }) =>
+  data.lang === 'es' && !data.draft
+);
+const letters = allLetters.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout
+  lang="es"
+  pageKey="letters"
+  title="Cartas e Ideas — Ataş Capital"
+  description="Cartas para inversores, comentarios de mercado e ideas de inversión de Ataş Capital."
+>
+  <section class="page-header">
+    <h1>CARTAS E IDEAS</h1>
+    <p>Reflexiones sobre los mercados, la inversión y la búsqueda de valor duradero.</p>
+  </section>
+
+  <section class="section">
+    <div class="container--narrow">
+      <div class="content-block">
+        <p>Creemos que los mejores inversores también son los pensadores más claros — y la mejor manera de agudizar el pensamiento es a través de la escritura.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container--narrow">
+      {letters.length > 0 ? (
+        <ul class="letters-list">
+          {letters.map((letter) => (
+            <li class="letter-item">
+              <span class="letter-item__date">
+                {letter.data.date.toLocaleDateString('es-ES', { year: 'numeric', month: 'short' })}
+              </span>
+              <div class="letter-item__content">
+                <h3><a href={`/es/cartas/${letter.slug}/`}>{letter.data.title}</a></h3>
+                <p>{letter.data.description}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div class="empty-state">
+          <p>Nuestra primera carta para inversores está en preparación.</p>
+          <p style="margin-top: var(--space-sm); font-size: var(--font-size-sm); font-style: normal; color: var(--color-text-light);">
+            Suscríbete para recibir nuevas cartas e ideas directamente.
+          </p>
+          <p style="margin-top: var(--space-md); font-size: var(--font-size-sm); font-style: normal;">
+            <a href={`mailto:${SITE.email}`} style="color: var(--color-accent); border-bottom: 1px solid var(--color-accent);">{SITE.email}</a>
+          </p>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

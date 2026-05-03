@@ -1,0 +1,49 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { SITE } from '@data/site';
+---
+
+<BaseLayout
+  lang="es"
+  pageKey="contact"
+  title="Contacto — Ataş Capital"
+  description="Póngase en contacto con Ataş Capital. Se aceptan consultas de inversores cualificados y colaboradores de investigación."
+>
+  <section class="page-header">
+    <h1>CONTACTO</h1>
+    <p>Bienvenimos la correspondencia reflexiva.</p>
+  </section>
+
+  <section class="section">
+    <div class="container--tight">
+      <div class="content-block">
+        <p>Ataş Capital opera de forma privada, solo por invitación. Sin embargo, bienvenimos consultas de inversores serios, posibles colaboradores de investigación e individuos que compartan nuestra filosofía de inversión a largo plazo.</p>
+      </div>
+      <div style="margin-top: var(--space-2xl);">
+        <div class="contact-info">
+          <div class="contact-info__item">
+            <span class="contact-info__label">Email</span>
+            <a href={`mailto:${SITE.email}`} style="font-size: var(--font-size-lg); color: var(--color-text);">{SITE.email}</a>
+          </div>
+          <div class="contact-info__item" style="margin-top: var(--space-lg);">
+            <span class="contact-info__label">Ubicación</span>
+            <span style="font-size: var(--font-size-md);">Calle Alcala 124 Madrid, España</span>
+          </div>
+          <div class="contact-info__item" style="margin-top: var(--space-lg);">
+            <span class="contact-info__label">Redes Sociales</span>
+            <span style="font-size: var(--font-size-md);">
+              <a href={SITE.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+              {' · '}
+              <a href={SITE.twitter} target="_blank" rel="noopener">X / Twitter</a>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: var(--space-3xl); padding-top: var(--space-xl); border-top: 1px solid var(--color-border);">
+        <p class="text-muted" style="font-size: var(--font-size-sm);">
+          Intentamos responder a todas las consultas sustanciales en un plazo razonable. Ataş Capital no es un asesor de inversiones registrado y no presta servicios de asesoramiento al público.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

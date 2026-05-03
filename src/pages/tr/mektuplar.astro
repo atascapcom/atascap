@@ -1,0 +1,60 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { SITE } from '@data/site';
+
+const allLetters = await getCollection('letters', ({ data }) =>
+  data.lang === 'tr' && !data.draft
+);
+const letters = allLetters.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout
+  lang="tr"
+  pageKey="letters"
+  title="Mektuplar & Görüşler — Ataş Capital"
+  description="Ataş Capital'dan yatırımcı mektupları, piyasa yorumları ve yatırım görüşleri."
+>
+  <section class="page-header">
+    <h1>MEKTUPLAR &amp; GÖRÜŞLER</h1>
+    <p>Piyasalar, yatırım ve kalıcı değer arayışı üzerine düşünceler.</p>
+  </section>
+
+  <section class="section">
+    <div class="container--narrow">
+      <div class="content-block">
+        <p>En iyi yatırımcıların aynı zamanda en net düşünenler olduğuna inanıyoruz — ve düşünceyi keskinleştirmenin en iyi yolu yazmaktır.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container--narrow">
+      {letters.length > 0 ? (
+        <ul class="letters-list">
+          {letters.map((letter) => (
+            <li class="letter-item">
+              <span class="letter-item__date">
+                {letter.data.date.toLocaleDateString('tr-TR', { year: 'numeric', month: 'short' })}
+              </span>
+              <div class="letter-item__content">
+                <h3><a href={`/tr/mektuplar/${letter.slug}/`}>{letter.data.title}</a></h3>
+                <p>{letter.data.description}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div class="empty-state">
+          <p>Yatırımcı mektupları ve görüşler yakında.</p>
+          <p style="margin-top: var(--space-sm); font-size: var(--font-size-sm); font-style: normal; color: var(--color-text-light);">
+            Yeni mektupları ve görüşleri doğrudan almak için abone olun.
+          </p>
+          <p style="margin-top: var(--space-md); font-size: var(--font-size-sm); font-style: normal;">
+            <a href={`mailto:${SITE.email}`} style="color: var(--color-accent); border-bottom: 1px solid var(--color-accent);">{SITE.email}</a>
+          </p>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

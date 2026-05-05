@@ -20,7 +20,7 @@ export interface PerformanceData {
 
 export const performanceData: PerformanceData = {
   inceptionYear: 2024,
-  cumulativeReturn: 73.8,
+  cumulativeReturn: 95.8,
   records: [
     {
       year: 2024,
@@ -42,10 +42,10 @@ export const performanceData: PerformanceData = {
     },
     {
       year: 2026,
-      annual: 10.5,
+      annual: 19.5,
       months: [
-        { value: 10.0 }, { value: -0.6 }, { value: -6.3 }, { value: 7.8 },
-        { value: null },  { value: null },  { value: null },  { value: null },
+        { value: 10.0 }, { value: -0.6 }, { value: -6.3 }, { value: 15.3 },
+        { value: 1.1 },  { value: null },  { value: null },  { value: null },
         { value: null },  { value: null },  { value: null },  { value: null },
       ],
     },

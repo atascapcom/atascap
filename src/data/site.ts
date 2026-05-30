@@ -3,7 +3,7 @@ export const SITE = {
   name: 'Ataş Capital',
   email: 'askin@atascap.com',
   linkedin: 'https://linkedin.com/in/askinatas',
-  twitter: 'https://x.com/asaborsa',
+  twitter: 'https://x.com/borsa_adami',
   founderName: 'Aşkın Ataş',
   founderLinkedin: 'https://linkedin.com/in/askinatas',
   borsaadam: 'https://borsaadam.com',

@@ -35,7 +35,7 @@ export const LANGUAGES: Record<Lang, LangData> = {
       contact: 'Contact',
     },
     footer: {
-      tagline: 'A quiet pursuit of enduring value.',
+      tagline: 'Fear, greed, pride, and the need to belong distort reasoning. A calm mind reaches more accurate conclusions.',
       colPages: 'Pages',
       colConnect: 'Connect',
       disclaimer:
@@ -63,7 +63,7 @@ export const LANGUAGES: Record<Lang, LangData> = {
       contact: 'Contacto',
     },
     footer: {
-      tagline: 'Una búsqueda silenciosa de valor duradero.',
+      tagline: 'El miedo, la avaricia, el orgullo y la necesidad de pertenecer distorsionan el razonamiento. Una mente serena llega a conclusiones más acertadas.',
       colPages: 'Páginas',
       colConnect: 'Conectar',
       disclaimer:
@@ -91,7 +91,7 @@ export const LANGUAGES: Record<Lang, LangData> = {
       contact: 'İletişim',
     },
     footer: {
-      tagline: 'Kalıcı değerin sessiz arayışı.',
+      tagline: 'Korku, açgözlülük, kibir ve aidiyet ihtiyacı çıkarımı bozar. Sakin zihin daha isabetli sonuç üretir.',
       colPages: 'Sayfalar',
       colConnect: 'İletişim',
       disclaimer:

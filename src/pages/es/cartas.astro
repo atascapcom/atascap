@@ -2,11 +2,11 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { SITE } from '@data/site';
+import { sortLettersDesc, letterNumbers, letterSlug, periodLabel, letterNo } from '@data/letters';
 
-const allLetters = await getCollection('letters', ({ data }) =>
-  data.lang === 'es' && !data.draft
-);
-const letters = allLetters.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const all = await getCollection('letters', ({ data }) => data.lang === 'es' && !data.draft);
+const numbers = letterNumbers(all);
+const letters = sortLettersDesc(all);
 ---
 
 <BaseLayout
@@ -35,10 +35,11 @@ const letters = allLetters.sort((a, b) => b.data.date.valueOf() - a.data.date.va
           {letters.map((letter) => (
             <li class="letter-item">
               <span class="letter-item__date">
-                {letter.data.date.toLocaleDateString('es-ES', { year: 'numeric', month: 'short' })}
+                {periodLabel(letter.data.period, 'es') || letter.data.date.toLocaleDateString('es-ES', { year: 'numeric', month: 'short' })}
               </span>
               <div class="letter-item__content">
-                <h3><a href={`/es/cartas/${letter.slug}/`}>{letter.data.title}</a></h3>
+                <span class="letter-item__no">{letterNo(numbers.get(letter.slug) ?? 1)}</span>
+                <h3><a href={`/es/cartas/${letterSlug(letter)}.html`}>{letter.data.title}</a></h3>
                 <p>{letter.data.description}</p>
               </div>
             </li>

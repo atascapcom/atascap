@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { letterSlug, letterNumbers, periodLabel, letterNo, type LetterEntry } from '@data/letters';
+
+export async function getStaticPaths() {
+  const all = await getCollection('letters', ({ data }) => data.lang === 'en' && !data.draft);
+  const numbers = letterNumbers(all);
+  return all.map((entry) => ({
+    params: { slug: letterSlug(entry) },
+    props: { entry, no: numbers.get(entry.slug) ?? 1 },
+  }));
+}
+
+const { entry, no } = Astro.props as { entry: LetterEntry; no: number };
+const { Content } = await entry.render();
+
+const dateLabel = entry.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+const meta = [letterNo(no), periodLabel(entry.data.period, 'en'), dateLabel].filter(Boolean).join(' · ');
+---
+
+<BaseLayout
+  lang="en"
+  pageKey="letters"
+  title={`${entry.data.title} — Ataş Capital`}
+  description={entry.data.description}
+>
+  <article class="letter">
+    <div class="container--narrow">
+      <header class="letter__header">
+        <p class="letter__meta">{meta}</p>
+        <div class="divider divider--left"></div>
+      </header>
+      <div class="letter__body">
+        <Content />
+      </div>
+      <footer class="letter__sign">
+        <p class="letter__sign-name">Aşkın Ataş</p>
+        <p class="letter__sign-role">Founder &amp; Portfolio Manager · Ataş Capital</p>
+      </footer>
+    </div>
+  </article>
+</BaseLayout>

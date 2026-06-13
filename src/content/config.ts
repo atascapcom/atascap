@@ -7,6 +7,8 @@ const letters = defineCollection({
     date: z.date(),
     lang: z.enum(['en', 'es', 'tr']),
     description: z.string(),
+    /** Reporting period, e.g. "2026-H1" (semi-annual). Optional. */
+    period: z.string().optional(),
     draft: z.boolean().default(false),
   }),
 });

@@ -7,5 +7,5 @@ export const SITE = {
   founderName: 'Aşkın Ataş',
   founderLinkedin: 'https://linkedin.com/in/askinatas',
   borsaadam: 'https://borsaadam.com',
-  founded: 2025,
+  founded: 2024,
 } as const;

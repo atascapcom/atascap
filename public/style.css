@@ -453,6 +453,147 @@ blockquote {
   border-bottom: none;
 }
 
+/* ── Performance Comparison Tables (vs. benchmark) ── */
+.perf {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.perf__bar {
+  background: var(--color-footer-bg);
+  text-align: center;
+  padding: var(--space-sm) var(--space-md);
+  margin-top: var(--space-2xl);
+}
+
+.perf__bar:first-child {
+  margin-top: 0;
+}
+
+.perf__bar-title {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-md);
+  letter-spacing: 0.5px;
+  color: #f3f1eb;
+  display: block;
+}
+
+.perf__bar-note {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--font-size-xs);
+  color: #a89f8d;
+  display: block;
+  margin-top: 3px;
+}
+
+.perf__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.perf__table th {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--font-size-xs);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  padding: var(--space-sm) var(--space-md);
+  text-align: right;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.perf__table th:first-child {
+  text-align: left;
+}
+
+.perf__table td {
+  padding: 10px var(--space-md);
+  text-align: right;
+  border-bottom: 1px solid var(--color-border-light);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.perf__table td:first-child {
+  text-align: left;
+  font-family: var(--font-serif);
+  font-size: var(--font-size-md);
+  color: var(--color-text);
+}
+
+.perf__table .perf-fund {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.perf__table .perf-bench {
+  color: var(--color-text-muted);
+}
+
+.perf__table td.positive {
+  color: #2d7a3a;
+  font-weight: 600;
+}
+
+.perf__table td.negative {
+  color: #b33a3a;
+  font-weight: 600;
+}
+
+.perf__table td.perf-na {
+  color: var(--color-text-light);
+}
+
+.perf-ytd {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: var(--color-text-light);
+}
+
+.perf__table tfoot td {
+  border-top: 2px solid var(--color-footer-bg);
+  border-bottom: none;
+  padding-top: var(--space-sm);
+  font-weight: 700;
+}
+
+.perf__table tfoot td:first-child {
+  font-family: var(--font-serif);
+  font-weight: 500;
+}
+
+.perf__note {
+  max-width: 760px;
+  margin: var(--space-lg) auto 0;
+  font-size: var(--font-size-sm);
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-md);
+}
+
+@media (max-width: 600px) {
+  .perf__table th,
+  .perf__table td {
+    padding: 9px var(--space-xs);
+  }
+
+  .perf__table td:first-child,
+  .perf__table th:first-child {
+    font-size: var(--font-size-sm);
+  }
+
+  .perf__table td:first-child {
+    font-size: var(--font-size-base);
+  }
+}
+
 /* Stats Grid */
 .stats-grid {
   display: grid;
@@ -814,155 +955,6 @@ blockquote {
   text-align: center;
   margin-bottom: var(--space-sm);
   font-weight: 400;
-}
-
-/* Annual Heatmap — horizontal bars */
-.heatmap-annual {
-  max-width: 700px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.heatmap-annual__row {
-  display: grid;
-  grid-template-columns: 60px 1fr 70px;
-  align-items: center;
-  gap: var(--space-sm);
-  min-height: 44px;
-}
-
-.heatmap-annual__year {
-  font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: var(--font-size-sm);
-  color: var(--color-text);
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-.heatmap-annual__bar-track {
-  height: 38px;
-  background: var(--color-bg-alt);
-  border-radius: 4px;
-  position: relative;
-  overflow: hidden;
-}
-
-.heatmap-annual__bar {
-  height: 100%;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  min-width: 0;
-}
-
-.heatmap-annual__value {
-  font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: var(--font-size-sm);
-  font-variant-numeric: tabular-nums;
-  text-align: left;
-  white-space: nowrap;
-}
-
-/* Monthly Heatmap — grid */
-.heatmap-monthly {
-  overflow-x: auto;
-  margin: var(--space-lg) 0;
-  -webkit-overflow-scrolling: touch;
-}
-
-.heatmap-monthly__table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 3px;
-  min-width: 680px;
-}
-
-.heatmap-monthly__table th {
-  font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: var(--font-size-xs);
-  letter-spacing: 0.5px;
-  color: var(--color-text-muted);
-  padding: 6px 4px;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.heatmap-monthly__table th:first-child {
-  text-align: right;
-  padding-right: 10px;
-  width: 50px;
-}
-
-.heatmap-monthly__table td {
-  text-align: center;
-  padding: 10px 4px;
-  font-family: var(--font-sans);
-  font-size: var(--font-size-sm);
-  font-weight: 500;
-  font-variant-numeric: tabular-nums;
-  border-radius: 4px;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-  cursor: default;
-  min-width: 48px;
-}
-
-.heatmap-monthly__table td:first-child {
-  background: transparent !important;
-  color: var(--color-text);
-  font-weight: 600;
-  text-align: right;
-  padding-right: 10px;
-  cursor: default;
-}
-
-.heatmap-monthly__table td:not(:first-child):hover {
-  transform: scale(1.08);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  z-index: 1;
-  position: relative;
-}
-
-.heatmap-monthly__table td.empty-cell {
-  background: var(--color-bg-alt) !important;
-  color: transparent;
-}
-
-/* Cumulative return pill */
-.heatmap-cumulative {
-  display: flex;
-  justify-content: center;
-  gap: var(--space-lg);
-  margin-top: var(--space-lg);
-  flex-wrap: wrap;
-}
-
-.heatmap-cumulative__item {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
-}
-
-.heatmap-cumulative__value {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: var(--font-size-lg);
-  font-variant-numeric: tabular-nums;
-}
-
-.heatmap-cumulative__value.positive {
-  color: #2d7a3a;
-}
-
-.heatmap-cumulative__value.negative {
-  color: #b33a3a;
 }
 
 /* ── Responsive ── */

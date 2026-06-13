@@ -1,0 +1,147 @@
+---
+import {
+  annualizedReturns,
+  calendarReturns,
+  cumulativeComparison,
+  benchmark,
+  delta,
+  formatReturn,
+} from '@data/performance';
+import type { Lang } from '@data/translations';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+const COPY = {
+  en: {
+    annualTitle: `Annualized Net Returns to ${benchmark.asOf.en}`,
+    annualNote: `unannualized if < 1 year · inception ${benchmark.inceptionLabel.en}`,
+    calTitle: 'Calendar Year Net Returns',
+    cumulative: 'Cumulative Since Inception',
+    colDelta: 'Delta',
+    ytdTag: 'YTD',
+    periods: {
+      ytd: 'Year to date',
+      oneYear: '1 Year',
+      threeYear: '3 Years',
+      fiveYear: '5 Years',
+      inception: 'Since inception (ann.)',
+    },
+    note:
+      'Returns are time-weighted, net of all transaction costs, and reflect the composite portfolio since inception on 1 January 2024. The benchmark is the MSCI ACWI Index (net total return, in USD). Figures are unaudited. Individual results may vary with the timing of contributions. Past performance is not indicative of future results; all investments involve risk, including possible loss of principal.',
+  },
+  tr: {
+    annualTitle: `${benchmark.asOf.tr} İtibarıyla Yıllıklandırılmış Net Getiriler`,
+    annualNote: `1 yıldan kısa dönemler yıllıklandırılmamıştır · başlangıç ${benchmark.inceptionLabel.tr}`,
+    calTitle: 'Takvim Yılı Net Getirileri',
+    cumulative: 'Kuruluştan Beri Birikimli',
+    colDelta: 'Fark',
+    ytdTag: 'YTD',
+    periods: {
+      ytd: 'Yılbaşından bugüne',
+      oneYear: '1 Yıl',
+      threeYear: '3 Yıl',
+      fiveYear: '5 Yıl',
+      inception: 'Kuruluştan beri (yıllık)',
+    },
+    note:
+      'Getiriler zamana göre ağırlıklı hesaplanır, tüm işlem maliyetleri düşülmüş nettir ve 1 Ocak 2024 kuruluşundan bu yana bileşik portföyü yansıtır. Karşılaştırma ölçütü MSCI ACWI Endeksi’dir (net toplam getiri, USD bazında). Rakamlar denetlenmemiştir. Bireysel sonuçlar katkı zamanlamasına göre değişebilir. Geçmiş performans gelecekteki sonuçların göstergesi değildir; tüm yatırımlar, anaparanın kısmen veya tamamen kaybı dahil risk içerir.',
+  },
+  es: {
+    annualTitle: `Rentabilidad Neta Anualizada a ${benchmark.asOf.es}`,
+    annualNote: `no anualizada si < 1 año · inicio ${benchmark.inceptionLabel.es}`,
+    calTitle: 'Rentabilidad Neta por Año Natural',
+    cumulative: 'Acumulada Desde el Inicio',
+    colDelta: 'Delta',
+    ytdTag: 'YTD',
+    periods: {
+      ytd: 'En lo que va de año',
+      oneYear: '1 Año',
+      threeYear: '3 Años',
+      fiveYear: '5 Años',
+      inception: 'Desde el inicio (anual.)',
+    },
+    note:
+      'Las rentabilidades se calculan ponderadas por tiempo, netas de todos los costes de transacción, y reflejan la cartera compuesta desde su inicio el 1 de enero de 2024. El índice de referencia es el MSCI ACWI (rentabilidad total neta, en USD). Las cifras no están auditadas. Los resultados individuales pueden variar según el momento de las aportaciones. La rentabilidad pasada no es indicativa de resultados futuros; toda inversión implica riesgo, incluida la posible pérdida del capital.',
+  },
+} as const;
+
+const t = COPY[lang];
+
+function deltaClass(value: number | null): string {
+  if (value === null) return 'perf-na';
+  return value >= 0 ? 'positive' : 'negative';
+}
+---
+
+<div class="perf">
+  <div class="perf__bar">
+    <span class="perf__bar-title">{t.annualTitle}</span>
+    <span class="perf__bar-note">{t.annualNote}</span>
+  </div>
+  <table class="perf__table">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Ataş Capital</th>
+        <th scope="col">{benchmark.name}</th>
+        <th scope="col">{t.colDelta}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {annualizedReturns.map((row) => {
+        const d = delta(row.fund, row.index);
+        return (
+          <tr>
+            <td>{t.periods[row.key]}</td>
+            <td class="perf-fund">{formatReturn(row.fund)}</td>
+            <td class="perf-bench">{formatReturn(row.index)}</td>
+            <td class={deltaClass(d)}>{formatReturn(d)}</td>
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+
+  <div class="perf__bar">
+    <span class="perf__bar-title">{t.calTitle}</span>
+  </div>
+  <table class="perf__table">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Ataş Capital</th>
+        <th scope="col">{benchmark.name}</th>
+        <th scope="col">{t.colDelta}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {calendarReturns.map((row) => {
+        const d = delta(row.fund, row.index);
+        return (
+          <tr>
+            <td>{row.year}{row.ytd ? <span class="perf-ytd"> {t.ytdTag}</span> : null}</td>
+            <td class="perf-fund">{formatReturn(row.fund)}</td>
+            <td class="perf-bench">{formatReturn(row.index)}</td>
+            <td class={deltaClass(d)}>{formatReturn(d)}</td>
+          </tr>
+        );
+      })}
+    </tbody>
+    <tfoot>
+      <tr>
+        <td>{t.cumulative}</td>
+        <td class="perf-fund">{formatReturn(cumulativeComparison.fund)}</td>
+        <td class="perf-bench">{formatReturn(cumulativeComparison.index)}</td>
+        <td class={deltaClass(delta(cumulativeComparison.fund, cumulativeComparison.index))}>
+          {formatReturn(delta(cumulativeComparison.fund, cumulativeComparison.index))}
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <p class="perf__note">{t.note}</p>
+</div>

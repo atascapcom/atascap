@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import PerformanceChart from '@components/PerformanceChart.astro';
-import PerformanceHeatmap from '@components/PerformanceHeatmap.astro';
+import PerformanceTable from '@components/PerformanceTable.astro';
 ---
 
 <BaseLayout
@@ -18,7 +17,7 @@ import PerformanceHeatmap from '@components/PerformanceHeatmap.astro';
   <section class="section">
     <div class="container--narrow">
       <div class="content-block">
-        <p>Since inception, Ataş Capital has pursued a concentrated, long-term approach to capital allocation. The following table reflects our composite portfolio performance, net of all costs. We measure ourselves not by quarterly fluctuations, but by the long-term compounding of intrinsic value.</p>
+        <p>Since inception, Ataş Capital has pursued a concentrated, long-term approach to capital allocation. The tables below show our composite portfolio performance against the MSCI ACWI Index, net of all costs. We measure ourselves not by quarterly fluctuations, but by the long-term compounding of intrinsic value.</p>
       </div>
     </div>
   </section>
@@ -26,15 +25,9 @@ import PerformanceHeatmap from '@components/PerformanceHeatmap.astro';
   <section class="section section--alt">
     <div class="container">
       <div class="heatmap-section">
-        <h3 class="heatmap-section__title">Annual Returns</h3>
+        <h3 class="heatmap-section__title">Performance vs. MSCI ACWI</h3>
         <div class="divider"></div>
-        <PerformanceChart />
-      </div>
-
-      <div class="heatmap-section" style="margin-top: var(--space-3xl);">
-        <h3 class="heatmap-section__title">Monthly Returns</h3>
-        <div class="divider"></div>
-        <PerformanceHeatmap lang="en" />
+        <PerformanceTable lang="en" />
       </div>
     </div>
   </section>
@@ -89,13 +82,4 @@ import PerformanceHeatmap from '@components/PerformanceHeatmap.astro';
     </div>
   </section>
 
-  <section class="section section--bordered">
-    <div class="container--narrow">
-      <div class="content-block">
-        <p class="text-muted" style="font-size: var(--font-size-sm); line-height: 1.7;">
-          <strong>Methodology note:</strong> Portfolio returns are calculated using a time-weighted return methodology. All returns are presented net of transaction costs. Individual portfolio performance may differ based on timing of contributions and specific allocations. Past performance is not indicative of future results. All investments involve risk, including possible loss of principal.
-        </p>
-      </div>
-    </div>
-  </section>
 </BaseLayout>

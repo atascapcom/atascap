@@ -1,0 +1,44 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { SITE } from '@data/site';
+---
+
+<BaseLayout
+  lang="en"
+  pageKey="legalNotice"
+  title="Legal Notice — Ataş Capital"
+  description="Legal notice and ownership information for the Ataş Capital website."
+>
+  <section class="page-header">
+    <h1>LEGAL NOTICE</h1>
+    <p>Information about this website and its owner.</p>
+  </section>
+
+  <section class="section">
+    <div class="container--narrow">
+      <div class="content-block">
+        <h3>Site Owner</h3>
+        <p>This website (atascap.com) is operated by Ataş Capital, the independent investment practice of Aşkın Ataş.</p>
+        <p>
+          Registered address: Calle Alcalá 124, Madrid, Spain<br />
+          Contact: <a href={`mailto:${SITE.email}`}>{SITE.email}</a><br />
+          Tax identification (NIF): [to be completed]
+        </p>
+
+        <h3>Purpose</h3>
+        <p>This website is published for general informational and educational purposes. It describes the investment philosophy, perspective, and activity of Ataş Capital. It does not constitute an offer, solicitation, or recommendation of any kind. Please see our <a href="/terms.html">Terms of Use</a> for details.</p>
+
+        <h3>Intellectual Property</h3>
+        <p>Unless otherwise stated, all content on this website — including text, design, graphics, and the Ataş Capital name and marks — is the property of Ataş Capital and is protected by applicable intellectual-property law. It may not be reproduced, distributed, or used without prior written permission.</p>
+
+        <h3>Liability</h3>
+        <p>Ataş Capital takes reasonable care to keep the information on this website accurate and current but makes no warranty as to its completeness or accuracy. Ataş Capital is not responsible for the content of any third-party websites linked from this site.</p>
+
+        <h3>Applicable Law</h3>
+        <p>This legal notice is governed by the laws of Spain. Any dispute relating to this website shall be subject to the courts of Madrid, Spain.</p>
+
+        <p class="text-muted" style="font-size: var(--font-size-sm); margin-top: var(--space-xl);">Last updated: June 2026.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

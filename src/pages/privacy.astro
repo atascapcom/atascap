@@ -1,0 +1,43 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { SITE } from '@data/site';
+---
+
+<BaseLayout
+  lang="en"
+  pageKey="privacy"
+  title="Privacy Policy — Ataş Capital"
+  description="How Ataş Capital handles personal data and analytics on atascap.com."
+>
+  <section class="page-header">
+    <h1>PRIVACY POLICY</h1>
+    <p>How we handle data on this website.</p>
+  </section>
+
+  <section class="section">
+    <div class="container--narrow">
+      <div class="content-block">
+        <h3>Data Controller</h3>
+        <p>Ataş Capital (Aşkın Ataş), Calle Alcalá 124, Madrid, Spain. Contact: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+
+        <h3>What We Collect</h3>
+        <p><strong>Correspondence.</strong> If you contact us by email, we receive the information you choose to share — typically your name, email address, and the content of your message.</p>
+        <p><strong>Analytics.</strong> We use Plausible Analytics, a privacy-focused tool that is cookieless and does not collect personal data. It records only aggregated, anonymous usage statistics such as page views and referring sources.</p>
+
+        <h3>Cookies</h3>
+        <p>This website does not use tracking, advertising, or profiling cookies, and our analytics provider does not set cookies. A single entry in your browser's local storage is used only to remember your choice on the notice banner; it contains no personal data and is never shared.</p>
+
+        <h3>Legal Basis</h3>
+        <p>We process correspondence on the basis of your consent and our legitimate interest in responding to you. Aggregated, anonymous analytics rely on our legitimate interest in understanding how the site is used.</p>
+
+        <h3>Sharing and Retention</h3>
+        <p>We do not sell or rent personal data. Correspondence is retained only as long as necessary to address your inquiry. Our analytics provider processes data within the European Union.</p>
+
+        <h3>Your Rights</h3>
+        <p>Under the GDPR you have the right to access, rectify, erase, restrict, or object to the processing of your personal data, and to data portability. To exercise these rights, contact <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. You also have the right to lodge a complaint with the Spanish Data Protection Agency (AEPD, <a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>).</p>
+
+        <p class="text-muted" style="font-size: var(--font-size-sm); margin-top: var(--space-xl);">Last updated: June 2026.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

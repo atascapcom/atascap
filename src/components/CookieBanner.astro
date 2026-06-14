@@ -1,4 +1,5 @@
 ---
+import { pageHref } from '@data/translations';
 import type { Lang } from '@data/translations';
 
 interface Props {
@@ -8,40 +9,44 @@ interface Props {
 const { lang } = Astro.props;
 
 const text = {
-  en: 'This site uses cookies for analytics. You can accept or decline.',
-  es: 'Este sitio utiliza cookies para análisis. Puedes aceptar o rechazar.',
-  tr: 'Bu site analitik için çerezler kullanır. Kabul edebilir veya reddedebilirsiniz.',
+  en: 'We use privacy-friendly, cookieless analytics. No tracking cookies are set.',
+  es: 'Usamos analítica respetuosa con la privacidad, sin cookies. No se instalan cookies de seguimiento.',
+  tr: 'Gizlilik dostu, çerezsiz analitik kullanıyoruz. Hiçbir takip çerezi yerleştirilmez.',
 };
 
-const buttons = {
-  en: { accept: 'Accept', decline: 'Decline' },
-  es: { accept: 'Aceptar', decline: 'Rechazar' },
-  tr: { accept: 'Kabul Et', decline: 'Reddet' },
+const moreLabel = {
+  en: 'Privacy Policy',
+  es: 'Política de Privacidad',
+  tr: 'Gizlilik Politikası',
 };
+
+const dismissLabel = {
+  en: 'Got it',
+  es: 'Entendido',
+  tr: 'Tamam',
+};
+
+const privacyHref = pageHref(lang, 'privacy');
 ---
 
 <div class="cookie-banner" id="cookieBanner">
-  <span>{text[lang]}</span>
+  <span>
+    {text[lang]}{' '}
+    <a href={privacyHref} style="color: #fff; text-decoration: underline;">{moreLabel[lang]}</a>
+  </span>
   <div>
-    <button onclick="acceptCookies()">{buttons[lang].accept}</button>
-    <button onclick="declineCookies()">{buttons[lang].decline}</button>
+    <button onclick="dismissCookieNotice()">{dismissLabel[lang]}</button>
   </div>
 </div>
 
 <script>
-  if (localStorage.getItem('cookiesAccepted') !== null) {
+  if (localStorage.getItem('noticeDismissed') !== null) {
     const banner = document.getElementById('cookieBanner');
     if (banner) banner.style.display = 'none';
   }
 
-  (window as any).acceptCookies = () => {
-    localStorage.setItem('cookiesAccepted', 'true');
-    const banner = document.getElementById('cookieBanner');
-    if (banner) banner.style.display = 'none';
-  };
-
-  (window as any).declineCookies = () => {
-    localStorage.setItem('cookiesAccepted', 'false');
+  (window as any).dismissCookieNotice = () => {
+    localStorage.setItem('noticeDismissed', 'true');
     const banner = document.getElementById('cookieBanner');
     if (banner) banner.style.display = 'none';
   };

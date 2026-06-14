@@ -1,5 +1,5 @@
 ---
-import { LANGUAGES, buildLangSwitcher, pageHref } from '@data/translations';
+import { LANGUAGES, buildLangSwitcher, pageHref, MAIN_NAV, LEGAL_NAV } from '@data/translations';
 import { SITE } from '@data/site';
 import type { Lang, PageSlug } from '@data/translations';
 
@@ -14,7 +14,7 @@ const langSwitcher = buildLangSwitcher(pageKey, lang);
 const year = new Date().getFullYear();
 const rights = t.footer.rights.replace('YEAR', String(year));
 
-const navEntries = Object.entries(t.nav) as [keyof PageSlug, string][];
+const navEntries = MAIN_NAV.map((key) => [key, t.nav[key]] as [keyof PageSlug, string]);
 ---
 
 <footer class="site-footer">
@@ -50,6 +50,14 @@ const navEntries = Object.entries(t.nav) as [keyof PageSlug, string][];
     <div class="footer-disclaimer">
       {t.footer.disclaimer}
     </div>
+    <nav class="footer-legal" aria-label={t.footer.colPages}>
+      {LEGAL_NAV.map((key, i) => (
+        <>
+          {i > 0 && <span class="footer-legal__sep">·</span>}
+          <a href={pageHref(lang, key)}>{t.nav[key]}</a>
+        </>
+      ))}
+    </nav>
     <div class="footer-bottom">
       <span>{rights}</span>
       <div class="lang-switcher">

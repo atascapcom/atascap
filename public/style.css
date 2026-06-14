@@ -866,6 +866,30 @@ blockquote {
   color: #ffffff;
 }
 
+/* ── Footer Legal Links ── */
+.footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  align-items: center;
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.5px;
+}
+
+.footer-legal a {
+  color: var(--color-footer-text);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.footer-legal a:hover {
+  color: #ffffff;
+}
+
+.footer-legal__sep {
+  color: #555;
+}
+
 /* ── Divider ── */
 .divider {
   width: 60px;

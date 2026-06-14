@@ -1,0 +1,44 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { SITE } from '@data/site';
+---
+
+<BaseLayout
+  lang="es"
+  pageKey="legalNotice"
+  title="Aviso Legal — Ataş Capital"
+  description="Aviso legal e información de titularidad del sitio web de Ataş Capital."
+>
+  <section class="page-header">
+    <h1>AVISO LEGAL</h1>
+    <p>Información sobre este sitio web y su titular.</p>
+  </section>
+
+  <section class="section">
+    <div class="container--narrow">
+      <div class="content-block">
+        <h3>Titular del Sitio</h3>
+        <p>Este sitio web (atascap.com) es operado por Ataş Capital, la práctica de inversión independiente de Aşkın Ataş.</p>
+        <p>
+          Domicilio: Calle Alcalá 124, Madrid, España<br />
+          Contacto: <a href={`mailto:${SITE.email}`}>{SITE.email}</a><br />
+          Identificación fiscal (NIF): [a completar]
+        </p>
+
+        <h3>Finalidad</h3>
+        <p>Este sitio web se publica con fines generales informativos y educativos. Describe la filosofía, la perspectiva y la actividad de inversión de Ataş Capital. No constituye oferta, solicitud ni recomendación de ningún tipo. Consulte nuestros <a href="/es/terminos.html">Términos de Uso</a> para más detalles.</p>
+
+        <h3>Propiedad Intelectual</h3>
+        <p>Salvo que se indique lo contrario, todo el contenido de este sitio web — incluidos el texto, el diseño, los gráficos y el nombre y las marcas de Ataş Capital — es propiedad de Ataş Capital y está protegido por la legislación de propiedad intelectual aplicable. No puede reproducirse, distribuirse ni utilizarse sin autorización previa por escrito.</p>
+
+        <h3>Responsabilidad</h3>
+        <p>Ataş Capital pone un cuidado razonable en mantener la información de este sitio web exacta y actualizada, pero no garantiza su integridad o exactitud. Ataş Capital no es responsable del contenido de los sitios web de terceros enlazados desde este sitio.</p>
+
+        <h3>Legislación Aplicable</h3>
+        <p>Este aviso legal se rige por las leyes de España. Cualquier disputa relativa a este sitio web se someterá a los tribunales de Madrid, España.</p>
+
+        <p class="text-muted" style="font-size: var(--font-size-sm); margin-top: var(--space-xl);">Última actualización: junio de 2026.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,43 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { SITE } from '@data/site';
+---
+
+<BaseLayout
+  lang="es"
+  pageKey="privacy"
+  title="Política de Privacidad — Ataş Capital"
+  description="Cómo Ataş Capital gestiona los datos personales y la analítica en atascap.com."
+>
+  <section class="page-header">
+    <h1>POLÍTICA DE PRIVACIDAD</h1>
+    <p>Cómo gestionamos los datos en este sitio web.</p>
+  </section>
+
+  <section class="section">
+    <div class="container--narrow">
+      <div class="content-block">
+        <h3>Responsable del Tratamiento</h3>
+        <p>Ataş Capital (Aşkın Ataş), Calle Alcalá 124, Madrid, España. Contacto: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+
+        <h3>Qué Recopilamos</h3>
+        <p><strong>Correspondencia.</strong> Si nos contacta por correo electrónico, recibimos la información que decida compartir — normalmente su nombre, su dirección de correo y el contenido de su mensaje.</p>
+        <p><strong>Analítica.</strong> Utilizamos Plausible Analytics, una herramienta centrada en la privacidad, sin cookies y que no recopila datos personales. Solo registra estadísticas de uso agregadas y anónimas, como páginas vistas y fuentes de referencia.</p>
+
+        <h3>Cookies</h3>
+        <p>Este sitio web no utiliza cookies de seguimiento, publicidad o elaboración de perfiles, y nuestro proveedor de analítica no instala cookies. Una única entrada en el almacenamiento local de su navegador se utiliza solo para recordar su elección en el aviso; no contiene datos personales y nunca se comparte.</p>
+
+        <h3>Base Jurídica</h3>
+        <p>Tratamos la correspondencia sobre la base de su consentimiento y de nuestro interés legítimo en responderle. La analítica agregada y anónima se basa en nuestro interés legítimo en comprender cómo se utiliza el sitio.</p>
+
+        <h3>Cesión y Conservación</h3>
+        <p>No vendemos ni alquilamos datos personales. La correspondencia se conserva solo durante el tiempo necesario para atender su consulta. Nuestro proveedor de analítica trata los datos dentro de la Unión Europea.</p>
+
+        <h3>Sus Derechos</h3>
+        <p>Conforme al RGPD, tiene derecho a acceder, rectificar, suprimir, limitar u oponerse al tratamiento de sus datos personales, así como a la portabilidad de los datos. Para ejercerlos, contacte con <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. También tiene derecho a presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD, <a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>).</p>
+
+        <p class="text-muted" style="font-size: var(--font-size-sm); margin-top: var(--space-xl);">Última actualización: junio de 2026.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

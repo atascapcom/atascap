@@ -1,0 +1,44 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { SITE } from '@data/site';
+---
+
+<BaseLayout
+  lang="tr"
+  pageKey="legalNotice"
+  title="Künye — Ataş Capital"
+  description="Ataş Capital web sitesi için künye ve sahiplik bilgileri."
+>
+  <section class="page-header">
+    <h1>KÜNYE</h1>
+    <p>Bu web sitesi ve sahibi hakkında bilgiler.</p>
+  </section>
+
+  <section class="section">
+    <div class="container--narrow">
+      <div class="content-block">
+        <h3>Site Sahibi</h3>
+        <p>Bu web sitesi (atascap.com), Aşkın Ataş'ın bağımsız yatırım pratiği olan Ataş Capital tarafından işletilmektedir.</p>
+        <p>
+          Kayıtlı adres: Calle Alcalá 124, Madrid, İspanya<br />
+          İletişim: <a href={`mailto:${SITE.email}`}>{SITE.email}</a><br />
+          Vergi kimlik numarası (NIF): [tamamlanacak]
+        </p>
+
+        <h3>Amaç</h3>
+        <p>Bu web sitesi genel bilgilendirme ve eğitim amacıyla yayımlanmıştır. Ataş Capital'in yatırım felsefesini, bakış açısını ve faaliyetini anlatır. Hiçbir şekilde teklif, talep veya tavsiye niteliği taşımaz. Ayrıntılar için <a href="/tr/kosullar.html">Kullanım Koşulları</a>'na bakınız.</p>
+
+        <h3>Fikri Mülkiyet</h3>
+        <p>Aksi belirtilmedikçe, bu sitedeki tüm içerik — metin, tasarım, grafikler ve Ataş Capital adı ile markaları dahil — Ataş Capital'e aittir ve ilgili fikri mülkiyet hukukuyla korunur. Önceden yazılı izin alınmadan çoğaltılamaz, dağıtılamaz veya kullanılamaz.</p>
+
+        <h3>Sorumluluk</h3>
+        <p>Ataş Capital, sitedeki bilgileri doğru ve güncel tutmak için makul özeni gösterir; ancak bunların eksiksizliği veya doğruluğu konusunda garanti vermez. Bu siteden bağlantı verilen üçüncü taraf web sitelerinin içeriğinden sorumlu değildir.</p>
+
+        <h3>Uygulanacak Hukuk</h3>
+        <p>Bu künye İspanya hukukuna tabidir. Bu web sitesiyle ilgili her türlü uyuşmazlıkta Madrid (İspanya) mahkemeleri yetkilidir.</p>
+
+        <p class="text-muted" style="font-size: var(--font-size-sm); margin-top: var(--space-xl);">Son güncelleme: Haziran 2026.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

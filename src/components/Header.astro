@@ -1,5 +1,5 @@
 ---
-import { LANGUAGES, buildLangSwitcher, pageHref } from '@data/translations';
+import { LANGUAGES, buildLangSwitcher, pageHref, MAIN_NAV } from '@data/translations';
 import type { Lang, PageSlug } from '@data/translations';
 
 interface Props {
@@ -11,7 +11,7 @@ const { lang, pageKey } = Astro.props;
 const t = LANGUAGES[lang];
 const langSwitcher = buildLangSwitcher(pageKey, lang);
 
-const navEntries = Object.entries(t.nav) as [keyof PageSlug, string][];
+const navEntries = MAIN_NAV.map((key) => [key, t.nav[key]] as [keyof PageSlug, string]);
 ---
 
 <header class="site-header">

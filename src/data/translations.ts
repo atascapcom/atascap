@@ -7,6 +7,9 @@ export interface PageSlug {
   letters: string;
   about: string;
   contact: string;
+  legalNotice: string;
+  privacy: string;
+  terms: string;
 }
 
 export interface LangData {
@@ -33,6 +36,9 @@ export const LANGUAGES: Record<Lang, LangData> = {
       letters: 'Letters',
       about: 'About',
       contact: 'Contact',
+      legalNotice: 'Legal Notice',
+      privacy: 'Privacy',
+      terms: 'Terms',
     },
     footer: {
       tagline: 'Fear, greed, pride, and the need to belong distort reasoning. A calm mind reaches more accurate conclusions.',
@@ -49,6 +55,9 @@ export const LANGUAGES: Record<Lang, LangData> = {
       letters: 'letters.html',
       about: 'about.html',
       contact: 'contact.html',
+      legalNotice: 'legal-notice.html',
+      privacy: 'privacy.html',
+      terms: 'terms.html',
     },
     monthLabels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
   },
@@ -61,6 +70,9 @@ export const LANGUAGES: Record<Lang, LangData> = {
       letters: 'Cartas',
       about: 'Nosotros',
       contact: 'Contacto',
+      legalNotice: 'Aviso Legal',
+      privacy: 'Privacidad',
+      terms: 'Términos',
     },
     footer: {
       tagline: 'El miedo, la avaricia, el orgullo y la necesidad de pertenecer distorsionan el razonamiento. Una mente serena llega a conclusiones más acertadas.',
@@ -77,6 +89,9 @@ export const LANGUAGES: Record<Lang, LangData> = {
       letters: 'cartas.html',
       about: 'sobre.html',
       contact: 'contacto.html',
+      legalNotice: 'aviso-legal.html',
+      privacy: 'privacidad.html',
+      terms: 'terminos.html',
     },
     monthLabels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
   },
@@ -89,6 +104,9 @@ export const LANGUAGES: Record<Lang, LangData> = {
       letters: 'Mektuplar',
       about: 'Hakkında',
       contact: 'İletişim',
+      legalNotice: 'Künye',
+      privacy: 'Gizlilik',
+      terms: 'Koşullar',
     },
     footer: {
       tagline: 'Korku, açgözlülük, kibir ve aidiyet ihtiyacı çıkarımı bozar. Sakin zihin daha isabetli sonuç üretir.',
@@ -105,10 +123,21 @@ export const LANGUAGES: Record<Lang, LangData> = {
       letters: 'mektuplar.html',
       about: 'hakkinda.html',
       contact: 'iletisim.html',
+      legalNotice: 'kunye.html',
+      privacy: 'gizlilik.html',
+      terms: 'kosullar.html',
     },
     monthLabels: ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'],
   },
 };
+
+/** Main navigation order — used by the header and the footer "Pages" column. */
+export const MAIN_NAV: (keyof PageSlug)[] = [
+  'home', 'philosophy', 'trackRecord', 'letters', 'about', 'contact',
+];
+
+/** Legal pages — linked only in the footer, never in the main navigation. */
+export const LEGAL_NAV: (keyof PageSlug)[] = ['legalNotice', 'privacy', 'terms'];
 
 export function getLang(pathname: string): Lang {
   if (pathname.includes('/es/') || pathname.startsWith('/es')) return 'es';

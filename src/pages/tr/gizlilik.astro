@@ -1,0 +1,43 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { SITE } from '@data/site';
+---
+
+<BaseLayout
+  lang="tr"
+  pageKey="privacy"
+  title="Gizlilik Politikası — Ataş Capital"
+  description="Ataş Capital'in atascap.com üzerinde kişisel verileri ve analitiği nasıl ele aldığı."
+>
+  <section class="page-header">
+    <h1>GİZLİLİK POLİTİKASI</h1>
+    <p>Bu web sitesinde verileri nasıl ele alıyoruz.</p>
+  </section>
+
+  <section class="section">
+    <div class="container--narrow">
+      <div class="content-block">
+        <h3>Veri Sorumlusu</h3>
+        <p>Ataş Capital (Aşkın Ataş), Calle Alcalá 124, Madrid, İspanya. İletişim: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+
+        <h3>Neleri Topluyoruz</h3>
+        <p><strong>Yazışma.</strong> Bize e-posta ile ulaşırsanız, paylaşmayı seçtiğiniz bilgileri alırız — genellikle adınız, e-posta adresiniz ve mesajınızın içeriği.</p>
+        <p><strong>Analitik.</strong> Gizlilik odaklı, çerezsiz ve kişisel veri toplamayan Plausible Analytics kullanıyoruz. Yalnızca toplu ve anonim kullanım istatistiklerini (sayfa görüntülenmeleri, yönlendiren kaynaklar gibi) kaydeder.</p>
+
+        <h3>Çerezler</h3>
+        <p>Bu web sitesi takip, reklam veya profilleme çerezleri kullanmaz ve analitik sağlayıcımız çerez yerleştirmez. Tarayıcınızın yerel depolamasındaki tek bir kayıt, yalnızca bildirim banner'ındaki tercihinizi hatırlamak için kullanılır; kişisel veri içermez ve asla paylaşılmaz.</p>
+
+        <h3>Hukuki Dayanak</h3>
+        <p>Yazışmaları, rızanıza ve size yanıt verme yönündeki meşru menfaatimize dayanarak işleriz. Toplu ve anonim analitik, sitenin nasıl kullanıldığını anlamaya yönelik meşru menfaatimize dayanır.</p>
+
+        <h3>Paylaşım ve Saklama</h3>
+        <p>Kişisel verileri satmaz veya kiralamayız. Yazışmalar, yalnızca talebinizi karşılamak için gereken süre boyunca saklanır. Analitik sağlayıcımız verileri Avrupa Birliği içinde işler.</p>
+
+        <h3>Haklarınız</h3>
+        <p>GDPR kapsamında kişisel verilerinize erişme, bunları düzeltme, silme, işlemeyi kısıtlama veya işlemeye itiraz etme ve veri taşınabilirliği haklarına sahipsiniz. Bu hakları kullanmak için <a href={`mailto:${SITE.email}`}>{SITE.email}</a> ile iletişime geçin. Ayrıca İspanya Veri Koruma Kurumu'na (AEPD, <a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>) şikâyette bulunma hakkınız vardır.</p>
+
+        <p class="text-muted" style="font-size: var(--font-size-sm); margin-top: var(--space-xl);">Son güncelleme: Haziran 2026.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

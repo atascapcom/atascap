@@ -937,14 +937,6 @@ blockquote {
   margin-bottom: var(--space-xl);
 }
 
-.letter__bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--space-md);
-  flex-wrap: wrap;
-}
-
 .letter__pdf {
   display: inline-flex;
   align-items: center;

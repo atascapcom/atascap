@@ -44,6 +44,10 @@ const meta = [letterNo(no), periodLabel(entry.data.period, 'en'), dateLabel].fil
         <p class="letter__sign-name">Aşkın Ataş</p>
         <p class="letter__sign-role">Founder &amp; Portfolio Manager · Ataş Capital</p>
       </footer>
+      <div class="letter__downloads">
+        {entry.data.pdf && <a class="letter__pdf" href={entry.data.pdf} download>↓ Download PDF Version</a>}
+        <button class="letter__pdf" type="button" onclick="window.print()">Printable Version</button>
+      </div>
     </div>
   </article>
 </BaseLayout>

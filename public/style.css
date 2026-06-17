@@ -937,6 +937,42 @@ blockquote {
   margin-bottom: var(--space-xl);
 }
 
+.letter__bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.letter__pdf {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 7px 14px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color var(--transition), border-color var(--transition);
+}
+
+.letter__pdf:hover {
+  color: var(--color-text);
+  border-color: var(--color-text-muted);
+}
+
+.letter__letterhead {
+  display: none;
+}
+
 .letter__meta {
   font-family: var(--font-sans);
   font-size: var(--font-size-xs);
@@ -1066,6 +1102,88 @@ blockquote {
 .letter__sign-role {
   font-size: var(--font-size-sm);
   color: var(--color-text-muted);
+}
+
+/* ── Letter print / Save-as-PDF ── */
+@media print {
+  .site-header,
+  .site-footer,
+  .cookie-banner,
+  .menu-toggle,
+  .nav-overlay,
+  .letter__pdf {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  .letter {
+    padding: 0;
+  }
+
+  .container--narrow {
+    max-width: none;
+    padding: 0;
+  }
+
+  .letter__letterhead {
+    display: block;
+    text-align: center;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-size: 11pt;
+    color: #000;
+    padding-bottom: 1.1rem;
+    margin-bottom: 1.6rem;
+    border-bottom: 1px solid #999;
+  }
+
+  .letter__meta {
+    color: #555;
+  }
+
+  .letter__body {
+    font-size: 11pt;
+    line-height: 1.6;
+    color: #000;
+  }
+
+  .letter__body h1 {
+    font-size: 20pt;
+  }
+
+  .letter__body h2 {
+    font-size: 14pt;
+  }
+
+  .letter__body a {
+    color: #000;
+    border: none;
+  }
+
+  .letter__body table,
+  .letter__body tr {
+    break-inside: avoid;
+  }
+
+  .letter__body h1,
+  .letter__body h2,
+  .letter__body h3 {
+    break-after: avoid;
+  }
+
+  .divider {
+    background: #999;
+  }
+
+  @page {
+    margin: 2cm;
+  }
 }
 
 /* ── Cookie Banner ── */

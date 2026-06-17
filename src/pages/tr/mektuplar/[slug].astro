@@ -27,8 +27,14 @@ const meta = [letterNo(no), periodLabel(entry.data.period, 'tr'), dateLabel].fil
 >
   <article class="letter">
     <div class="container--narrow">
+      <div class="letter__letterhead" aria-hidden="true">ATAŞ CAPITAL</div>
       <header class="letter__header">
-        <p class="letter__meta">{meta}</p>
+        <div class="letter__bar">
+          <p class="letter__meta">{meta}</p>
+          {entry.data.pdf
+            ? <a class="letter__pdf" href={entry.data.pdf} download>↓ PDF indir</a>
+            : <button class="letter__pdf" type="button" onclick="window.print()">↓ PDF indir</button>}
+        </div>
         <div class="divider divider--left"></div>
       </header>
       <div class="letter__body">

@@ -1094,12 +1094,6 @@ blockquote {
   margin-bottom: var(--space-xs);
 }
 
-.letter__sign-role {
-  font-size: var(--font-size-sm);
-  letter-spacing: 0.3px;
-  color: var(--color-text-muted);
-}
-
 .letter__downloads {
   display: flex;
   flex-wrap: wrap;

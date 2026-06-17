@@ -84,7 +84,12 @@ const server = createServer((req, res) => {
     res.end();
     return;
   }
-  res.writeHead(200, { 'content-type': MIME[extname(file)] || 'application/octet-stream' });
+  res.writeHead(200, {
+    'content-type': MIME[extname(file)] || 'application/octet-stream',
+    // Avoid HTTP keep-alive: it can keep headless Chrome from reaching
+    // "network idle", so it prints the PDF but never exits.
+    connection: 'close',
+  });
   res.end(readFileSync(file));
 });
 
@@ -97,8 +102,21 @@ mkdirSync(DIST_PDF, { recursive: true });
 const render = (args) =>
   new Promise((resolve) => {
     const child = spawn(CHROME, args, { stdio: 'ignore' });
-    child.on('exit', (code) => resolve(code ?? 1));
-    child.on('error', () => resolve(1));
+    // Watchdog: headless Chrome sometimes writes the PDF but never exits.
+    // The file is complete long before this fires, so killing is safe.
+    const killer = setTimeout(() => {
+      try {
+        child.kill('SIGKILL');
+      } catch {}
+    }, 20000);
+    child.on('exit', () => {
+      clearTimeout(killer);
+      resolve();
+    });
+    child.on('error', () => {
+      clearTimeout(killer);
+      resolve();
+    });
   });
 
 let ok = 0;
@@ -108,7 +126,7 @@ for (const t of pending) {
   const profile = mkdtempSync(join(tmpdir(), 'atascap-pdf-'));
   const out = join(PUBLIC_PDF, t.name);
   const url = `http://127.0.0.1:${PORT}/${t.route}/${t.slug}.html`;
-  const code = await render([
+  await render([
     '--headless=new',
     '--disable-gpu',
     '--no-sandbox',
@@ -119,7 +137,7 @@ for (const t of pending) {
     url,
   ]);
   rmSync(profile, { recursive: true, force: true });
-  if (code === 0 && existsSync(out)) {
+  if (existsSync(out)) {
     copyFileSync(out, join(DIST_PDF, t.name));
     ok++;
     console.log(`[pdf] rendered ${t.route}/${t.slug} → ${out}`);

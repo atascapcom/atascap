@@ -193,7 +193,10 @@ blockquote {
   background-color: var(--color-bg);
   position: sticky;
   top: 0;
-  z-index: 1000;
+  /* Must sit above .nav-overlay (z-index 10000) so the open mobile menu's
+     links stay clickable — the header forms a stacking context that traps
+     .site-nav, so the header itself must outrank the overlay. */
+  z-index: 10001;
 }
 
 .site-header .container {

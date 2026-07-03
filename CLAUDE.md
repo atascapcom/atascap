@@ -6,9 +6,9 @@ Ataş Capital'in kurumsal web sitesi. Statik, çok dilli (TR/EN/ES) bir Astro pr
 
 - **URL**: https://atascap.com
 - **Kurucu**: Aşkın Ataş
-- **Teknoloji**: Astro 4, TypeScript, Chart.js
+- **Teknoloji**: Astro 4, TypeScript
 - **Çıktı**: Tamamen statik (`output: 'static'`)
-- **Deploy**: Netlify/static hosting
+- **Deploy**: GitHub Pages (`.github/workflows/deploy.yml`, `public/CNAME`)
 
 ## Dizin Yapısı
 
@@ -38,8 +38,10 @@ export type Lang = 'en' | 'es' | 'tr';
 
 ```bash
 npm run dev      # Geliştirme sunucusu
-npm run build    # Production build (dist/)
+npm run build    # Production build (dist/) + eksik mektup PDF'lerini üretir
 npm run preview  # Build önizleme
+npm run pdf      # Mektup PDF'lerini üret (FORCE_PDF=1 ile yeniden üretir)
+npm run assets   # OG görseli + favicon.ico + apple-touch-icon üret
 ```
 
 ## Geliştirme Kuralları
@@ -70,7 +72,10 @@ Bu projede kullanılacak ECC komutları:
 
 ## Önemli Notlar
 
-- Chart.js ile performans grafikleri: `PerformanceChart.astro`, `PerformanceHeatmap.astro`
-- Cookie banner GDPR uyumlu: `CookieBanner.astro`
-- RSS feed: `src/pages/rss.xml.js`
-- Sitemap: `@astrojs/sitemap` ile otomatik
+- Performans tablosu: `PerformanceTable.astro` (MSCI ACWI karşılaştırması; eski grafik/heatmap bileşenleri kaldırıldı)
+- Mektup PDF'leri: `scripts/generate-pdfs.mjs` (build sonrası, yerel Chrome ile eksik olanları üretir)
+- OG görseli & ikonlar: `scripts/generate-assets.mjs` (kaynak SVG → PNG/ICO)
+- Cookie banner: `CookieBanner.astro` (Plausible çerezsiz — bilgilendirme amaçlı)
+- RSS feed: `src/pages/rss.xml.js` (yalnızca EN mektuplar)
+- Sitemap: `@astrojs/sitemap` ile otomatik (`astro.config.mjs`)
+- Yol haritası: `ROADMAP.md`

@@ -8,12 +8,13 @@
     "build": "astro build && node scripts/generate-pdfs.mjs",
     "preview": "astro preview",
     "pdf": "node scripts/generate-pdfs.mjs",
+    "assets": "node scripts/generate-assets.mjs",
+    "fonts": "node scripts/fetch-fonts.mjs",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^4.16.0",
     "@astrojs/rss": "^4.0.7",
-    "@astrojs/sitemap": "^3.2.0",
-    "chart.js": "^4.4.4"
+    "@astrojs/sitemap": "~3.2.1",
+    "astro": "^4.16.0"
   }
 }

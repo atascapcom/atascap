@@ -2,6 +2,7 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { sortLettersDesc, letterNumbers, letterSlug, periodLabel, letterNo } from '@data/letters';
+import { pageHref } from '@data/translations';
 
 const all = await getCollection('letters', ({ data }) => data.lang === 'es' && !data.draft);
 const numbers = letterNumbers(all);
@@ -60,7 +61,7 @@ const latest = sortLettersDesc(all).slice(0, 2);
       </div>
       <div class="content-block" style="text-align: center;">
         <p>
-          <a href="/es/filosofia.html" style="font-family: var(--font-serif); font-size: var(--font-size-md); color: var(--color-accent); border-bottom: 1px solid var(--color-accent);">
+          <a href={pageHref('es', 'philosophy')} style="font-family: var(--font-serif); font-size: var(--font-size-md); color: var(--color-accent); border-bottom: 1px solid var(--color-accent);">
             Lea nuestra filosofía de inversión →
           </a>
         </p>
@@ -91,7 +92,7 @@ const latest = sortLettersDesc(all).slice(0, 2);
             ))}
           </ul>
           <p style="text-align: center; margin-top: var(--space-xl);">
-            <a href="/es/cartas.html" style="font-family: var(--font-serif); font-size: var(--font-size-md); color: var(--color-accent); border-bottom: 1px solid var(--color-accent);">
+            <a href={pageHref('es', 'letters')} style="font-family: var(--font-serif); font-size: var(--font-size-md); color: var(--color-accent); border-bottom: 1px solid var(--color-accent);">
               Ver todas las cartas →
             </a>
           </p>

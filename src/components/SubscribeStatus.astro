@@ -1,0 +1,37 @@
+---
+/**
+ * Landing page body for the three states the subscribe endpoint redirects to.
+ * Keeps the nine thin page files (3 states × 3 languages) free of duplication.
+ */
+import { LANGUAGES, pageHref } from '@data/translations';
+import type { Lang } from '@data/translations';
+
+interface Props {
+  lang: Lang;
+  state: 'pending' | 'confirmed' | 'error';
+}
+
+const { lang, state } = Astro.props;
+const t = LANGUAGES[lang].newsletter.status;
+const { title, body } = t[state];
+---
+
+<section class="page-header">
+  <h1>{title}</h1>
+</section>
+
+<section class="section">
+  <div class="container--tight">
+    <div class="content-block" style="text-align: center;">
+      <p>{body}</p>
+      <p style="margin-top: var(--space-xl);">
+        <a
+          href={pageHref(lang, 'letters')}
+          style="font-family: var(--font-serif); font-size: var(--font-size-md); color: var(--color-accent); border-bottom: 1px solid var(--color-accent);"
+        >
+          {t.backLink}
+        </a>
+      </p>
+    </div>
+  </div>
+</section>

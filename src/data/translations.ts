@@ -22,6 +22,26 @@ export interface LangData {
     disclaimer: string;
     rights: string;
   };
+  newsletter: {
+    /** Short heading for the footer variant. */
+    footerTitle: string;
+    /** Heading for the full-width panel on the letters pages. */
+    title: string;
+    description: string;
+    emailLabel: string;
+    placeholder: string;
+    button: string;
+    /** Double opt-in + unsubscribe note shown under the field. */
+    note: string;
+    privacyLink: string;
+    /** Landing pages the subscribe endpoint redirects to. */
+    status: {
+      pending: { title: string; body: string };
+      confirmed: { title: string; body: string };
+      error: { title: string; body: string };
+      backLink: string;
+    };
+  };
   pages: PageSlug;
   monthLabels: [string, string, string, string, string, string, string, string, string, string, string, string];
 }
@@ -47,6 +67,32 @@ export const LANGUAGES: Record<Lang, LangData> = {
       disclaimer:
         'Disclaimer: This website is intended solely for informational and educational purposes. Ataş Capital manages its own capital and operates on a private, invitation-only basis. The information presented here reflects general investment philosophy and research perspective; it does not constitute an offer, solicitation, or recommendation to buy or sell any securities. Past performance is not indicative of future results. All investments involve risk, including possible loss of principal. Ataş Capital is not a registered investment adviser and does not provide investment advisory services to the public.',
       rights: '© YEAR Ataş Capital. All rights reserved.',
+    },
+    newsletter: {
+      footerTitle: 'Letters by email',
+      title: 'Receive our letters',
+      description:
+        'Semi-annual investor letters and occasional notes on markets and businesses, sent when they are published. No promotions, no noise.',
+      emailLabel: 'Email address',
+      placeholder: 'your@email.com',
+      button: 'Subscribe',
+      note: 'You will receive a confirmation email before anything is sent. Unsubscribe at any time.',
+      privacyLink: 'Privacy Policy',
+      status: {
+        pending: {
+          title: 'Check your inbox',
+          body: 'We have sent you a confirmation link. Please click it to complete your subscription — nothing will be sent until you do. If it does not arrive within a few minutes, check your spam folder.',
+        },
+        confirmed: {
+          title: 'You are subscribed',
+          body: 'Thank you. You will receive our investor letters and occasional notes as they are published. Every email carries an unsubscribe link.',
+        },
+        error: {
+          title: 'Something went wrong',
+          body: 'That link may have expired, or the address was not valid. Confirmation links are good for 24 hours — please try subscribing again.',
+        },
+        backLink: 'Return to letters →',
+      },
     },
     pages: {
       home: 'index.html',
@@ -82,6 +128,32 @@ export const LANGUAGES: Record<Lang, LangData> = {
         'Aviso legal: Este sitio web tiene fines exclusivamente informativos y educativos. Ataş Capital gestiona su propio capital y opera de forma privada, solo por invitación. La información aquí presentada refleja una filosofía y perspectiva de inversión general; no constituye una oferta, solicitud o recomendación para comprar o vender valores. El rendimiento pasado no es indicativo de resultados futuros. Todas las inversiones conllevan riesgos, incluida la posible pérdida del capital. Ataş Capital no es un asesor de inversiones registrado y no presta servicios de asesoramiento de inversiones al público.',
       rights: '© YEAR Ataş Capital. Todos los derechos reservados.',
     },
+    newsletter: {
+      footerTitle: 'Cartas por correo',
+      title: 'Reciba nuestras cartas',
+      description:
+        'Cartas semestrales a los inversores y notas ocasionales sobre mercados y empresas, enviadas cuando se publican. Sin promociones, sin ruido.',
+      emailLabel: 'Correo electrónico',
+      placeholder: 'tu@email.com',
+      button: 'Suscribirse',
+      note: 'Recibirá un correo de confirmación antes de enviarle nada. Puede darse de baja en cualquier momento.',
+      privacyLink: 'Política de Privacidad',
+      status: {
+        pending: {
+          title: 'Revise su correo',
+          body: 'Le hemos enviado un enlace de confirmación. Haga clic en él para completar su suscripción — no se enviará nada hasta que lo haga. Si no llega en unos minutos, revise su carpeta de spam.',
+        },
+        confirmed: {
+          title: 'Suscripción confirmada',
+          body: 'Gracias. Recibirá nuestras cartas a los inversores y notas ocasionales a medida que se publiquen. Todos los correos incluyen un enlace para darse de baja.',
+        },
+        error: {
+          title: 'Algo ha salido mal',
+          body: 'Es posible que el enlace haya caducado o que la dirección no fuera válida. Los enlaces de confirmación son válidos durante 24 horas — inténtelo de nuevo.',
+        },
+        backLink: 'Volver a las cartas →',
+      },
+    },
     pages: {
       home: 'es.html',          // Astro file-format: es/index.astro → /es.html
       philosophy: 'filosofia.html',
@@ -115,6 +187,32 @@ export const LANGUAGES: Record<Lang, LangData> = {
       disclaimer:
         'Yasal Uyarı: Bu web sitesi yalnızca bilgilendirme ve eğitim amaçlıdır. Ataş Capital kendi sermayesini yönetir ve özel, yalnızca davetle çalışır. Burada sunulan bilgiler genel yatırım felsefesini ve araştırma perspektifini yansıtır; herhangi bir menkul kıymetin alınması veya satılması için teklif, talep veya tavsiye niteliği taşımaz. Geçmiş performans gelecekteki sonuçların göstergesi değildir. Tüm yatırımlar, ana paranın olası kaybı da dahil olmak üzere risk içerir. Ataş Capital kayıtlı bir yatırım danışmanı değildir ve halka yatırım danışmanlığı hizmeti sunmamaktadır.',
       rights: '© YEAR Ataş Capital. Tüm hakları saklıdır.',
+    },
+    newsletter: {
+      footerTitle: 'Mektuplar e-posta ile',
+      title: 'Mektuplarımızı alın',
+      description:
+        'Altı ayda bir yayımlanan yatırımcı mektupları ile piyasalar ve şirketler üzerine ara yazılar, yayımlandıklarında e-posta ile gönderilir. Reklam yok, gürültü yok.',
+      emailLabel: 'E-posta adresi',
+      placeholder: 'ornek@eposta.com',
+      button: 'Kaydol',
+      note: 'Herhangi bir gönderim yapılmadan önce onay e-postası alırsınız. Dilediğiniz zaman listeden çıkabilirsiniz.',
+      privacyLink: 'Gizlilik Politikası',
+      status: {
+        pending: {
+          title: 'Gelen kutunuzu kontrol edin',
+          body: 'Size bir onay bağlantısı gönderdik. Aboneliğinizi tamamlamak için bağlantıya tıklayın — onaylamadan hiçbir gönderim yapılmayacak. Birkaç dakika içinde ulaşmazsa spam klasörünüze bakın.',
+        },
+        confirmed: {
+          title: 'Aboneliğiniz onaylandı',
+          body: 'Teşekkürler. Yatırımcı mektuplarımızı ve ara yazılarımızı yayımlandıkça alacaksınız. Her e-postada listeden çıkma bağlantısı bulunur.',
+        },
+        error: {
+          title: 'Bir şeyler ters gitti',
+          body: 'Bağlantının süresi dolmuş ya da adres geçersiz olabilir. Onay bağlantıları 24 saat geçerlidir — lütfen yeniden kaydolmayı deneyin.',
+        },
+        backLink: 'Mektuplara dön →',
+      },
     },
     pages: {
       home: 'tr.html',          // Astro file-format: tr/index.astro → /tr.html

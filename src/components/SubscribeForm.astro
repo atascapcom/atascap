@@ -1,0 +1,85 @@
+---
+/**
+ * Newsletter signup. Posts straight to the ESP (see NEWSLETTER in site.ts) so it
+ * works on a fully static host — no backend, no cookies, no third-party script.
+ *
+ * Renders nothing while NEWSLETTER.endpoint is unset, so the site never ships a
+ * form that posts nowhere.
+ */
+import { NEWSLETTER } from '@data/site';
+import { LANGUAGES, pageHref } from '@data/translations';
+import type { Lang } from '@data/translations';
+
+interface Props {
+  lang: Lang;
+  /** 'footer' is the compact dark-background variant; 'panel' is the full block. */
+  variant?: 'footer' | 'panel';
+}
+
+const { lang, variant = 'panel' } = Astro.props;
+const t = LANGUAGES[lang].newsletter;
+const enabled = NEWSLETTER.endpoint.length > 0;
+const fieldId = `subscribe-email-${variant}`;
+---
+
+{enabled && (
+  <div class:list={['subscribe', `subscribe--${variant}`]}>
+    <div class="subscribe__intro">
+      <h3 class="subscribe__title">{variant === 'footer' ? t.footerTitle : t.title}</h3>
+      {variant === 'panel' && <p class="subscribe__description">{t.description}</p>}
+    </div>
+
+    {/*
+      A plain POST — the endpoint answers with a 303 back to one of the
+      status pages, so the reader never leaves the site and no JavaScript,
+      CORS preflight or third-party script is involved.
+    */}
+    <form class="subscribe__form" action={NEWSLETTER.endpoint} method="post">
+      <label class="visually-hidden" for={fieldId}>{t.emailLabel}</label>
+      <input
+        class="subscribe__input"
+        id={fieldId}
+        type="email"
+        name="email"
+        placeholder={t.placeholder}
+        autocomplete="email"
+        required
+      />
+      {/* Language tag: one list, segmented on send (see ROADMAP.md Faz 1). */}
+      <input type="hidden" name="tag" value={lang} />
+      {/* Honeypot — hidden from people, tempting to bots; guarded in the script below. */}
+      <input
+        class="subscribe__trap"
+        type="text"
+        name="website"
+        tabindex="-1"
+        autocomplete="off"
+        aria-hidden="true"
+      />
+      <button class="subscribe__button" type="submit">{t.button}</button>
+    </form>
+
+    <p class="subscribe__note">
+      {t.note}{' '}
+      <a href={pageHref(lang, 'privacy')}>{t.privacyLink}</a>
+    </p>
+
+    {/*
+      is:inline keeps this next to the form instead of letting Astro hoist it
+      into every page in the site — including pages where the form is disabled.
+      The [data-guarded] marker makes it idempotent, since a page can hold both
+      the footer and the panel variant.
+    */}
+    <script is:inline>
+      document.querySelectorAll('.subscribe__form:not([data-guarded])').forEach(function (form) {
+        form.setAttribute('data-guarded', 'true');
+        form.addEventListener('submit', function (event) {
+          // The honeypot is invisible and out of the tab order: if it carries a
+          // value, the submission was automated.
+          var trap = form.querySelector('.subscribe__trap');
+          if (trap && trap.value !== '') event.preventDefault();
+        });
+      });
+    </script>
+  </div>
+)}

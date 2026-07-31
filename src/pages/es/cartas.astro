@@ -3,6 +3,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { SITE } from '@data/site';
 import { sortLettersDesc, letterNumbers, letterSlug, periodLabel, letterNo } from '@data/letters';
+import SubscribeForm from '@components/SubscribeForm.astro';
 
 const all = await getCollection('letters', ({ data }) => data.lang === 'es' && !data.draft);
 const numbers = letterNumbers(all);
@@ -56,6 +57,12 @@ const letters = sortLettersDesc(all);
           </p>
         </div>
       )}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container--narrow">
+      <SubscribeForm lang="es" />
     </div>
   </section>
 </BaseLayout>

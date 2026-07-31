@@ -1,6 +1,7 @@
 ---
 import { LANGUAGES, buildLangSwitcher, pageHref, MAIN_NAV, LEGAL_NAV } from '@data/translations';
 import { SITE } from '@data/site';
+import SubscribeForm from '@components/SubscribeForm.astro';
 import type { Lang, PageSlug } from '@data/translations';
 
 interface Props {
@@ -47,6 +48,7 @@ const navEntries = MAIN_NAV.map((key) => [key, t.nav[key]] as [keyof PageSlug, s
         </div>
       </div>
     </div>
+    <SubscribeForm lang={lang} variant="footer" />
     <div class="footer-disclaimer">
       {t.footer.disclaimer}
     </div>

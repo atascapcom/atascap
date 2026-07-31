@@ -9,6 +9,9 @@ export default defineConfig({
   build: { format: 'file' },
   integrations: [
     sitemap({
+      // Subscribe status pages are noindex transactional pages; listing them in
+      // the sitemap would contradict their robots meta.
+      filter: (page) => !/\/(subscribe-|tr\/kayit-|es\/suscripcion-)/.test(page),
       // build.format: 'file' means pages are served at /about.html, /es.html, etc.
       // The integration drops the extension, which would mismatch the canonical
       // URLs (BaseHead uses .html). Rewrite each entry back to its real .html URL.

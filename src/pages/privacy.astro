@@ -1,6 +1,10 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { SITE } from '@data/site';
+import { SITE, NEWSLETTER } from '@data/site';
+
+// Gated on the same config as the subscribe form, so the disclosure can never
+// be missing while the form is live — or claim data we do not yet collect.
+const newsletterLive = NEWSLETTER.endpoint.length > 0;
 ---
 
 <BaseLayout
@@ -24,14 +28,24 @@ import { SITE } from '@data/site';
         <p><strong>Correspondence.</strong> If you contact us by email, we receive the information you choose to share — typically your name, email address, and the content of your message.</p>
         <p><strong>Analytics.</strong> We use Plausible Analytics, a privacy-focused tool that is cookieless and does not collect personal data. It records only aggregated, anonymous usage statistics such as page views and referring sources.</p>
 
+        {newsletterLive && (
+          <p><strong>Newsletter.</strong> If you subscribe to our letters, we store the email address you provide and the language of the page you subscribed from. We use {NEWSLETTER.providerName} to manage the list and deliver the emails; the address is shared with that provider solely for this purpose and is never sold, rented, or used for advertising.</p>
+        )}
+
         <h3>Cookies</h3>
         <p>This website does not use tracking, advertising, or profiling cookies, and our analytics provider does not set cookies. A single entry in your browser's local storage is used only to remember your choice on the notice banner; it contains no personal data and is never shared.</p>
 
         <h3>Legal Basis</h3>
         <p>We process correspondence on the basis of your consent and our legitimate interest in responding to you. Aggregated, anonymous analytics rely on our legitimate interest in understanding how the site is used.</p>
+        {newsletterLive && (
+          <p>Newsletter delivery is based on your explicit consent. Subscriptions use double opt-in: after submitting the form you receive a confirmation email, and nothing is sent unless you confirm.</p>
+        )}
 
         <h3>Sharing and Retention</h3>
         <p>We do not sell or rent personal data. Correspondence is retained only as long as necessary to address your inquiry. Our analytics provider processes data within the European Union.</p>
+        {newsletterLive && (
+          <p>Subscriber addresses are retained until you unsubscribe. Every email includes an unsubscribe link, and you may also unsubscribe at any time by writing to <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+        )}
 
         <h3>Your Rights</h3>
         <p>Under the GDPR you have the right to access, rectify, erase, restrict, or object to the processing of your personal data, and to data portability. To exercise these rights, contact <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. You also have the right to lodge a complaint with the Spanish Data Protection Agency (AEPD, <a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>).</p>

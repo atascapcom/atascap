@@ -10,6 +10,10 @@ interface Props {
   description: string;
   ogTitle?: string;
   ogDescription?: string;
+  /** Transactional pages (subscribe confirmations, errors): keep them out of
+   *  search results, and skip canonical/hreflang since they have no counterpart
+   *  worth pointing at. */
+  noindex?: boolean;
 }
 
 const {
@@ -19,6 +23,7 @@ const {
   description,
   ogTitle,
   ogDescription,
+  noindex = false,
 } = Astro.props;
 
 const t = LANGUAGES[lang];
@@ -69,11 +74,17 @@ const jsonLd = JSON.stringify({
 <meta name="twitter:image" content={ogImageURL} />
 
 <!-- Canonical & hreflang -->
-<link rel="canonical" href={canonicalURL} />
-{langSwitcher.map(({ lang: l, href }) => (
-  <link rel="alternate" hreflang={l} href={`${SITE.domain}${href}`} />
-))}
-<link rel="alternate" hreflang="x-default" href={`${SITE.domain}${pageHref('en', pageKey)}`} />
+{noindex ? (
+  <meta name="robots" content="noindex, nofollow" />
+) : (
+  <>
+    <link rel="canonical" href={canonicalURL} />
+    {langSwitcher.map(({ lang: l, href }) => (
+      <link rel="alternate" hreflang={l} href={`${SITE.domain}${href}`} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={`${SITE.domain}${pageHref('en', pageKey)}`} />
+  </>
+)}
 
 <!-- Favicon -->
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

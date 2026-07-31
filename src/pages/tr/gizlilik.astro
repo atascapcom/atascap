@@ -1,6 +1,10 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { SITE } from '@data/site';
+import { SITE, NEWSLETTER } from '@data/site';
+
+// Abonelik formuyla aynı ayara bağlı: form yayındayken bildirim eksik kalamaz,
+// yayında değilken de toplanmayan veriden söz edilmez.
+const newsletterLive = NEWSLETTER.endpoint.length > 0;
 ---
 
 <BaseLayout
@@ -24,14 +28,24 @@ import { SITE } from '@data/site';
         <p><strong>Yazışma.</strong> Bize e-posta ile ulaşırsanız, paylaşmayı seçtiğiniz bilgileri alırız — genellikle adınız, e-posta adresiniz ve mesajınızın içeriği.</p>
         <p><strong>Analitik.</strong> Gizlilik odaklı, çerezsiz ve kişisel veri toplamayan Plausible Analytics kullanıyoruz. Yalnızca toplu ve anonim kullanım istatistiklerini (sayfa görüntülenmeleri, yönlendiren kaynaklar gibi) kaydeder.</p>
 
+        {newsletterLive && (
+          <p><strong>Bülten.</strong> Mektuplarımıza kaydolmanız hâlinde, verdiğiniz e-posta adresini ve kaydolduğunuz sayfanın dilini saklarız. Listeyi yönetmek ve gönderimleri yapmak için {NEWSLETTER.providerName} hizmetini kullanırız; adresiniz yalnızca bu amaçla bu sağlayıcıyla paylaşılır, asla satılmaz, kiralanmaz veya reklam için kullanılmaz.</p>
+        )}
+
         <h3>Çerezler</h3>
         <p>Bu web sitesi takip, reklam veya profilleme çerezleri kullanmaz ve analitik sağlayıcımız çerez yerleştirmez. Tarayıcınızın yerel depolamasındaki tek bir kayıt, yalnızca bildirim banner'ındaki tercihinizi hatırlamak için kullanılır; kişisel veri içermez ve asla paylaşılmaz.</p>
 
         <h3>Hukuki Dayanak</h3>
         <p>Yazışmaları, rızanıza ve size yanıt verme yönündeki meşru menfaatimize dayanarak işleriz. Toplu ve anonim analitik, sitenin nasıl kullanıldığını anlamaya yönelik meşru menfaatimize dayanır.</p>
+        {newsletterLive && (
+          <p>Bülten gönderimi açık rızanıza dayanır. Kayıtlar çift onaylıdır (double opt-in): formu gönderdikten sonra bir onay e-postası alırsınız ve siz onaylamadıkça hiçbir gönderim yapılmaz.</p>
+        )}
 
         <h3>Paylaşım ve Saklama</h3>
         <p>Kişisel verileri satmaz veya kiralamayız. Yazışmalar, yalnızca talebinizi karşılamak için gereken süre boyunca saklanır. Analitik sağlayıcımız verileri Avrupa Birliği içinde işler.</p>
+        {newsletterLive && (
+          <p>Abone adresleri, siz listeden çıkana kadar saklanır. Her e-postada listeden çıkma bağlantısı bulunur; ayrıca dilediğiniz zaman <a href={`mailto:${SITE.email}`}>{SITE.email}</a> adresine yazarak da çıkabilirsiniz.</p>
+        )}
 
         <h3>Haklarınız</h3>
         <p>GDPR kapsamında kişisel verilerinize erişme, bunları düzeltme, silme, işlemeyi kısıtlama veya işlemeye itiraz etme ve veri taşınabilirliği haklarına sahipsiniz. Bu hakları kullanmak için <a href={`mailto:${SITE.email}`}>{SITE.email}</a> ile iletişime geçin. Ayrıca İspanya Veri Koruma Kurumu'na (AEPD, <a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>) şikâyette bulunma hakkınız vardır.</p>

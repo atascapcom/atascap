@@ -34,23 +34,92 @@ Küçük ama kullanıcıya/aramaya görünür hatalar. **Tümü tamamlandı — 
 e-posta yalnızca dağıtım kanalı). Substack'e taşınmıyor — gerekçe: kurumsal kimlik,
 kanonik SEO'nun tek adreste kalması, tasarım ve veri sahipliği.
 
-- [ ] **ESP seçimi.** Öneri: Buttondown (sade şablon, markdown, RSS-to-email, kendi
-      domainden gönderim; ~$9/ay). Ücretsiz alternatifler: MailerLite (AB şirketi,
-      1.000 aboneye kadar ücretsiz) veya Kit. Fiyat/limitleri karar anında doğrula.
-- [ ] **Gönderim DNS'i.** `news.atascap.com` (veya `mail.`) alt alanı için SPF + DKIM + DMARC.
-      Ana domain itibarını ve `askin@atascap.com` teslim edilebilirliğini korur.
-- [ ] **SubscribeForm.astro** bileşeni: statik `<form>` POST → ESP endpoint'i (sunucu gerekmez,
-      GitHub Pages ile uyumlu), honeypot alanı, çerez yok. Metinler `translations.ts`'e
-      (`newsletter.title/placeholder/button/privacyNote` anahtarları, 3 dil).
-- [ ] **Yerleşim:** footer (tüm sayfalar) + mektup listesi + mektup detayının sonu.
-      İsteğe bağlı: nav'a Oaktree tarzı "Subscribe" butonu.
-- [ ] **Double opt-in** aç (AB'de fiilen zorunlu). Onay/karşılama e-postaları en az EN+TR.
-- [ ] **Gizlilik sayfalarını güncelle** (3 dilde): toplanan veri, ESP'nin adı ve rolü,
-      açık rıza, listeden ayrılma hakkı.
-- [ ] **Dil stratejisi:** tek liste + kayıt anında dil etiketi (form gizli alanla `lang` yollar);
-      gönderimde dile göre segment. Basit başla — ilk yıl tek dilde göndermek de kabul.
+**Sağlayıcı: Resend** (26 Temmuz 2026'da Buttondown yerine seçildi). Gerekçe:
+ücretsiz katmanı **1.000 kontak + sınırsız gönderim** (Buttondown'ın ücretsizi 100
+abonede biterdi — bizim tavanımız tam orası), zaten başka projelerde kullanılıyor,
+ve barındırılan arşiv/keşif özelliklerine ihtiyacımız yok (arşiv zaten sitede).
+Bedeli: Resend'in API'si gizli anahtar istediği için araya kendi uç noktamız giriyor.
+
+### Kod tarafı — tamamlandı (3 Temmuz 2026)
+
+Tümü `NEWSLETTER.endpoint` ayarına bağlı: **ayar boşken hiçbir form, script veya
+gizlilik metni yayınlanmaz.** Böylece hiçbir zaman boşluğa post eden bir form ya da
+formu olmayan bir gizlilik bildirimi yayına çıkmaz. Doğrulandı: ayar boşken `dist`
+içinde 0 `<form>`, dolduğunda 31 sayfada form + 3 dilde gizlilik bildirimi.
+
+- [x] **`SubscribeForm.astro`** — statik `<form>` POST → kendi uç noktamız (sunucu
+      tarafı JS yok, GitHub Pages uyumlu), gizli `tag` alanı ile dil etiketi, ekran
+      dışı honeypot + `is:inline` koruma script'i (idempotent; aynı sayfadaki iki
+      forma tek kez bağlanır), görünmez `<label>` ile erişilebilirlik. Çerez yok,
+      üçüncü taraf script yok, CORS yok (303 yönlendirme ile geri dönüş).
+- [x] **Metinler** `translations.ts` → `newsletter.*` (EN/TR/ES, hepsi çevrildi).
+- [x] **Yerleşim:** footer (tüm sayfalar, koyu zemin varyantı) + mektup listeleri (3 dil)
+      + mektup detay sayfalarının sonu (3 dil).
+- [x] **Stiller** `style.css` → `.subscribe*` (açık/koyu mod, mobil yığılma,
+      hover/focus durumları, `@media print`te gizli) + `.visually-hidden` yardımcı sınıfı.
+- [x] **Gizlilik sayfaları (3 dil):** toplanan veri (e-posta + dil), sağlayıcının
+      işleyici olarak adı, açık rıza + double opt-in, saklama ve listeden çıkma hakkı.
+- [x] **`subscribe-api/`** — bağımlılıksız Node servisi: `POST /subscribe` imzalı
+      (HMAC) onay bağlantısı yollar, `GET /confirm` doğrulayıp kişiyi Resend
+      audience'ına ekler. Veritabanı yok (jeton adresi kendisi taşıyor), fail-fast
+      env kontrolü, IP başına hız sınırı, gövde boyutu sınırı, Docker + healthcheck.
+      7 birim testi (`npm test`): sahte imza, kurcalama, süre aşımı, bozuk girdi.
+- [x] **Durum sayfaları** — 9 sayfa (bekliyor/onaylandı/hata × 3 dil), ortak
+      `SubscribeStatus.astro` bileşeni, `noindex` + sitemap'ten dışlanmış.
+- [x] **Uçtan uca doğrulandı** (yerel): form → uç nokta → 303 → doğru dildeki sayfa;
+      bot gönderimi honeypot'a takılıyor, Resend hatası hata sayfasına düşüyor.
+
+### Altyapı — kuruldu (31 Temmuz 2026)
+
+Domain Hostinger'a taşındı, artık DNS'i MCP ile yönetiliyor. Ayrıntı:
+[`subscribe-api/README.md`](subscribe-api/README.md).
+
+- [x] **DNS:** `api.atascap.com` → `147.93.121.36`. Mevcut kayıtlar (GitHub Pages
+      A kayıtları, `www` CNAME, ImprovMX MX/SPF) korundu ve doğrulandı.
+- [x] **CyberPanel sitesi + Let's Encrypt sertifikası** `api.atascap.com` için.
+- [x] **vhost proxy'ye çevrildi** (`127.0.0.1:3010`), ACME challenge context'i
+      korunarak — sertifika yenilemesi çalışmaya devam eder.
+- [x] **Docker imajı** sunucuda derlendi, `.env` üretildi (600, TOKEN_SECRET otomatik).
+- [x] **Üretimde doğrulandı:** `https://api.atascap.com/health` → 200; honeypot ve
+      sahte token yolları doğru yönlendiriyor; port 3010 dışarıya kapalı;
+      sunucudaki diğer 14 site ve mail etkilenmedi.
+
+### Resend + yayına alma — tamamlandı (31 Temmuz 2026)
+
+- [x] **`news.atascap.com` doğrulandı** (Resend, eu-west-1). DKIM + SPF + MX
+      kayıtları Hostinger DNS'e eklendi — hepsi alt alanlarda, kök alandaki
+      ImprovMX mail kayıtları ve GitHub Pages A kayıtları doğrulanarak korundu.
+- [x] **Audience "General"** oluşturuldu, kimlik bilgileri sunucudaki `.env`'e yazıldı.
+- [x] **Servis yayında:** `atascap-subscribe-api` konteyneri `--restart unless-stopped`
+      ile çalışıyor. `https://api.atascap.com/health` → 200.
+- [x] **Üretimde uçtan uca doğrulandı:** gerçek onay e-postası gönderildi,
+      `/confirm` kişiyi audience'a ekledi ve jetondaki dili koruyarak doğru dildeki
+      onay sayfasına yönlendirdi. Test kaydı sonra silindi (liste temiz).
+- [x] **`NEWSLETTER.endpoint` açıldı** → form üç dilde yayında, gizlilik sayfalarındaki
+      newsletter paragrafları da otomatik göründü.
+
+**Kalan tek şey:** değişiklikleri commit + push etmek. Push edilene kadar ne form
+ne de durum sayfaları canlıda — ikisi birlikte yayına girer.
+
+### Yayın sonrası
+
+- [ ] Resend API anahtarını yenile (sohbete girdiği için) → sunucudaki `.env`'i
+      güncelle → `docker restart atascap-subscribe-api`.
+- [ ] `news.atascap.com` için DMARC kaydı ekle (`_dmarc.news` TXT,
+      `v=DMARC1; p=none; rua=mailto:...` ile başlayıp sonra sıkılaştır).
+- [ ] Gizlilik sayfalarındaki "son güncelleme" tarihini yayın ayına çek.
+- [ ] İlk gerçek gönderimden önce kendi adresinle tam akışı bir kez dene.
+
+Ek işler (yayına aldıktan sonra):
+
+- [ ] Onay/karşılama e-postası metinleri (en az EN+TR).
+- [ ] Gizlilik sayfalarındaki "son güncelleme" tarihini yayın ayına çek.
+- [ ] **Dil stratejisi:** tek liste + `tag` alanıyla gelen dil etiketine göre segment.
+      Basit başla — ilk yıl tek dilde göndermek de kabul.
 - [ ] **Yayın akışı:** mektup merge → RSS güncellenir → ESP taslağı otomatik oluşturur →
       gözden geçir → gönder. Yılda ~2 mektup + ara yazılar için manuel onay yeterli.
+      (RSS-to-email şu an yalnızca EN feed'i görür — TR/ES feed'leri Faz 2'de.)
+- [ ] İsteğe bağlı: nav'a Oaktree tarzı "Subscribe" butonu.
 
 ## Faz 2 — İçerik genişlemesi: "Insights" (2–3 gün)
 

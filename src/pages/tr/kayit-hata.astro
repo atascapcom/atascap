@@ -1,0 +1,14 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import SubscribeStatus from '@components/SubscribeStatus.astro';
+---
+
+<BaseLayout
+  lang="tr"
+  pageKey="letters"
+  title="Abonelik Hatası — Ataş Capital"
+  description="Aboneliğiniz tamamlanamadı."
+  noindex
+>
+  <SubscribeStatus lang="tr" state="error" />
+</BaseLayout>

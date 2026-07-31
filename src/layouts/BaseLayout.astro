@@ -12,9 +12,10 @@ interface Props {
   description: string;
   ogTitle?: string;
   ogDescription?: string;
+  noindex?: boolean;
 }
 
-const { lang, pageKey, title, description, ogTitle, ogDescription } = Astro.props;
+const { lang, pageKey, title, description, ogTitle, ogDescription, noindex } = Astro.props;
 ---
 
 <!doctype html>
@@ -27,6 +28,7 @@ const { lang, pageKey, title, description, ogTitle, ogDescription } = Astro.prop
       description={description}
       ogTitle={ogTitle}
       ogDescription={ogDescription}
+      noindex={noindex}
     />
   </head>
   <body>

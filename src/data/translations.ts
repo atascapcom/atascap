@@ -44,6 +44,12 @@ export interface LangData {
   };
   pages: PageSlug;
   monthLabels: [string, string, string, string, string, string, string, string, string, string, string, string];
+  /** Shorter pieces published between the semi-annual letters. */
+  notes: {
+    sectionTitle: string;
+    sectionIntro: string;
+    backLink: string;
+  };
 }
 
 export const LANGUAGES: Record<Lang, LangData> = {
@@ -106,6 +112,11 @@ export const LANGUAGES: Record<Lang, LangData> = {
       terms: 'terms.html',
     },
     monthLabels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    notes: {
+      sectionTitle: 'Notes',
+      sectionIntro: 'Shorter pieces between the letters — on markets, individual businesses, and the reasoning behind our decisions.',
+      backLink: 'All letters & notes →',
+    },
   },
   es: {
     htmlLang: 'es',
@@ -166,6 +177,11 @@ export const LANGUAGES: Record<Lang, LangData> = {
       terms: 'terminos.html',
     },
     monthLabels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+    notes: {
+      sectionTitle: 'Notas',
+      sectionIntro: 'Textos breves entre carta y carta — sobre mercados, empresas concretas y el razonamiento detrás de nuestras decisiones.',
+      backLink: 'Todas las cartas y notas →',
+    },
   },
   tr: {
     htmlLang: 'tr',
@@ -226,6 +242,11 @@ export const LANGUAGES: Record<Lang, LangData> = {
       terms: 'kosullar.html',
     },
     monthLabels: ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'],
+    notes: {
+      sectionTitle: 'Yazılar',
+      sectionIntro: 'Mektuplar arasında yazılan kısa metinler — piyasalar, tek tek şirketler ve kararlarımızın ardındaki akıl yürütme üzerine.',
+      backLink: 'Tüm mektuplar ve yazılar →',
+    },
   },
 };
 

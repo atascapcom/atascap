@@ -2,20 +2,27 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { letterSlug, letterNumbers, periodLabel, letterNo, type LetterEntry } from '@data/letters';
+import { detailHref, detailAlternates } from '@data/content';
+import type { Lang } from '@data/translations';
 import SubscribeForm from '@components/SubscribeForm.astro';
 
 export async function getStaticPaths() {
-  const all = await getCollection('letters', ({ data }) => data.lang === 'es' && !data.draft);
-  const numbers = letterNumbers(all);
-  return all.map((entry) => ({
-    params: { slug: letterSlug(entry) },
-    props: { entry, no: numbers.get(entry.slug) ?? 1 },
-  }));
+  const published = await getCollection('letters', ({ data }) => !data.draft);
+  const spanish = published.filter((entry) => entry.data.lang === 'es');
+  const numbers = letterNumbers(spanish);
+  return spanish.map((entry) => {
+    const slug = letterSlug(entry);
+    const langs = (['en', 'tr', 'es'] as Lang[]).filter((lang) =>
+      published.some((other) => other.data.lang === lang && letterSlug(other) === slug)
+    );
+    return { params: { slug }, props: { entry, no: numbers.get(entry.slug) ?? 1, langs } };
+  });
 }
 
-const { entry, no } = Astro.props as { entry: LetterEntry; no: number };
+const { entry, no, langs } = Astro.props as { entry: LetterEntry; no: number; langs: Lang[] };
 const { Content } = await entry.render();
 
+const slug = letterSlug(entry);
 const dateLabel = entry.data.date.toLocaleDateString('es-ES', { year: 'numeric', month: 'long' });
 const meta = [letterNo(no), periodLabel(entry.data.period, 'es'), dateLabel].filter(Boolean).join(' · ');
 ---
@@ -25,6 +32,8 @@ const meta = [letterNo(no), periodLabel(entry.data.period, 'es'), dateLabel].fil
   pageKey="letters"
   title={`${entry.data.title} — Ataş Capital`}
   description={entry.data.description}
+  canonicalPath={detailHref('letters', 'es', slug)}
+  alternates={detailAlternates('letters', slug, langs)}
 >
   <article class="letter">
     <div class="container--narrow">

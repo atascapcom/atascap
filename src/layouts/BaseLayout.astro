@@ -13,9 +13,21 @@ interface Props {
   ogTitle?: string;
   ogDescription?: string;
   noindex?: boolean;
+  canonicalPath?: string;
+  alternates?: Array<{ lang: Lang; href: string }>;
 }
 
-const { lang, pageKey, title, description, ogTitle, ogDescription, noindex } = Astro.props;
+const {
+  lang,
+  pageKey,
+  title,
+  description,
+  ogTitle,
+  ogDescription,
+  noindex,
+  canonicalPath,
+  alternates,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -29,6 +41,8 @@ const { lang, pageKey, title, description, ogTitle, ogDescription, noindex } = A
       ogTitle={ogTitle}
       ogDescription={ogDescription}
       noindex={noindex}
+      canonicalPath={canonicalPath}
+      alternates={alternates}
     />
   </head>
   <body>

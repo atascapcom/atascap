@@ -54,9 +54,37 @@ npm run assets   # OG görseli + favicon.ico + apple-touch-icon üret
 
 ## İçerik
 
-- **Yatırımcı mektupları**: `src/content/letters/*.md` (Markdown)
-- **Site bilgileri**: `src/data/site.ts` → `SITE` sabiti
+İki koleksiyon var:
+
+- **Mektuplar** (`src/content/letters/*.md`) — altı ayda bir, numaralı, PDF'li.
+  Üç dilde de yazılır. Dosya adı: `<dönem>-<dil>.md` (ör. `2027-h1-tr.md`).
+- **Yazılar** (`src/content/notes/*.md`) — mektuplar arasındaki kısa metinler.
+  Dönem/numara/PDF yok; **tek dilde yayınlanabilir**.
+
+```markdown
+---
+title: "Yazının Başlığı"
+date: 2026-08-15          # gerçek yayın tarihi — asla geriye alma
+lang: "tr"
+description: "Listede ve arama sonuçlarında görünen tek cümlelik özet."
+draft: false
+---
+```
+
+Mektuplarda ek olarak `period: "2027-H1"` ve `pdf: "/pdf/2027-h1-tr.pdf"` alanları bulunur.
+Mektup numarası (`No. 02`) tarih sırasından otomatik hesaplanır, elle verilmez.
+İmza sayfa şablonundan basılır — gövdeye tekrar yazma.
+
+- **Site bilgileri**: `src/data/site.ts` → `SITE` ve `NEWSLETTER` sabitleri
 - **Performans verisi**: `src/data/performance.ts`
+
+## Yayın Akışı
+
+1. İçeriği `letters/` veya `notes/` altına ekle (`draft: false`)
+2. `npm run build` — eksik mektup PDF'lerini üretir
+3. Commit + push — GitHub Pages yayınlar, sitemap ve RSS otomatik güncellenir
+4. Resend → Broadcasts ile bültene gönder (manuel; gövdeye
+   `{{{RESEND_UNSUBSCRIBE_URL}}}` eklemeyi unutma)
 
 ## ECC Skill & Komutları
 
@@ -76,6 +104,12 @@ Bu projede kullanılacak ECC komutları:
 - Mektup PDF'leri: `scripts/generate-pdfs.mjs` (build sonrası, yerel Chrome ile eksik olanları üretir)
 - OG görseli & ikonlar: `scripts/generate-assets.mjs` (kaynak SVG → PNG/ICO)
 - Cookie banner: `CookieBanner.astro` (Plausible çerezsiz — bilgilendirme amaçlı)
-- RSS feed: `src/pages/rss.xml.js` (yalnızca EN mektuplar)
-- Sitemap: `@astrojs/sitemap` ile otomatik (`astro.config.mjs`)
+- RSS: dil başına bir feed (`/rss.xml`, `/rss-tr.xml`, `/rss-es.xml`) — mektuplar
+  ve yazılar birlikte; ortak üretici `src/data/feed.js`
+- Newsletter: `SubscribeForm.astro` + `subscribe-api/` (kendi sunucumuzda,
+  Resend'e çift onaylı kayıt). `NEWSLETTER.endpoint` boşsa form hiç render edilmez.
+- Sitemap: `@astrojs/sitemap` ile otomatik (`astro.config.mjs`); abonelik durum
+  sayfaları `noindex` olduğu için dışlanır
+- Detay sayfaları (mektup/yazı) `canonicalPath` ve `alternates` proplarını
+  vermek zorunda — yoksa canonical listeye işaret eder ve sayfa indekslenmez
 - Yol haritası: `ROADMAP.md`

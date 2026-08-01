@@ -3,15 +3,9 @@ import type { Lang } from './translations';
 
 export type LetterEntry = CollectionEntry<'letters'>;
 
-/** Strip the trailing language suffix (e.g. "2026-h1-en" → "2026-h1") for clean URLs. */
-export function letterSlug(entry: LetterEntry): string {
-  return entry.slug.replace(/-(en|tr|es)$/, '');
-}
-
-/** Newest first — for listings. */
-export function sortLettersDesc(entries: LetterEntry[]): LetterEntry[] {
-  return [...entries].sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-}
+// Slug and date handling is shared with `notes` — see content.ts. Re-exported
+// under the original names so the letter pages keep reading naturally.
+export { contentSlug as letterSlug, sortByDateDesc as sortLettersDesc } from './content';
 
 /** Issue number by chronological order (oldest published = No. 01), keyed by entry.slug. */
 export function letterNumbers(entries: LetterEntry[]): Map<string, number> {

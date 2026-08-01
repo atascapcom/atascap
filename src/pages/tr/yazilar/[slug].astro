@@ -1,0 +1,60 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { noteSlug, type NoteEntry } from '@data/notes';
+import { detailHref, detailAlternates } from '@data/content';
+import { LANGUAGES, pageHref } from '@data/translations';
+import type { Lang } from '@data/translations';
+import SubscribeForm from '@components/SubscribeForm.astro';
+
+export async function getStaticPaths() {
+  const published = await getCollection('notes', ({ data }) => !data.draft);
+  return published
+    .filter((entry) => entry.data.lang === 'tr')
+    .map((entry) => {
+      const slug = noteSlug(entry);
+      // A note may exist in one language only — advertise just what is published.
+      const langs = (['en', 'tr', 'es'] as Lang[]).filter((lang) =>
+        published.some((other) => other.data.lang === lang && noteSlug(other) === slug)
+      );
+      return { params: { slug }, props: { entry, langs } };
+    });
+}
+
+const { entry, langs } = Astro.props as { entry: NoteEntry; langs: Lang[] };
+const { Content } = await entry.render();
+
+const slug = noteSlug(entry);
+const t = LANGUAGES['tr'];
+const dateLabel = entry.data.date.toLocaleDateString('tr-TR', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout
+  lang="tr"
+  pageKey="letters"
+  title={`${entry.data.title} — Ataş Capital`}
+  description={entry.data.description}
+  canonicalPath={detailHref('notes', 'tr', slug)}
+  alternates={detailAlternates('notes', slug, langs)}
+>
+  <article class="note">
+    <div class="container--narrow">
+      <header class="note__header">
+        <p class="note__meta">{dateLabel}</p>
+        <h1 class="note__title">{entry.data.title}</h1>
+        <div class="divider divider--left"></div>
+      </header>
+      <div class="note__body">
+        <Content />
+      </div>
+      <p class="note__back">
+        <a href={pageHref('tr', 'letters')}>{t.notes.backLink}</a>
+      </p>
+      <SubscribeForm lang="tr" />
+    </div>
+  </article>
+</BaseLayout>

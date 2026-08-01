@@ -121,17 +121,21 @@ Ek işler (yayına aldıktan sonra):
       (RSS-to-email şu an yalnızca EN feed'i görür — TR/ES feed'leri Faz 2'de.)
 - [ ] İsteğe bağlı: nav'a Oaktree tarzı "Subscribe" butonu.
 
-## Faz 2 — İçerik genişlemesi: "Insights" (2–3 gün)
+## Faz 2 — İçerik genişlemesi — tamamlandı (1 Ağustos 2026)
 
-Yarıyıl mektupları dışındaki ara yazılar için altyapı (şu an tek içerik tipi `letters`
-ve yarıyıl formatına bağlı):
-
-- [ ] **İkinci koleksiyon: `notes`** (kısa yazılar; `period`/`pdf` yok, tek dilde yayın serbest,
-      her dilde çeviri zorunlu değil).
-- [ ] **Listeleme:** Letters sayfasının yanına Notes/Yazılar bölümü veya ikisini birleştiren
-      bir "Insights" görünümü.
-- [ ] **RSS genişlet:** `rss-tr.xml` ve `rss-es.xml` (veya tek feed'de tüm diller).
-      Newsletter otomasyonu bu feed'lere bağlanacağı için Faz 1 ile birlikte düşün.
+- [x] **İkinci koleksiyon: `notes`** — kısa yazılar; `period`/`pdf`/numara yok,
+      **tek dilde yayınlanabilir**. Detay sayfaları üç dilde
+      (`/notes/`, `/tr/yazilar/`, `/es/notas/`), kendi sade tasarımıyla.
+- [x] **Listeleme:** mektup sayfalarının altında "Yazılar" bölümü — mektuplar
+      üstte kalır (hiyerarşi korunur), yazı yoksa bölüm hiç render edilmez.
+- [x] **Çok dilli RSS:** `/rss.xml`, `/rss-tr.xml`, `/rss-es.xml` — her feed kendi
+      dilindeki mektup **ve** yazıları tarih sırasıyla taşır. Ortak üretici
+      `src/data/feed.js`; `BaseHead` dile göre doğru feed'i bağlar.
+- [x] **SEO hatası düzeltildi (canlıdaydı):** mektup detay sayfaları canonical
+      olarak listeye (`/letters.html`) işaret ediyordu — yani Google'a "ben
+      kopyayım" diyorlardı, bu da mektupların indekslenmesini engelleyebilirdi.
+      Artık her detay sayfası kendini gösteriyor ve hreflang'ler yalnızca
+      **gerçekten yayınlanmış** çevirileri bildiriyor.
 - [ ] **Mektup sayfalarına Article JSON-LD** + `og:type=article` + `article:published_time`.
 - [ ] **Mektup başına OG görseli** (başlık + mektup no) — PDF script'ine benzer build-time üretim (opsiyonel).
 - [ ] **borsaadam.com sınırı:** kişisel/piyasa yazıları orada, Ataş Capital mektup + yatırım

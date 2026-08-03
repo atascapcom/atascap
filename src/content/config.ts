@@ -28,6 +28,9 @@ const notes = defineCollection({
     date: z.date(),
     lang: z.enum(['en', 'tr', 'es']),
     description: z.string(),
+    /** Ties translations of the same piece together, so each language can keep
+     *  its own readable slug. Omit it for a note published in one language. */
+    translationKey: z.string().optional(),
     draft: z.boolean().default(false),
   }),
 });

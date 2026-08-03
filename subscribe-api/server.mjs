@@ -33,6 +33,10 @@ const {
   FROM_EMAIL,
   SITE_ORIGIN = 'https://atascap.com',
   PUBLIC_ORIGIN = 'https://api.atascap.com',
+  // A monitored address readers can actually reply to. Mail from a domain that
+  // accepts no reply looks disposable to spam filters, so this is both courtesy
+  // and deliverability.
+  REPLY_TO = 'askin@atascap.com',
 } = process.env;
 
 // Fail fast and loudly: a missing secret must never degrade into silently
@@ -66,6 +70,7 @@ const CONFIRM_EMAIL = {
     body: 'Please confirm that you would like to receive our investor letters and occasional notes. Nothing will be sent until you do.',
     cta: 'Confirm subscription',
     ignore: 'If you did not request this, simply ignore this email — no list was joined.',
+    fallback: 'If the button does not work, copy this link into your browser:',
   },
   tr: {
     subject: 'Aboneliğinizi onaylayın — Ataş Capital',
@@ -73,6 +78,7 @@ const CONFIRM_EMAIL = {
     body: 'Yatırımcı mektuplarımızı ve ara yazılarımızı almak istediğinizi onaylayın. Onaylamadan hiçbir gönderim yapılmayacak.',
     cta: 'Aboneliği onayla',
     ignore: 'Bu isteği siz yapmadıysanız bu e-postayı yok sayın — hiçbir listeye eklenmediniz.',
+    fallback: 'Düğme çalışmazsa bu bağlantıyı tarayıcınıza kopyalayın:',
   },
   es: {
     subject: 'Confirme su suscripción — Ataş Capital',
@@ -80,6 +86,7 @@ const CONFIRM_EMAIL = {
     body: 'Confirme que desea recibir nuestras cartas a los inversores y notas ocasionales. No se enviará nada hasta que lo haga.',
     cta: 'Confirmar suscripción',
     ignore: 'Si no solicitó esto, ignore este correo — no se ha unido a ninguna lista.',
+    fallback: 'Si el botón no funciona, copie este enlace en su navegador:',
   },
 };
 
@@ -127,8 +134,34 @@ function confirmationHtml(lang, link) {
 <p style="font-size:16px;line-height:1.7;margin:0 0 28px">${t.body}</p>
 <p style="margin:0 0 28px"><a href="${link}" style="display:inline-block;padding:12px 28px;background:#1a1a1a;color:#faf9f5;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase">${t.cta}</a></p>
 <p style="font-size:13px;line-height:1.6;color:#6b6b6b;margin:0 0 8px">${t.ignore}</p>
-<p style="font-size:13px;color:#999;margin:0;word-break:break-all">${link}</p>
+<p style="font-size:13px;line-height:1.6;color:#6b6b6b;margin:0 0 24px">${t.fallback}</p>
+<p style="font-size:12px;color:#999;margin:0;word-break:break-all">${link}</p>
+<p style="font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#999;margin:32px 0 0;border-top:1px solid #e5e0d5;padding-top:16px">Ataş Capital · Calle Alcalá 124, Madrid · <a href="${SITE_ORIGIN}" style="color:#999">atascap.com</a></p>
 </div></body></html>`;
+}
+
+/**
+ * Plain-text alternative. Sending HTML alone is a long-standing spam signal, and
+ * some readers prefer text anyway — so every message goes out as both.
+ */
+function confirmationText(lang, link) {
+  const t = CONFIRM_EMAIL[lang] ?? CONFIRM_EMAIL.en;
+  return [
+    'ATAŞ CAPITAL',
+    '',
+    t.heading,
+    '',
+    t.body,
+    '',
+    `${t.cta}:`,
+    link,
+    '',
+    t.ignore,
+    '',
+    '—',
+    'Ataş Capital · Calle Alcalá 124, Madrid',
+    SITE_ORIGIN,
+  ].join('\n');
 }
 
 const redirect = (res, url) => {
@@ -177,6 +210,8 @@ async function handleSubscribe(req, res, ip) {
     to: email,
     subject: (CONFIRM_EMAIL[lang] ?? CONFIRM_EMAIL.en).subject,
     html: confirmationHtml(lang, link),
+    text: confirmationText(lang, link),
+    reply_to: REPLY_TO,
   });
 
   console.log(`[subscribe] confirmation sent (${lang})`);

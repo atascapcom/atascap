@@ -92,6 +92,28 @@ works, and the contact appears in the Resend audience. Logs:
 docker logs -f atascap-subscribe-api
 ```
 
+## Deliverability
+
+The confirmation mail is transactional, but spam filters do not care about that
+distinction. What is already in place: DKIM, SPF and DMARC on
+`news.atascap.com` (all verified), a plain-text alternative alongside the HTML —
+HTML-only mail is a long-standing spam signal — a postal address in the footer,
+and a `Reply-To` pointing at a monitored mailbox.
+
+The dominant remaining factor is reputation: the sending domain is new and has
+no history, so early messages may land in junk regardless. It improves as
+recipients open, click and reply. Apple/iCloud is the strictest of the large
+providers and the slowest to warm up.
+
+Worth doing if junk placement persists:
+
+- Add `news.atascap.com` to ImprovMX and give it MX records, so the From domain
+  can receive mail rather than only claim to.
+- Once DMARC reports show only legitimate sources, tighten
+  `_dmarc.news.atascap.com` from `p=none` to `p=quarantine`.
+- Keep sending consistently. A dormant domain that suddenly sends looks worse
+  than one that sends a little, regularly.
+
 ## Secrets
 
 `.env` lives only on the server and is gitignored. This repo is public — never

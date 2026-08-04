@@ -4,6 +4,8 @@ date: 2026-08-03
 lang: "tr"
 description: "Çıkarımın maliyeti çökerken değer, ucuz çıkarımı üretenlerde değil, karar süreçlerini onun etrafında yeniden kuranlarda birikecek — elektrifikasyonun otuz yıl bekleyen kazancı üzerinden."
 translationKey: "cheap-inference-expensive-judgment"
+cover: "/images/reasoning/ucuz-cikarim-pahali-karar.svg"
+coverAlt: "Tavandaki tek bir mile kayışlarla bağlanmış fabrika makineleri — ondokuzuncu yüzyılın grup tahrik düzeni"
 draft: false
 ---
 

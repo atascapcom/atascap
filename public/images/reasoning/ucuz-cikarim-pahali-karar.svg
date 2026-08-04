@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img" aria-label="Tavandaki tek bir mile kayışlarla bağlanmış fabrika makineleri — grup tahrik düzeni">
+  <rect width="1200" height="800" fill="#f0ede5"/>
+
+  <!-- Ceiling -->
+  <line x1="0" y1="120" x2="1200" y2="120" stroke="#1a1a1a" stroke-width="2" opacity="0.3"/>
+
+  <!-- Hangers carrying the line shaft -->
+  <g stroke="#1a1a1a" stroke-width="2" opacity="0.3">
+    <line x1="180" y1="120" x2="180" y2="200"/>
+    <line x1="600" y1="120" x2="600" y2="200"/>
+    <line x1="1020" y1="120" x2="1020" y2="200"/>
+  </g>
+
+  <!-- The line shaft: the assumption the whole floor was arranged around -->
+  <line x1="100" y1="200" x2="1100" y2="200" stroke="#b8952a" stroke-width="7" stroke-linecap="round"/>
+
+  <!-- Four machines, each belted back to that one shaft -->
+  <g fill="none" stroke="#1a1a1a">
+    <!-- 1 -->
+    <circle cx="270" cy="200" r="18" fill="#f0ede5" stroke-width="3"/>
+    <line x1="253" y1="207" x2="259" y2="513" stroke-width="2" opacity="0.5"/>
+    <line x1="287" y1="207" x2="281" y2="513" stroke-width="2" opacity="0.5"/>
+    <circle cx="270" cy="520" r="12" fill="#f0ede5" stroke-width="3"/>
+    <rect x="190" y="520" width="160" height="140" stroke-width="3"/>
+    <line x1="190" y1="596" x2="350" y2="596" stroke-width="2" opacity="0.25"/>
+
+    <!-- 2 -->
+    <circle cx="490" cy="200" r="18" fill="#f0ede5" stroke-width="3"/>
+    <line x1="473" y1="207" x2="479" y2="513" stroke-width="2" opacity="0.5"/>
+    <line x1="507" y1="207" x2="501" y2="513" stroke-width="2" opacity="0.5"/>
+    <circle cx="490" cy="520" r="12" fill="#f0ede5" stroke-width="3"/>
+    <rect x="410" y="520" width="160" height="140" stroke-width="3"/>
+    <line x1="410" y1="596" x2="570" y2="596" stroke-width="2" opacity="0.25"/>
+
+    <!-- 3 -->
+    <circle cx="710" cy="200" r="18" fill="#f0ede5" stroke-width="3"/>
+    <line x1="693" y1="207" x2="699" y2="513" stroke-width="2" opacity="0.5"/>
+    <line x1="727" y1="207" x2="721" y2="513" stroke-width="2" opacity="0.5"/>
+    <circle cx="710" cy="520" r="12" fill="#f0ede5" stroke-width="3"/>
+    <rect x="630" y="520" width="160" height="140" stroke-width="3"/>
+    <line x1="630" y1="596" x2="790" y2="596" stroke-width="2" opacity="0.25"/>
+
+    <!-- 4 -->
+    <circle cx="930" cy="200" r="18" fill="#f0ede5" stroke-width="3"/>
+    <line x1="913" y1="207" x2="919" y2="513" stroke-width="2" opacity="0.5"/>
+    <line x1="947" y1="207" x2="941" y2="513" stroke-width="2" opacity="0.5"/>
+    <circle cx="930" cy="520" r="12" fill="#f0ede5" stroke-width="3"/>
+    <rect x="850" y="520" width="160" height="140" stroke-width="3"/>
+    <line x1="850" y1="596" x2="1010" y2="596" stroke-width="2" opacity="0.25"/>
+  </g>
+
+  <!-- Factory floor -->
+  <line x1="100" y1="660" x2="1100" y2="660" stroke="#1a1a1a" stroke-width="3"/>
+</svg>

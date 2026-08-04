@@ -50,6 +50,9 @@ export interface LangData {
   /** Shorter pieces published between the semi-annual letters. */
   notes: {
     sectionTitle: string;
+    /** Hero line. Deliberately not the site tagline — that already sits in the
+     *  footer of every page, so repeating it here would only dilute it. */
+    heroSubtitle: string;
     sectionIntro: string;
     backLink: string;
     empty: string;
@@ -121,7 +124,8 @@ export const LANGUAGES: Record<Lang, LangData> = {
     monthLabels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     notes: {
       sectionTitle: 'Reasoning',
-      sectionIntro: 'Shorter pieces between the letters — on markets, individual businesses, and the reasoning behind our decisions.',
+      heroSubtitle: 'How we arrive at a conclusion often matters as much as the conclusion.',
+      sectionIntro: 'Our reasoning on the future, on sectors, and on individual businesses — together with the thinking that led there. Some of it becomes an investment; most of it does not.',
       backLink: 'All reasoning →',
       empty: 'The first pieces are being written.',
       readLabel: 'Read',
@@ -190,7 +194,8 @@ export const LANGUAGES: Record<Lang, LangData> = {
     monthLabels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
     notes: {
       sectionTitle: 'Razonamiento',
-      sectionIntro: 'Textos breves entre carta y carta — sobre mercados, empresas concretas y el razonamiento detrás de nuestras decisiones.',
+      heroSubtitle: 'Cómo llegamos a una conclusión importa tanto como la conclusión misma.',
+      sectionIntro: 'Nuestro razonamiento sobre el futuro, sobre sectores y sobre empresas concretas — junto con el camino que nos llevó hasta él. Algunas de estas ideas acaban en una inversión; la mayoría no.',
       backLink: 'Todo el razonamiento →',
       empty: 'Los primeros textos se están escribiendo.',
       readLabel: 'Leer',
@@ -259,7 +264,8 @@ export const LANGUAGES: Record<Lang, LangData> = {
     monthLabels: ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'],
     notes: {
       sectionTitle: 'Çıkarımlar',
-      sectionIntro: 'Mektuplar arasında yazılan kısa metinler — piyasalar, tek tek şirketler ve kararlarımızın ardındaki akıl yürütme üzerine.',
+      heroSubtitle: 'Bir sonuca nasıl vardığımız, çoğu zaman sonucun kendisi kadar önemlidir.',
+      sectionIntro: 'Gelecek, sektörler ve tek tek şirketler üzerine çıkarımlarımız — ve o çıkarımlara varırken izlediğimiz akıl yürütme. Bir kısmı bir yatırıma dönüşür; çoğu dönüşmez.',
       backLink: 'Tüm çıkarımlar →',
       empty: 'İlk metinler yazılıyor.',
       readLabel: 'Oku',

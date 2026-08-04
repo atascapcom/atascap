@@ -16,6 +16,7 @@ interface Props {
   canonicalPath?: string;
   alternates?: Array<{ lang: Lang; href: string }>;
   ogImage?: string;
+  article?: { headline: string; publishedTime: Date; section: string };
 }
 
 const {
@@ -29,6 +30,7 @@ const {
   canonicalPath,
   alternates,
   ogImage,
+  article,
 } = Astro.props;
 ---
 
@@ -46,6 +48,7 @@ const {
       canonicalPath={canonicalPath}
       alternates={alternates}
       ogImage={ogImage}
+      article={article}
     />
   </head>
   <body>

@@ -24,6 +24,16 @@ interface Props {
   /** Per-piece share card, e.g. "/images/og/<slug>.png". Without it every
    *  shared link would show the same generic site card. */
   ogImage?: string;
+  /** Set on a letter or a note. Switches og:type to "article" and emits
+   *  Article structured data, which is what lets Search Console report the
+   *  piece as content rather than as an anonymous page. */
+  article?: {
+    /** The piece's own title, without the " — Ataş Capital" suffix that the
+     *  <title> carries. Google expects the bare headline here. */
+    headline: string;
+    publishedTime: Date;
+    section: string;
+  };
 }
 
 const {
@@ -37,6 +47,7 @@ const {
   canonicalPath,
   alternates,
   ogImage,
+  article,
 } = Astro.props;
 
 const t = LANGUAGES[lang];
@@ -49,8 +60,7 @@ const defaultHref = (hreflangs.find((a) => a.lang === 'en') ?? hreflangs[0])?.hr
 const ogImageURL = `${SITE.domain}${ogImage ?? '/og-image.png'}`;
 const OG_LOCALE: Record<Lang, string> = { en: 'en_US', es: 'es_ES', tr: 'tr_TR' };
 
-const jsonLd = JSON.stringify({
-  '@context': 'https://schema.org',
+const organization = {
   '@type': 'Organization',
   name: SITE.name,
   url: SITE.domain,
@@ -60,7 +70,25 @@ const jsonLd = JSON.stringify({
     name: SITE.founderName,
     url: SITE.founderLinkedin,
   },
-});
+};
+
+const jsonLd = JSON.stringify(
+  article
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: article.headline,
+        description,
+        image: ogImageURL,
+        datePublished: article.publishedTime.toISOString(),
+        articleSection: article.section,
+        inLanguage: t.htmlLang,
+        mainEntityOfPage: canonicalURL,
+        author: { '@type': 'Person', name: SITE.founderName, url: SITE.founderLinkedin },
+        publisher: organization,
+      }
+    : { '@context': 'https://schema.org', ...organization }
+);
 ---
 
 <meta charset="UTF-8" />
@@ -74,7 +102,10 @@ const jsonLd = JSON.stringify({
 <!-- Open Graph -->
 <meta property="og:title" content={ogTitle ?? title} />
 <meta property="og:description" content={ogDescription ?? description} />
-<meta property="og:type" content="website" />
+<meta property="og:type" content={article ? 'article' : 'website'} />
+{article && <meta property="article:published_time" content={article.publishedTime.toISOString()} />}
+{article && <meta property="article:section" content={article.section} />}
+{article && <meta property="article:author" content={SITE.founderName} />}
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:image" content={ogImageURL} />
 <meta property="og:image:type" content="image/png" />
@@ -122,7 +153,17 @@ const jsonLd = JSON.stringify({
 <script type="application/ld+json" set:html={jsonLd} />
 
 <!-- Plausible Analytics -->
-<script defer data-domain="atascap.com" src="https://plausible.io/js/script.js"></script>
+{/*
+  The file-downloads + outbound-links variant. Letter PDFs are a real signal —
+  who downloads a letter matters more than who scrolls past it — and outbound
+  clicks show which references readers follow. Still cookieless, so this needs
+  no consent banner.
+*/}
+<script
+  defer
+  data-domain="atascap.com"
+  src="https://plausible.io/js/script.file-downloads.outbound-links.js"
+></script>
 
 <!-- Self-hosted fonts (no third-party origin; see scripts/fetch-fonts.mjs) -->
 <link rel="preload" href="/fonts/eb-garamond-400-normal-latin.woff2" as="font" type="font/woff2" crossorigin />

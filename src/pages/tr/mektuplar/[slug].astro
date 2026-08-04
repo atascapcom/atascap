@@ -34,6 +34,7 @@ const meta = [letterNo(no), periodLabel(entry.data.period, 'tr'), dateLabel].fil
   description={entry.data.description}
   canonicalPath={detailHref('letters', 'tr', slug)}
   alternates={detailAlternates('letters', slug, langs)}
+  article={{ headline: entry.data.title, publishedTime: entry.data.date, section: 'Mektuplar' }}
 >
   <article class="letter">
     <div class="container--narrow">

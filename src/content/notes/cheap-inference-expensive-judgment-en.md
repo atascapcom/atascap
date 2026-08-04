@@ -4,7 +4,7 @@ date: 2026-08-03
 lang: "en"
 description: "As the cost of inference collapses, value will accumulate not with those who produce cheap inference but with those who rebuild their decisions around it — read through electrification's thirty-year wait."
 translationKey: "cheap-inference-expensive-judgment"
-cover: "/images/reasoning/ucuz-cikarim-pahali-karar.svg"
+cover: "/images/reasoning/line-shaft.svg"
 coverAlt: "Factory machines belted to a single line shaft on the ceiling — the nineteenth-century group drive arrangement"
 draft: false
 ---

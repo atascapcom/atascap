@@ -1,10 +1,10 @@
 ---
-title: "Inferencia Barata, Decisión Cara"
+title: "Inferencia Barata, Criterio Caro"
 date: 2026-08-03
 lang: "es"
 description: "Mientras se desploma el coste de la inferencia, el valor no se acumulará en quienes la producen barata, sino en quienes reconstruyan sus decisiones a su alrededor — leído a través de los treinta años de espera de la electrificación."
 translationKey: "cheap-inference-expensive-judgment"
-cover: "/images/reasoning/ucuz-cikarim-pahali-karar.svg"
+cover: "/images/reasoning/line-shaft.svg"
 coverAlt: "Máquinas de fábrica conectadas por correas a un único eje en el techo — el accionamiento por grupo del siglo XIX"
 draft: false
 ---

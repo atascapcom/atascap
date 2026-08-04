@@ -96,6 +96,44 @@ Mektup numarası (`No. 02`) tarih sırasından otomatik hesaplanır, elle verilm
 4. Resend → Broadcasts ile bültene gönder (manuel; gövdeye
    `{{{RESEND_UNSUBSCRIBE_URL}}}` eklemeyi unutma)
 
+## Yeni Çıkarım Yazısı Eklerken (Claude için yönerge)
+
+Aşkın **yalnızca Türkçe metni** verir — bazen ayda bir, bazen iki ayda bir.
+Geri kalan her şeyi Claude yapar. Sırasıyla:
+
+**1. Üç dosya oluştur.** `src/content/notes/` altına:
+`<slug>-tr.md`, `<slug>-en.md`, `<slug>-es.md`.
+Her dil **kendi okunabilir slug'ını** alır (`ucuz-cikarim-pahali-muhakeme` /
+`cheap-inference-expensive-judgment` / `inferencia-barata-criterio-caro`);
+üçünü birbirine bağlayan şey ortak `translationKey` alanıdır. Slug'ları
+paylaştırma — Türkçe okuyucu İngilizce adres görmemeli.
+
+**2. Çeviriyi kendin yap.** Ton: ölçülü, kurumsal, birinci çoğul şahıs.
+Teknik terimleri çevirme (`speculative decoding`, `hyperscaler`, `capex`).
+Rakamları birebir koru. Türkçe metinde açık yazım hatası varsa düzelt, ama
+**anlamı bozuk bir cümleyi sessizce yeniden yazma** — sor.
+
+**3. Başlığı sorgula.** Yazıya uygun mu, tezi taşıyor mu? Türkçe/İspanyolcada
+soyut yeti adları (`muhakeme`, `criterio`) sayılabilir isimlerden
+(`karar`, `decisión`) daha net olur — "pahalı karar" yanlışlıkla "pahalıya
+patlayan karar" diye okunabilir. Görüşünü söyle, kararı Aşkın'a bırak.
+
+**4. Görseli kendin çiz.** Stok fotoğraf kullanma — sitede başka fotoğraf yok,
+tonu bozar. Yazının kendi imgesini SVG olarak çiz, sitenin paletiyle:
+zemin `#f0ede5`, vurgu `#b8952a`, çizgi `#1a1a1a`. `public/images/reasoning/`
+altına, **ne çizdiğini anlatan** bir adla kaydet (`line-shaft.svg` gibi) —
+başlık adıyla değil, çünkü başlık değişebilir. Frontmatter'a `cover` +
+`coverAlt` ekle. Görsel vermezsen kart tipografik alternatife düşer, o da
+kabul edilebilir bir sonuçtur.
+
+**5. Build al ve doğrula:** üç sayfa da üretildi mi, canonical kendini
+gösteriyor mu, hreflang üç çeviriyi bağlıyor mu, üç RSS feed'inde göründü mü,
+sitemap'e girdi mi.
+
+**6. Commit + push.** Mesajı açıklayıcı yaz (ne + neden), `güncelleme` deme.
+
+**7. Gönderim Aşkın'da:** Resend → Broadcasts. Claude bunu yapmaz.
+
 ## ECC Skill & Komutları
 
 Bu projede kullanılacak ECC komutları:

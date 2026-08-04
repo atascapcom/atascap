@@ -1,10 +1,13 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { SITE, NEWSLETTER } from '@data/site';
+import { SITE, NEWSLETTER, ANALYTICS } from '@data/site';
 
 // Gated on the same config as the subscribe form, so the disclosure can never
 // be missing while the form is live — or claim data we do not yet collect.
 const newsletterLive = NEWSLETTER.endpoint.length > 0;
+// Same gate as the consent bar: the Google Analytics disclosure appears only
+// when the tag can actually run.
+const gaLive = ANALYTICS.ga4Id.length > 0;
 ---
 
 <BaseLayout
@@ -27,16 +30,25 @@ const newsletterLive = NEWSLETTER.endpoint.length > 0;
         <h3>What We Collect</h3>
         <p><strong>Correspondence.</strong> If you contact us by email, we receive the information you choose to share — typically your name, email address, and the content of your message.</p>
         <p><strong>Analytics.</strong> We use Plausible Analytics, a privacy-focused tool that is cookieless and does not collect personal data. It records only aggregated, anonymous usage statistics such as page views and referring sources.</p>
+        {gaLive && (
+          <p><strong>Google Analytics.</strong> Only if you accept it on the cookie bar, we additionally use Google Analytics 4, which sets cookies and processes data such as your truncated IP address, device, browser, approximate location and the pages you view. It is not loaded at all until you accept, and nothing is sent to Google beforehand. Advertising features and Google Signals are switched off. The provider is Google Ireland Limited; data may be transferred outside the European Economic Area under the European Commission's standard contractual clauses and the EU–US Data Privacy Framework. Data is retained for at most 14 months.</p>
+        )}
 
         {newsletterLive && (
           <p><strong>Newsletter.</strong> If you subscribe to our letters, we store the email address you provide and the language of the page you subscribed from. We use {NEWSLETTER.providerName} to manage the list and deliver the emails; the address is shared with that provider solely for this purpose and is never sold, rented, or used for advertising.</p>
         )}
 
         <h3>Cookies</h3>
-        <p>This website does not use tracking, advertising, or profiling cookies, and our analytics provider does not set cookies. A single entry in your browser's local storage is used only to remember your choice on the notice banner; it contains no personal data and is never shared.</p>
+        <p>Our cookieless analytics provider sets no cookies. A single entry in your browser's local storage records your choice on the cookie bar; it contains no personal data and is never shared.</p>
+        {gaLive && (
+          <p>If — and only if — you accept, Google Analytics sets its own cookies to distinguish visits. You can decline at the outset, and you can change your mind at any time using the “Cookie preferences” link in the footer, which reopens the bar. Declining leaves the site fully usable.</p>
+        )}
 
         <h3>Legal Basis</h3>
         <p>We process correspondence on the basis of your consent and our legitimate interest in responding to you. Aggregated, anonymous analytics rely on our legitimate interest in understanding how the site is used.</p>
+        {gaLive && (
+          <p>Google Analytics runs solely on the basis of your consent, given in advance through the cookie bar. You may withdraw it at any time, with effect for the future.</p>
+        )}
         {newsletterLive && (
           <p>Newsletter delivery is based on your explicit consent. Subscriptions use double opt-in: after submitting the form you receive a confirmation email, and nothing is sent unless you confirm.</p>
         )}

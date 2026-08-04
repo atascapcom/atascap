@@ -1476,7 +1476,7 @@ blockquote {
 @media print {
   .site-header,
   .site-footer,
-  .cookie-banner,
+  .consent,
   .menu-toggle,
   .nav-overlay,
   .subscribe,
@@ -1556,36 +1556,81 @@ blockquote {
   }
 }
 
-/* ── Cookie Banner ── */
-.cookie-banner {
+/* ── Cookie consent bar ── */
+.consent {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  background: var(--color-text);
-  color: white;
-  padding: var(--space-sm) var(--space-lg);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   z-index: 2000;
+  background: var(--color-text);
+  color: #e8e4dc;
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
   font-size: var(--font-size-sm);
+  line-height: 1.6;
 }
 
-.cookie-banner button {
-  background: transparent;
-  border: 1px solid white;
-  color: white;
-  padding: 6px 16px;
-  margin-left: var(--space-sm);
+.consent[hidden] { display: none; }
+
+.consent__text {
+  max-width: 78ch;
+  margin: 0;
+}
+
+.consent__text a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.consent__actions {
+  display: flex;
+  gap: var(--space-sm);
+  flex-shrink: 0;
+}
+
+/* Accept and decline are deliberately the same size and weight: a banner that
+   makes refusal harder is not valid consent. */
+.consent__btn {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 10px 22px;
+  min-width: 116px;
   cursor: pointer;
-  font-size: var(--font-size-sm);
-  transition: all var(--transition);
+  background: transparent;
+  border: 1px solid #e8e4dc;
+  color: #e8e4dc;
+  transition: background-color var(--transition), color var(--transition);
 }
 
-.cookie-banner button:hover {
-  background: white;
+/* Accept and decline share one treatment on purpose. Making acceptance the
+   visually louder option is the nudge the AEPD calls a dark pattern, so the
+   two are identical in size, weight and colour — only the words differ. */
+.consent__btn:hover {
+  background: #e8e4dc;
   color: var(--color-text);
+}
+
+.consent__btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+@media (max-width: 780px) {
+  .consent {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-sm);
+  }
+
+  .consent__actions { justify-content: stretch; }
+  .consent__btn { flex: 1 1 0; min-width: 0; }
 }
 
 /* ── Page Header (for inner pages) ── */

@@ -1,11 +1,14 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { SITE, NEWSLETTER } from '@data/site';
+import { SITE, NEWSLETTER, ANALYTICS } from '@data/site';
 
 // Depende de la misma configuración que el formulario de suscripción: la
 // información nunca falta si el formulario está activo, ni menciona datos que
 // todavía no recogemos.
 const newsletterLive = NEWSLETTER.endpoint.length > 0;
+// Mismo interruptor que la barra de consentimiento: la información sobre Google
+// Analytics solo aparece cuando la etiqueta puede ejecutarse realmente.
+const gaLive = ANALYTICS.ga4Id.length > 0;
 ---
 
 <BaseLayout
@@ -28,16 +31,25 @@ const newsletterLive = NEWSLETTER.endpoint.length > 0;
         <h3>Qué Recopilamos</h3>
         <p><strong>Correspondencia.</strong> Si nos contacta por correo electrónico, recibimos la información que decida compartir — normalmente su nombre, su dirección de correo y el contenido de su mensaje.</p>
         <p><strong>Analítica.</strong> Utilizamos Plausible Analytics, una herramienta centrada en la privacidad, sin cookies y que no recopila datos personales. Solo registra estadísticas de uso agregadas y anónimas, como páginas vistas y fuentes de referencia.</p>
+        {gaLive && (
+          <p><strong>Google Analytics.</strong> Únicamente si lo acepta en la barra de cookies, utilizamos además Google Analytics 4, que instala cookies y trata datos como su dirección IP truncada, su dispositivo, su navegador, su ubicación aproximada y las páginas que visita. No se carga hasta que usted lo acepta y no se envía nada a Google antes de ese momento. Las funciones publicitarias y Google Signals están desactivadas. El proveedor es Google Ireland Limited; los datos pueden transferirse fuera del Espacio Económico Europeo al amparo de las cláusulas contractuales tipo de la Comisión Europea y del Marco de Privacidad de Datos UE–EE. UU. El plazo de conservación es de 14 meses como máximo.</p>
+        )}
 
         {newsletterLive && (
           <p><strong>Boletín.</strong> Si se suscribe a nuestras cartas, conservamos la dirección de correo que nos facilita y el idioma de la página desde la que se suscribió. Utilizamos {NEWSLETTER.providerName} para gestionar la lista y realizar los envíos; la dirección se comparte con ese proveedor únicamente con esa finalidad y nunca se vende, alquila ni se utiliza con fines publicitarios.</p>
         )}
 
         <h3>Cookies</h3>
-        <p>Este sitio web no utiliza cookies de seguimiento, publicidad o elaboración de perfiles, y nuestro proveedor de analítica no instala cookies. Una única entrada en el almacenamiento local de su navegador se utiliza solo para recordar su elección en el aviso; no contiene datos personales y nunca se comparte.</p>
+        <p>Nuestro proveedor de analítica sin cookies no instala ninguna. Una única entrada en el almacenamiento local de su navegador guarda su elección en la barra de cookies; no contiene datos personales y nunca se comparte.</p>
+        {gaLive && (
+          <p>Solo si usted lo acepta, Google Analytics instala sus propias cookies para distinguir visitas. Puede rechazarlo desde el principio y cambiar de opinión cuando quiera mediante el enlace «Preferencias de cookies» del pie de página, que vuelve a abrir la barra. Rechazarlo no limita en absoluto el uso del sitio.</p>
+        )}
 
         <h3>Base Jurídica</h3>
         <p>Tratamos la correspondencia sobre la base de su consentimiento y de nuestro interés legítimo en responderle. La analítica agregada y anónima se basa en nuestro interés legítimo en comprender cómo se utiliza el sitio.</p>
+        {gaLive && (
+          <p>Google Analytics funciona exclusivamente sobre la base del consentimiento que usted otorga previamente en la barra de cookies. Puede retirarlo en cualquier momento, con efectos para el futuro.</p>
+        )}
         {newsletterLive && (
           <p>El envío del boletín se basa en su consentimiento explícito. Las suscripciones utilizan doble confirmación (double opt-in): tras enviar el formulario recibirá un correo de confirmación y no se enviará nada hasta que lo confirme.</p>
         )}

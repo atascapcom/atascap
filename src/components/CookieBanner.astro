@@ -1,5 +1,22 @@
 ---
-import { pageHref } from '@data/translations';
+/**
+ * Cookie consent bar.
+ *
+ * Google Analytics sets cookies, so under GDPR/ePrivacy — and the AEPD's
+ * reading of them — it may not run until the visitor actively agrees. This
+ * component therefore never emits the Google tag: it injects it at runtime,
+ * only after an explicit accept. Before that, nothing is requested from
+ * Google at all, which is stricter (and easier to defend) than loading the tag
+ * with consent-mode denied.
+ *
+ * "Decline" is presented exactly as prominently as "Accept"; a banner that
+ * makes refusal harder is treated by the AEPD as no consent at all.
+ *
+ * With no `ga4Id` configured there is nothing to consent to, so the bar falls
+ * back to a plain notice about the cookieless analytics.
+ */
+import { ANALYTICS } from '@data/site';
+import { LANGUAGES, pageHref } from '@data/translations';
 import type { Lang } from '@data/translations';
 
 interface Props {
@@ -7,47 +24,106 @@ interface Props {
 }
 
 const { lang } = Astro.props;
-
-const text = {
-  en: 'We use privacy-friendly, cookieless analytics. No tracking cookies are set.',
-  es: 'Usamos analítica respetuosa con la privacidad, sin cookies. No se instalan cookies de seguimiento.',
-  tr: 'Gizlilik dostu, çerezsiz analitik kullanıyoruz. Hiçbir takip çerezi yerleştirilmez.',
-};
-
-const moreLabel = {
-  en: 'Privacy Policy',
-  es: 'Política de Privacidad',
-  tr: 'Gizlilik Politikası',
-};
-
-const dismissLabel = {
-  en: 'Got it',
-  es: 'Entendido',
-  tr: 'Tamam',
-};
-
+const t = LANGUAGES[lang].consent;
+const needsConsent = ANALYTICS.ga4Id.length > 0;
 const privacyHref = pageHref(lang, 'privacy');
 ---
 
-<div class="cookie-banner" id="cookieBanner">
-  <span>
-    {text[lang]}{' '}
-    <a href={privacyHref} style="color: #fff; text-decoration: underline;">{moreLabel[lang]}</a>
-  </span>
-  <div>
-    <button onclick="dismissCookieNotice()">{dismissLabel[lang]}</button>
+{needsConsent ? (
+  <div class="consent" id="consentBar" role="dialog" aria-live="polite" aria-label={t.privacyLink} hidden>
+    <p class="consent__text">
+      {t.text}{' '}
+      <a href={privacyHref}>{t.privacyLink}</a>
+    </p>
+    <div class="consent__actions">
+      <button type="button" class="consent__btn" data-consent="denied">{t.reject}</button>
+      <button type="button" class="consent__btn" data-consent="granted">{t.accept}</button>
+    </div>
   </div>
-</div>
+) : (
+  <div class="consent consent--notice" id="consentBar" hidden>
+    <p class="consent__text">
+      {t.noticeOnly}{' '}
+      <a href={privacyHref}>{t.privacyLink}</a>
+    </p>
+    <div class="consent__actions">
+      <button type="button" class="consent__btn" data-consent="dismiss">{t.dismiss}</button>
+    </div>
+  </div>
+)}
 
-<script>
-  if (localStorage.getItem('noticeDismissed') !== null) {
-    const banner = document.getElementById('cookieBanner');
-    if (banner) banner.style.display = 'none';
-  }
+{/*
+  Two separate scripts rather than one with a flag: with no `ga4Id` set, the
+  page should not even mention googletagmanager.com. Shipping the loader as
+  dead string data would make the markup misleading to anyone auditing it.
+*/}
+{needsConsent ? (
+  <script is:inline define:vars={{ ga4Id: ANALYTICS.ga4Id }}>
+    (function () {
+      var KEY = 'analytics-consent';
+      var bar = document.getElementById('consentBar');
+      if (!bar) return;
 
-  (window as any).dismissCookieNotice = () => {
-    localStorage.setItem('noticeDismissed', 'true');
-    const banner = document.getElementById('cookieBanner');
-    if (banner) banner.style.display = 'none';
-  };
-</script>
+      function loadAnalytics() {
+        if (window.__gaLoaded) return;
+        window.__gaLoaded = true;
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ga4Id;
+        document.head.appendChild(s);
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { window.dataLayer.push(arguments); }
+        window.gtag = gtag;
+        gtag('js', new Date());
+        // Ad features stay off: the banner only ever asked about measurement.
+        gtag('config', ga4Id, { anonymize_ip: true, allow_google_signals: false });
+      }
+
+      var stored = null;
+      try { stored = localStorage.getItem(KEY); } catch (e) {}
+
+      if (stored === 'granted') loadAnalytics();
+      else if (stored !== 'denied') bar.hidden = false;
+
+      bar.addEventListener('click', function (event) {
+        var choice = event.target && event.target.getAttribute('data-consent');
+        if (!choice) return;
+        try { localStorage.setItem(KEY, choice); } catch (e) {}
+        if (choice === 'granted') loadAnalytics();
+        bar.hidden = true;
+      });
+
+      // Consent must be as easy to withdraw as it was to give.
+      document.addEventListener('click', function (event) {
+        var el = event.target.closest && event.target.closest('[data-consent-manage]');
+        if (!el) return;
+        event.preventDefault();
+        try { localStorage.removeItem(KEY); } catch (e) {}
+        bar.hidden = false;
+      });
+    })();
+  </script>
+) : (
+  <script is:inline>
+    (function () {
+      var KEY = 'analytics-consent';
+      var bar = document.getElementById('consentBar');
+      if (!bar) return;
+      var stored = null;
+      try { stored = localStorage.getItem(KEY); } catch (e) {}
+      if (stored !== 'dismissed') bar.hidden = false;
+      bar.addEventListener('click', function (event) {
+        if (!event.target.getAttribute('data-consent')) return;
+        try { localStorage.setItem(KEY, 'dismissed'); } catch (e) {}
+        bar.hidden = true;
+      });
+      document.addEventListener('click', function (event) {
+        var el = event.target.closest && event.target.closest('[data-consent-manage]');
+        if (!el) return;
+        event.preventDefault();
+        try { localStorage.removeItem(KEY); } catch (e) {}
+        bar.hidden = false;
+      });
+    })();
+  </script>
+)}

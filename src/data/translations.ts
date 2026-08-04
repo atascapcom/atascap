@@ -47,6 +47,19 @@ export interface LangData {
   };
   pages: PageSlug;
   monthLabels: [string, string, string, string, string, string, string, string, string, string, string, string];
+  /** Cookie consent bar. Reject must read as plainly as accept — the AEPD
+   *  treats a harder-to-refuse banner as no consent at all. */
+  consent: {
+    text: string;
+    accept: string;
+    reject: string;
+    privacyLink: string;
+    /** Footer link that reopens the bar so a choice can be withdrawn. */
+    manage: string;
+    /** Shown when there is nothing to consent to (cookieless analytics only). */
+    noticeOnly: string;
+    dismiss: string;
+  };
   /** Shorter pieces published between the semi-annual letters. */
   notes: {
     sectionTitle: string;
@@ -122,6 +135,15 @@ export const LANGUAGES: Record<Lang, LangData> = {
       terms: 'terms.html',
     },
     monthLabels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    consent: {
+      text: 'We would like to use Google Analytics to understand how this site is read. It sets cookies, so it runs only if you agree. Declining changes nothing about the site.',
+      accept: 'Accept',
+      reject: 'Decline',
+      privacyLink: 'Privacy Policy',
+      manage: 'Cookie preferences',
+      noticeOnly: 'We use privacy-friendly, cookieless analytics. No tracking cookies are set.',
+      dismiss: 'Got it',
+    },
     notes: {
       sectionTitle: 'Reasoning',
       heroSubtitle: 'How we arrive at a conclusion often matters as much as the conclusion.',
@@ -192,6 +214,15 @@ export const LANGUAGES: Record<Lang, LangData> = {
       terms: 'terminos.html',
     },
     monthLabels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+    consent: {
+      text: 'Nos gustaría usar Google Analytics para entender cómo se lee este sitio. Instala cookies, así que solo funciona si usted lo acepta. Rechazarlo no cambia nada del sitio.',
+      accept: 'Aceptar',
+      reject: 'Rechazar',
+      privacyLink: 'Política de Privacidad',
+      manage: 'Preferencias de cookies',
+      noticeOnly: 'Usamos analítica respetuosa con la privacidad, sin cookies. No se instalan cookies de seguimiento.',
+      dismiss: 'Entendido',
+    },
     notes: {
       sectionTitle: 'Razonamiento',
       heroSubtitle: 'Cómo llegamos a una conclusión importa tanto como la conclusión misma.',
@@ -262,6 +293,15 @@ export const LANGUAGES: Record<Lang, LangData> = {
       terms: 'kosullar.html',
     },
     monthLabels: ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'],
+    consent: {
+      text: 'Bu sitenin nasıl okunduğunu anlamak için Google Analytics kullanmak istiyoruz. Çerez yerleştirdiği için yalnızca siz kabul ederseniz çalışır. Reddetmeniz sitede hiçbir şeyi değiştirmez.',
+      accept: 'Kabul et',
+      reject: 'Reddet',
+      privacyLink: 'Gizlilik Politikası',
+      manage: 'Çerez tercihleri',
+      noticeOnly: 'Gizlilik dostu, çerezsiz analitik kullanıyoruz. Hiçbir takip çerezi yerleştirilmez.',
+      dismiss: 'Tamam',
+    },
     notes: {
       sectionTitle: 'Çıkarımlar',
       heroSubtitle: 'Bir sonuca nasıl vardığımız, çoğu zaman sonucun kendisi kadar önemlidir.',

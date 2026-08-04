@@ -59,6 +59,9 @@ const navEntries = MAIN_NAV.map((key) => [key, t.nav[key]] as [keyof PageSlug, s
           <a href={pageHref(lang, key)}>{t.nav[key]}</a>
         </>
       ))}
+      {/* Consent must be as easy to withdraw as it was to give. */}
+      <span class="footer-legal__sep">·</span>
+      <a href={pageHref(lang, 'privacy')} data-consent-manage>{t.consent.manage}</a>
     </nav>
     <div class="footer-bottom">
       <span>{rights}</span>

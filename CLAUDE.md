@@ -159,7 +159,12 @@ Bu projede kullanılacak ECC komutları:
 - OG görseli & ikonlar: `scripts/generate-assets.mjs` (kaynak SVG → PNG/ICO)
 - Yazı başına sosyal kart: `scripts/generate-og-cards.mjs` → `public/images/og/`;
   `BaseHead` `ogImage` propuyla bağlar, verilmezse genel karta düşer
-- Cookie banner: `CookieBanner.astro` (Plausible çerezsiz — bilgilendirme amaçlı)
+- Çerez onayı: `CookieBanner.astro`. `ANALYTICS.ga4Id` boşken yalnızca çerezsiz
+  analitik bildirimi çıkar. Dolduğunda gerçek onay bandına döner: **Google
+  etiketi onay verilmeden hiç yüklenmez** (dize olarak bile sayfada geçmez),
+  "Reddet" ile "Kabul et" görsel olarak eşittir (AEPD karanlık desen sayar),
+  tercih footer'daki bağlantıyla geri alınabilir. Gizlilik sayfalarındaki GA
+  metinleri de aynı ayara bağlı — biri açıkken diğeri eksik kalamaz.
 - RSS: dil başına bir feed (`/rss.xml`, `/rss-tr.xml`, `/rss-es.xml`) — mektuplar
   ve yazılar birlikte; ortak üretici `src/data/feed.js`
 - Newsletter: `SubscribeForm.astro` + `subscribe-api/` (kendi sunucumuzda,

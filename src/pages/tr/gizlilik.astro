@@ -1,10 +1,13 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { SITE, NEWSLETTER } from '@data/site';
+import { SITE, NEWSLETTER, ANALYTICS } from '@data/site';
 
 // Abonelik formuyla aynı ayara bağlı: form yayındayken bildirim eksik kalamaz,
 // yayında değilken de toplanmayan veriden söz edilmez.
 const newsletterLive = NEWSLETTER.endpoint.length > 0;
+// Onay bandıyla aynı ayara bağlı: Google Analytics açıklaması yalnızca etiket
+// gerçekten çalışabildiğinde görünür.
+const gaLive = ANALYTICS.ga4Id.length > 0;
 ---
 
 <BaseLayout
@@ -27,16 +30,25 @@ const newsletterLive = NEWSLETTER.endpoint.length > 0;
         <h3>Neleri Topluyoruz</h3>
         <p><strong>Yazışma.</strong> Bize e-posta ile ulaşırsanız, paylaşmayı seçtiğiniz bilgileri alırız — genellikle adınız, e-posta adresiniz ve mesajınızın içeriği.</p>
         <p><strong>Analitik.</strong> Gizlilik odaklı, çerezsiz ve kişisel veri toplamayan Plausible Analytics kullanıyoruz. Yalnızca toplu ve anonim kullanım istatistiklerini (sayfa görüntülenmeleri, yönlendiren kaynaklar gibi) kaydeder.</p>
+        {gaLive && (
+          <p><strong>Google Analytics.</strong> Yalnızca çerez bandında kabul etmeniz hâlinde, ek olarak Google Analytics 4 kullanırız; bu araç çerez yerleştirir ve kısaltılmış IP adresiniz, cihazınız, tarayıcınız, yaklaşık konumunuz ve görüntülediğiniz sayfalar gibi verileri işler. Siz kabul etmeden hiç yüklenmez ve öncesinde Google'a hiçbir veri gönderilmez. Reklam özellikleri ve Google Signals kapalıdır. Sağlayıcı Google Ireland Limited'dir; veriler, Avrupa Komisyonu'nun standart sözleşme maddeleri ve AB–ABD Veri Gizliliği Çerçevesi kapsamında Avrupa Ekonomik Alanı dışına aktarılabilir. Saklama süresi en fazla 14 aydır.</p>
+        )}
 
         {newsletterLive && (
           <p><strong>Bülten.</strong> Mektuplarımıza kaydolmanız hâlinde, verdiğiniz e-posta adresini ve kaydolduğunuz sayfanın dilini saklarız. Listeyi yönetmek ve gönderimleri yapmak için {NEWSLETTER.providerName} hizmetini kullanırız; adresiniz yalnızca bu amaçla bu sağlayıcıyla paylaşılır, asla satılmaz, kiralanmaz veya reklam için kullanılmaz.</p>
         )}
 
         <h3>Çerezler</h3>
-        <p>Bu web sitesi takip, reklam veya profilleme çerezleri kullanmaz ve analitik sağlayıcımız çerez yerleştirmez. Tarayıcınızın yerel depolamasındaki tek bir kayıt, yalnızca bildirim banner'ındaki tercihinizi hatırlamak için kullanılır; kişisel veri içermez ve asla paylaşılmaz.</p>
+        <p>Çerezsiz analitik sağlayıcımız hiçbir çerez yerleştirmez. Tarayıcınızın yerel depolamasındaki tek bir kayıt, çerez bandındaki tercihinizi saklar; kişisel veri içermez ve asla paylaşılmaz.</p>
+        {gaLive && (
+          <p>Yalnızca kabul etmeniz hâlinde Google Analytics ziyaretleri ayırt etmek için kendi çerezlerini yerleştirir. Baştan reddedebilir, fikrinizi sonradan değiştirmek isterseniz sayfa altındaki “Çerez tercihleri” bağlantısıyla bandı yeniden açabilirsiniz. Reddetmeniz sitenin kullanımını hiçbir şekilde kısıtlamaz.</p>
+        )}
 
         <h3>Hukuki Dayanak</h3>
         <p>Yazışmaları, rızanıza ve size yanıt verme yönündeki meşru menfaatimize dayanarak işleriz. Toplu ve anonim analitik, sitenin nasıl kullanıldığını anlamaya yönelik meşru menfaatimize dayanır.</p>
+        {gaLive && (
+          <p>Google Analytics yalnızca çerez bandı üzerinden önceden verdiğiniz açık rızaya dayanarak çalışır. Bu rızayı dilediğiniz zaman, ileriye etkili olacak şekilde geri alabilirsiniz.</p>
+        )}
         {newsletterLive && (
           <p>Bülten gönderimi açık rızanıza dayanır. Kayıtlar çift onaylıdır (double opt-in): formu gönderdikten sonra bir onay e-postası alırsınız ve siz onaylamadıkça hiçbir gönderim yapılmaz.</p>
         )}

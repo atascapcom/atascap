@@ -29,7 +29,6 @@ const gaLive = ANALYTICS.ga4Id.length > 0;
 
         <h3>What We Collect</h3>
         <p><strong>Correspondence.</strong> If you contact us by email, we receive the information you choose to share — typically your name, email address, and the content of your message.</p>
-        <p><strong>Analytics.</strong> We use Plausible Analytics, a privacy-focused tool that is cookieless and does not collect personal data. It records only aggregated, anonymous usage statistics such as page views and referring sources.</p>
         {gaLive && (
           <p><strong>Google Analytics.</strong> Only if you accept it on the cookie bar, we additionally use Google Analytics 4, which sets cookies and processes data such as your truncated IP address, device, browser, approximate location and the pages you view. It is not loaded at all until you accept, and nothing is sent to Google beforehand. Advertising features and Google Signals are switched off. The provider is Google Ireland Limited; data may be transferred outside the European Economic Area under the European Commission's standard contractual clauses and the EU–US Data Privacy Framework. Data is retained for at most 14 months.</p>
         )}
@@ -39,13 +38,13 @@ const gaLive = ANALYTICS.ga4Id.length > 0;
         )}
 
         <h3>Cookies</h3>
-        <p>Our cookieless analytics provider sets no cookies. A single entry in your browser's local storage records your choice on the cookie bar; it contains no personal data and is never shared.</p>
+        <p>A single entry in your browser's local storage records your choice on the cookie bar; it contains no personal data and is never shared. Beyond that, this site sets no cookies of its own.</p>
         {gaLive && (
           <p>If — and only if — you accept, Google Analytics sets its own cookies to distinguish visits. You can decline at the outset, and you can change your mind at any time using the “Cookie preferences” link in the footer, which reopens the bar. Declining leaves the site fully usable.</p>
         )}
 
         <h3>Legal Basis</h3>
-        <p>We process correspondence on the basis of your consent and our legitimate interest in responding to you. Aggregated, anonymous analytics rely on our legitimate interest in understanding how the site is used.</p>
+        <p>We process correspondence on the basis of your consent and our legitimate interest in responding to you.</p>
         {gaLive && (
           <p>Google Analytics runs solely on the basis of your consent, given in advance through the cookie bar. You may withdraw it at any time, with effect for the future.</p>
         )}
@@ -54,7 +53,7 @@ const gaLive = ANALYTICS.ga4Id.length > 0;
         )}
 
         <h3>Sharing and Retention</h3>
-        <p>We do not sell or rent personal data. Correspondence is retained only as long as necessary to address your inquiry. Our analytics provider processes data within the European Union.</p>
+        <p>We do not sell or rent personal data. Correspondence is retained only as long as necessary to address your inquiry.</p>
         {newsletterLive && (
           <p>Subscriber addresses are retained until you unsubscribe. Every email includes an unsubscribe link, and you may also unsubscribe at any time by writing to <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
         )}

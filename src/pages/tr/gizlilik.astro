@@ -29,7 +29,6 @@ const gaLive = ANALYTICS.ga4Id.length > 0;
 
         <h3>Neleri Topluyoruz</h3>
         <p><strong>Yazışma.</strong> Bize e-posta ile ulaşırsanız, paylaşmayı seçtiğiniz bilgileri alırız — genellikle adınız, e-posta adresiniz ve mesajınızın içeriği.</p>
-        <p><strong>Analitik.</strong> Gizlilik odaklı, çerezsiz ve kişisel veri toplamayan Plausible Analytics kullanıyoruz. Yalnızca toplu ve anonim kullanım istatistiklerini (sayfa görüntülenmeleri, yönlendiren kaynaklar gibi) kaydeder.</p>
         {gaLive && (
           <p><strong>Google Analytics.</strong> Yalnızca çerez bandında kabul etmeniz hâlinde, ek olarak Google Analytics 4 kullanırız; bu araç çerez yerleştirir ve kısaltılmış IP adresiniz, cihazınız, tarayıcınız, yaklaşık konumunuz ve görüntülediğiniz sayfalar gibi verileri işler. Siz kabul etmeden hiç yüklenmez ve öncesinde Google'a hiçbir veri gönderilmez. Reklam özellikleri ve Google Signals kapalıdır. Sağlayıcı Google Ireland Limited'dir; veriler, Avrupa Komisyonu'nun standart sözleşme maddeleri ve AB–ABD Veri Gizliliği Çerçevesi kapsamında Avrupa Ekonomik Alanı dışına aktarılabilir. Saklama süresi en fazla 14 aydır.</p>
         )}
@@ -39,13 +38,13 @@ const gaLive = ANALYTICS.ga4Id.length > 0;
         )}
 
         <h3>Çerezler</h3>
-        <p>Çerezsiz analitik sağlayıcımız hiçbir çerez yerleştirmez. Tarayıcınızın yerel depolamasındaki tek bir kayıt, çerez bandındaki tercihinizi saklar; kişisel veri içermez ve asla paylaşılmaz.</p>
+        <p>Tarayıcınızın yerel depolamasındaki tek bir kayıt, çerez bandındaki tercihinizi saklar; kişisel veri içermez ve asla paylaşılmaz. Bunun dışında bu site kendi adına hiçbir çerez yerleştirmez.</p>
         {gaLive && (
           <p>Yalnızca kabul etmeniz hâlinde Google Analytics ziyaretleri ayırt etmek için kendi çerezlerini yerleştirir. Baştan reddedebilir, fikrinizi sonradan değiştirmek isterseniz sayfa altındaki “Çerez tercihleri” bağlantısıyla bandı yeniden açabilirsiniz. Reddetmeniz sitenin kullanımını hiçbir şekilde kısıtlamaz.</p>
         )}
 
         <h3>Hukuki Dayanak</h3>
-        <p>Yazışmaları, rızanıza ve size yanıt verme yönündeki meşru menfaatimize dayanarak işleriz. Toplu ve anonim analitik, sitenin nasıl kullanıldığını anlamaya yönelik meşru menfaatimize dayanır.</p>
+        <p>Yazışmaları, rızanıza ve size yanıt verme yönündeki meşru menfaatimize dayanarak işleriz.</p>
         {gaLive && (
           <p>Google Analytics yalnızca çerez bandı üzerinden önceden verdiğiniz açık rızaya dayanarak çalışır. Bu rızayı dilediğiniz zaman, ileriye etkili olacak şekilde geri alabilirsiniz.</p>
         )}
@@ -54,7 +53,7 @@ const gaLive = ANALYTICS.ga4Id.length > 0;
         )}
 
         <h3>Paylaşım ve Saklama</h3>
-        <p>Kişisel verileri satmaz veya kiralamayız. Yazışmalar, yalnızca talebinizi karşılamak için gereken süre boyunca saklanır. Analitik sağlayıcımız verileri Avrupa Birliği içinde işler.</p>
+        <p>Kişisel verileri satmaz veya kiralamayız. Yazışmalar, yalnızca talebinizi karşılamak için gereken süre boyunca saklanır.</p>
         {newsletterLive && (
           <p>Abone adresleri, siz listeden çıkana kadar saklanır. Her e-postada listeden çıkma bağlantısı bulunur; ayrıca dilediğiniz zaman <a href={`mailto:${SITE.email}`}>{SITE.email}</a> adresine yazarak da çıkabilirsiniz.</p>
         )}

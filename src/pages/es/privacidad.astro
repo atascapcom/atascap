@@ -30,7 +30,6 @@ const gaLive = ANALYTICS.ga4Id.length > 0;
 
         <h3>Qué Recopilamos</h3>
         <p><strong>Correspondencia.</strong> Si nos contacta por correo electrónico, recibimos la información que decida compartir — normalmente su nombre, su dirección de correo y el contenido de su mensaje.</p>
-        <p><strong>Analítica.</strong> Utilizamos Plausible Analytics, una herramienta centrada en la privacidad, sin cookies y que no recopila datos personales. Solo registra estadísticas de uso agregadas y anónimas, como páginas vistas y fuentes de referencia.</p>
         {gaLive && (
           <p><strong>Google Analytics.</strong> Únicamente si lo acepta en la barra de cookies, utilizamos además Google Analytics 4, que instala cookies y trata datos como su dirección IP truncada, su dispositivo, su navegador, su ubicación aproximada y las páginas que visita. No se carga hasta que usted lo acepta y no se envía nada a Google antes de ese momento. Las funciones publicitarias y Google Signals están desactivadas. El proveedor es Google Ireland Limited; los datos pueden transferirse fuera del Espacio Económico Europeo al amparo de las cláusulas contractuales tipo de la Comisión Europea y del Marco de Privacidad de Datos UE–EE. UU. El plazo de conservación es de 14 meses como máximo.</p>
         )}
@@ -40,13 +39,13 @@ const gaLive = ANALYTICS.ga4Id.length > 0;
         )}
 
         <h3>Cookies</h3>
-        <p>Nuestro proveedor de analítica sin cookies no instala ninguna. Una única entrada en el almacenamiento local de su navegador guarda su elección en la barra de cookies; no contiene datos personales y nunca se comparte.</p>
+        <p>Una única entrada en el almacenamiento local de su navegador guarda su elección en la barra de cookies; no contiene datos personales y nunca se comparte. Por lo demás, este sitio no instala cookies propias.</p>
         {gaLive && (
           <p>Solo si usted lo acepta, Google Analytics instala sus propias cookies para distinguir visitas. Puede rechazarlo desde el principio y cambiar de opinión cuando quiera mediante el enlace «Preferencias de cookies» del pie de página, que vuelve a abrir la barra. Rechazarlo no limita en absoluto el uso del sitio.</p>
         )}
 
         <h3>Base Jurídica</h3>
-        <p>Tratamos la correspondencia sobre la base de su consentimiento y de nuestro interés legítimo en responderle. La analítica agregada y anónima se basa en nuestro interés legítimo en comprender cómo se utiliza el sitio.</p>
+        <p>Tratamos la correspondencia sobre la base de su consentimiento y de nuestro interés legítimo en responderle.</p>
         {gaLive && (
           <p>Google Analytics funciona exclusivamente sobre la base del consentimiento que usted otorga previamente en la barra de cookies. Puede retirarlo en cualquier momento, con efectos para el futuro.</p>
         )}
@@ -55,7 +54,7 @@ const gaLive = ANALYTICS.ga4Id.length > 0;
         )}
 
         <h3>Cesión y Conservación</h3>
-        <p>No vendemos ni alquilamos datos personales. La correspondencia se conserva solo durante el tiempo necesario para atender su consulta. Nuestro proveedor de analítica trata los datos dentro de la Unión Europea.</p>
+        <p>No vendemos ni alquilamos datos personales. La correspondencia se conserva solo durante el tiempo necesario para atender su consulta.</p>
         {newsletterLive && (
           <p>Las direcciones de los suscriptores se conservan hasta que se dan de baja. Todos los correos incluyen un enlace de baja y también puede darse de baja en cualquier momento escribiendo a <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
         )}

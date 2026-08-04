@@ -152,19 +152,6 @@ const jsonLd = JSON.stringify(
 <!-- JSON-LD -->
 <script type="application/ld+json" set:html={jsonLd} />
 
-<!-- Plausible Analytics -->
-{/*
-  The file-downloads + outbound-links variant. Letter PDFs are a real signal —
-  who downloads a letter matters more than who scrolls past it — and outbound
-  clicks show which references readers follow. Still cookieless, so this needs
-  no consent banner.
-*/}
-<script
-  defer
-  data-domain="atascap.com"
-  src="https://plausible.io/js/script.file-downloads.outbound-links.js"
-></script>
-
 <!-- Self-hosted fonts (no third-party origin; see scripts/fetch-fonts.mjs) -->
 <link rel="preload" href="/fonts/eb-garamond-400-normal-latin.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/fonts/inter-400-normal-latin.woff2" as="font" type="font/woff2" crossorigin />

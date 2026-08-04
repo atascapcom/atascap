@@ -26,22 +26,20 @@ export const NEWSLETTER: {
 /**
  * Analytics.
  *
- * Plausible is cookieless and needs no consent, so it loads for everyone.
- * Google Analytics does set cookies and processes personal data, so under
- * GDPR/ePrivacy — and the AEPD's reading of them — it must not load until the
- * visitor has actively accepted. Nothing is sent to Google before that: the
- * tag is injected on consent rather than loaded and held back.
+ * Google Analytics is the only analytics on the site. It sets cookies and
+ * processes personal data, so under GDPR/ePrivacy — and the AEPD's reading of
+ * them — it must not load until the visitor has actively accepted. Nothing is
+ * sent to Google before that: the tag is injected on consent rather than
+ * loaded and held back.
  *
- * While `ga4Id` is empty no Google tag exists and the banner stays the plain
- * cookieless notice, since there would be nothing to consent to.
+ * While `ga4Id` is empty nothing is measured at all, and the consent bar is
+ * not rendered, since there would be nothing to consent to.
  */
 export const ANALYTICS: {
   readonly ga4Id: string;
-  readonly plausibleDomain: string;
 } = {
   // From Google Analytics → Admin → Data streams (looks like "G-XXXXXXXXXX").
-  ga4Id: '',
-  plausibleDomain: 'atascap.com',
+  ga4Id: 'G-0GHCN9QL9N',
 };
 
 export const SITE = {

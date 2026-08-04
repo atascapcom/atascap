@@ -41,7 +41,8 @@ npm run dev      # Geliştirme sunucusu
 npm run build    # Production build (dist/) + eksik mektup PDF'lerini üretir
 npm run preview  # Build önizleme
 npm run pdf      # Mektup PDF'lerini üret (FORCE_PDF=1 ile yeniden üretir)
-npm run assets   # OG görseli + favicon.ico + apple-touch-icon üret
+npm run assets   # Genel OG görseli + favicon.ico + apple-touch-icon üret
+npm run og       # Yazı başına sosyal paylaşım kartı (FORCE_OG=1 yeniden üretir)
 ```
 
 ## Geliştirme Kuralları
@@ -76,7 +77,7 @@ draft: false
 
 Çıkarımlarda iki opsiyonel alan daha var:
 - `translationKey` — çevirileri birbirine bağlar, böylece her dil kendi
-  okunabilir slug'ını tutar (`ucuz-cikarim-pahali-karar` / `cheap-inference-…`).
+  okunabilir slug'ını tutar (`ucuz-cikarim-pahali-muhakeme` / `cheap-inference-…`).
   Tek dilde yayınlanan metinlerde gerekmez.
 - `cover: "/images/reasoning/dosya.jpg"` + `coverAlt` — kart görseli.
   Verilmezse kart tipografik alternatife düşer (grid bozulmaz).
@@ -126,13 +127,18 @@ başlık adıyla değil, çünkü başlık değişebilir. Frontmatter'a `cover` 
 `coverAlt` ekle. Görsel vermezsen kart tipografik alternatife düşer, o da
 kabul edilebilir bir sonuçtur.
 
-**5. Build al ve doğrula:** üç sayfa da üretildi mi, canonical kendini
-gösteriyor mu, hreflang üç çeviriyi bağlıyor mu, üç RSS feed'inde göründü mü,
-sitemap'e girdi mi.
+**5. Sosyal kartı üret:** `npm run og` — her yazı için 1200×630 paylaşım kartı
+çizer (`public/images/og/<slug>.png`), detay sayfaları otomatik bağlar.
+Aşkın linki X ve LinkedIn'de paylaştığında görünen görsel budur; üretmezsen
+genel site kartı çıkar. Mevcut kartlara dokunmaz; `FORCE_OG=1` yeniden üretir.
 
-**6. Commit + push.** Mesajı açıklayıcı yaz (ne + neden), `güncelleme` deme.
+**6. Build al ve doğrula:** üç sayfa da üretildi mi, canonical kendini
+gösteriyor mu, hreflang üç çeviriyi bağlıyor mu, `og:image` yazıya özel mi,
+üç RSS feed'inde göründü mü, sitemap'e girdi mi.
 
-**7. Gönderim Aşkın'da:** Resend → Broadcasts. Claude bunu yapmaz.
+**7. Commit + push.** Mesajı açıklayıcı yaz (ne + neden), `güncelleme` deme.
+
+**8. Gönderim Aşkın’da:** Resend → Broadcasts. Claude bunu yapmaz.
 
 ## ECC Skill & Komutları
 
@@ -151,6 +157,8 @@ Bu projede kullanılacak ECC komutları:
 - Performans tablosu: `PerformanceTable.astro` (MSCI ACWI karşılaştırması; eski grafik/heatmap bileşenleri kaldırıldı)
 - Mektup PDF'leri: `scripts/generate-pdfs.mjs` (build sonrası, yerel Chrome ile eksik olanları üretir)
 - OG görseli & ikonlar: `scripts/generate-assets.mjs` (kaynak SVG → PNG/ICO)
+- Yazı başına sosyal kart: `scripts/generate-og-cards.mjs` → `public/images/og/`;
+  `BaseHead` `ogImage` propuyla bağlar, verilmezse genel karta düşer
 - Cookie banner: `CookieBanner.astro` (Plausible çerezsiz — bilgilendirme amaçlı)
 - RSS: dil başına bir feed (`/rss.xml`, `/rss-tr.xml`, `/rss-es.xml`) — mektuplar
   ve yazılar birlikte; ortak üretici `src/data/feed.js`

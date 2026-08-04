@@ -21,6 +21,9 @@ interface Props {
   /** Detail pages: hreflang alternates limited to the languages the piece was
    *  actually published in. Defaults to all three section pages. */
   alternates?: Array<{ lang: Lang; href: string }>;
+  /** Per-piece share card, e.g. "/images/og/<slug>.png". Without it every
+   *  shared link would show the same generic site card. */
+  ogImage?: string;
 }
 
 const {
@@ -33,6 +36,7 @@ const {
   noindex = false,
   canonicalPath,
   alternates,
+  ogImage,
 } = Astro.props;
 
 const t = LANGUAGES[lang];
@@ -42,7 +46,7 @@ const hreflangs = alternates ?? buildLangSwitcher(pageKey, lang);
 // x-default points at the English version when there is one; otherwise the
 // first available language, so a Turkish-only note still declares a default.
 const defaultHref = (hreflangs.find((a) => a.lang === 'en') ?? hreflangs[0])?.href;
-const ogImageURL = `${SITE.domain}/og-image.png`;
+const ogImageURL = `${SITE.domain}${ogImage ?? '/og-image.png'}`;
 const OG_LOCALE: Record<Lang, string> = { en: 'en_US', es: 'es_ES', tr: 'tr_TR' };
 
 const jsonLd = JSON.stringify({

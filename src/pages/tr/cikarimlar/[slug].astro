@@ -39,6 +39,7 @@ const dateLabel = entry.data.date.toLocaleDateString('tr-TR', {
   description={entry.data.description}
   canonicalPath={detailHref('notes', 'tr', noteSlug(entry))}
   alternates={alternates}
+  ogImage={`/images/og/${noteSlug(entry)}.png`}
 >
   <article class="note">
     <div class="container--narrow">

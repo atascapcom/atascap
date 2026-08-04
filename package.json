@@ -9,6 +9,7 @@
     "preview": "astro preview",
     "pdf": "node scripts/generate-pdfs.mjs",
     "assets": "node scripts/generate-assets.mjs",
+    "og": "node scripts/generate-og-cards.mjs",
     "fonts": "node scripts/fetch-fonts.mjs",
     "test": "node --test subscribe-api/token.test.mjs",
     "astro": "astro"

@@ -5,6 +5,9 @@ export interface PageSlug {
   philosophy: string;
   trackRecord: string;
   letters: string;
+  /** Shorter pieces between the letters. Named after the site's own tagline —
+   *  "…distort reasoning" — rather than a generic "Notes" or "Insights". */
+  notes: string;
   about: string;
   contact: string;
   legalNotice: string;
@@ -49,6 +52,8 @@ export interface LangData {
     sectionTitle: string;
     sectionIntro: string;
     backLink: string;
+    empty: string;
+    readLabel: string;
   };
 }
 
@@ -60,6 +65,7 @@ export const LANGUAGES: Record<Lang, LangData> = {
       philosophy: 'Philosophy',
       trackRecord: 'Track Record',
       letters: 'Letters',
+      notes: 'Reasoning',
       about: 'About',
       contact: 'Contact',
       legalNotice: 'Legal Notice',
@@ -105,6 +111,7 @@ export const LANGUAGES: Record<Lang, LangData> = {
       philosophy: 'philosophy.html',
       trackRecord: 'track-record.html',
       letters: 'letters.html',
+      notes: 'reasoning.html',
       about: 'about.html',
       contact: 'contact.html',
       legalNotice: 'legal-notice.html',
@@ -113,9 +120,11 @@ export const LANGUAGES: Record<Lang, LangData> = {
     },
     monthLabels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     notes: {
-      sectionTitle: 'Notes',
+      sectionTitle: 'Reasoning',
       sectionIntro: 'Shorter pieces between the letters — on markets, individual businesses, and the reasoning behind our decisions.',
-      backLink: 'All letters & notes →',
+      backLink: 'All reasoning →',
+      empty: 'The first pieces are being written.',
+      readLabel: 'Read',
     },
   },
   es: {
@@ -125,6 +134,7 @@ export const LANGUAGES: Record<Lang, LangData> = {
       philosophy: 'Filosofía',
       trackRecord: 'Historial',
       letters: 'Cartas',
+      notes: 'Razonamiento',
       about: 'Nosotros',
       contact: 'Contacto',
       legalNotice: 'Aviso Legal',
@@ -170,6 +180,7 @@ export const LANGUAGES: Record<Lang, LangData> = {
       philosophy: 'filosofia.html',
       trackRecord: 'historial.html',
       letters: 'cartas.html',
+      notes: 'razonamiento.html',
       about: 'sobre.html',
       contact: 'contacto.html',
       legalNotice: 'aviso-legal.html',
@@ -178,9 +189,11 @@ export const LANGUAGES: Record<Lang, LangData> = {
     },
     monthLabels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
     notes: {
-      sectionTitle: 'Notas',
+      sectionTitle: 'Razonamiento',
       sectionIntro: 'Textos breves entre carta y carta — sobre mercados, empresas concretas y el razonamiento detrás de nuestras decisiones.',
-      backLink: 'Todas las cartas y notas →',
+      backLink: 'Todo el razonamiento →',
+      empty: 'Los primeros textos se están escribiendo.',
+      readLabel: 'Leer',
     },
   },
   tr: {
@@ -190,6 +203,7 @@ export const LANGUAGES: Record<Lang, LangData> = {
       philosophy: 'Felsefe',
       trackRecord: 'Sicil',
       letters: 'Mektuplar',
+      notes: 'Çıkarımlar',
       about: 'Hakkında',
       contact: 'İletişim',
       legalNotice: 'Künye',
@@ -235,6 +249,7 @@ export const LANGUAGES: Record<Lang, LangData> = {
       philosophy: 'felsefe.html',
       trackRecord: 'sicil.html',
       letters: 'mektuplar.html',
+      notes: 'cikarimlar.html',
       about: 'hakkinda.html',
       contact: 'iletisim.html',
       legalNotice: 'kunye.html',
@@ -243,16 +258,18 @@ export const LANGUAGES: Record<Lang, LangData> = {
     },
     monthLabels: ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'],
     notes: {
-      sectionTitle: 'Yazılar',
+      sectionTitle: 'Çıkarımlar',
       sectionIntro: 'Mektuplar arasında yazılan kısa metinler — piyasalar, tek tek şirketler ve kararlarımızın ardındaki akıl yürütme üzerine.',
-      backLink: 'Tüm mektuplar ve yazılar →',
+      backLink: 'Tüm çıkarımlar →',
+      empty: 'İlk metinler yazılıyor.',
+      readLabel: 'Oku',
     },
   },
 };
 
 /** Main navigation order — used by the header and the footer "Pages" column. */
 export const MAIN_NAV: (keyof PageSlug)[] = [
-  'home', 'philosophy', 'trackRecord', 'letters', 'about', 'contact',
+  'home', 'philosophy', 'trackRecord', 'letters', 'notes', 'about', 'contact',
 ];
 
 /** Legal pages — linked only in the footer, never in the main navigation. */

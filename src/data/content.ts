@@ -13,7 +13,7 @@ export type ContentKind = 'letters' | 'notes';
 /** Route prefix for each collection's detail pages, per language. */
 export const CONTENT_ROUTES: Record<ContentKind, Record<Lang, string>> = {
   letters: { en: '/letters', tr: '/tr/mektuplar', es: '/es/cartas' },
-  notes: { en: '/notes', tr: '/tr/yazilar', es: '/es/notas' },
+  notes: { en: '/reasoning', tr: '/tr/cikarimlar', es: '/es/razonamiento' },
 };
 
 /** Strip the trailing language suffix ("2026-h1-en" → "2026-h1") for clean URLs. */

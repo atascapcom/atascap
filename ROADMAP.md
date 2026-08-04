@@ -126,8 +126,15 @@ Ek işler (yayına aldıktan sonra):
 - [x] **İkinci koleksiyon: `notes`** — kısa yazılar; `period`/`pdf`/numara yok,
       **tek dilde yayınlanabilir**. Detay sayfaları üç dilde
       (`/notes/`, `/tr/yazilar/`, `/es/notas/`), kendi sade tasarımıyla.
-- [x] **Listeleme:** mektup sayfalarının altında "Yazılar" bölümü — mektuplar
-      üstte kalır (hiyerarşi korunur), yazı yoksa bölüm hiç render edilmez.
+- [x] **Kendi bölümü: "Çıkarımlar"** (3 Ağustos 2026) — mektup sayfasının altındaki
+      bölüm kaldırıldı, ana menüde kendi öğesi ve sayfası oldu:
+      `/reasoning`, `/tr/cikarimlar`, `/es/razonamiento`. İsim jenerik
+      "Notes/Insights" yerine sitenin **kendi tagline'ından** türetildi
+      ("…çıkarımı bozar" → Çıkarımlar / Reasoning / Razonamiento).
+      Oaktree/Sequoia tarzı 3'lü kart grid'i (tablette 2, mobilde 1);
+      `cover` alanıyla görsel, görsel yoksa tipografik alternatif.
+      Eski `/notes`, `/tr/yazilar`, `/es/notas` adresleri kısa süre canlı
+      kaldığı için yönlendirme sayfalarıyla korundu.
 - [x] **Çok dilli RSS:** `/rss.xml`, `/rss-tr.xml`, `/rss-es.xml` — her feed kendi
       dilindeki mektup **ve** yazıları tarih sırasıyla taşır. Ortak üretici
       `src/data/feed.js`; `BaseHead` dile göre doğru feed'i bağlar.

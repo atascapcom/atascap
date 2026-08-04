@@ -10,7 +10,7 @@ import SubscribeForm from '@components/SubscribeForm.astro';
 export async function getStaticPaths() {
   const published = await getCollection('notes', ({ data }) => !data.draft);
   return published
-    .filter((entry) => entry.data.lang === 'es')
+    .filter((entry) => entry.data.lang === 'en')
     .map((entry) => ({
       params: { slug: noteSlug(entry) },
       // Each language keeps its own slug, so alternates carry full hrefs.
@@ -24,8 +24,8 @@ const { entry, alternates } = Astro.props as {
 };
 const { Content } = await entry.render();
 
-const t = LANGUAGES['es'];
-const dateLabel = entry.data.date.toLocaleDateString('es-ES', {
+const t = LANGUAGES['en'];
+const dateLabel = entry.data.date.toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
@@ -33,11 +33,11 @@ const dateLabel = entry.data.date.toLocaleDateString('es-ES', {
 ---
 
 <BaseLayout
-  lang="es"
-  pageKey="letters"
+  lang="en"
+  pageKey="notes"
   title={`${entry.data.title} — Ataş Capital`}
   description={entry.data.description}
-  canonicalPath={detailHref('notes', 'es', noteSlug(entry))}
+  canonicalPath={detailHref('notes', 'en', noteSlug(entry))}
   alternates={alternates}
 >
   <article class="note">
@@ -51,9 +51,9 @@ const dateLabel = entry.data.date.toLocaleDateString('es-ES', {
         <Content />
       </div>
       <p class="note__back">
-        <a href={pageHref('es', 'letters')}>{t.notes.backLink}</a>
+        <a href={pageHref('en', 'notes')}>{t.notes.backLink}</a>
       </p>
-      <SubscribeForm lang="es" />
+      <SubscribeForm lang="en" />
     </div>
   </article>
 </BaseLayout>

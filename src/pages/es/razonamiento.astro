@@ -1,0 +1,51 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { sortNotesDesc } from '@data/notes';
+import { LANGUAGES } from '@data/translations';
+import NoteCard from '@components/NoteCard.astro';
+import SubscribeForm from '@components/SubscribeForm.astro';
+
+const notes = sortNotesDesc(
+  await getCollection('notes', ({ data }) => data.lang === 'es' && !data.draft)
+);
+const t = LANGUAGES['es'].notes;
+---
+
+<BaseLayout
+  lang="es"
+  pageKey="notes"
+  title="Razonamiento — Ataş Capital"
+  description="Textos breves entre nuestras cartas: sobre mercados, empresas y el razonamiento detrás de nuestras decisiones."
+>
+  <section class="page-header">
+    <h1>{t.sectionTitle.toUpperCase()}</h1>
+    <p>El miedo, la avaricia, el orgullo y la necesidad de pertenecer distorsionan el razonamiento.</p>
+  </section>
+
+  <section class="section">
+    <div class="container--narrow">
+      <div class="content-block">
+        <p>{t.sectionIntro}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      {notes.length > 0 ? (
+        <div class="note-grid">
+          {notes.map((note) => <NoteCard note={note} lang="es" locale="es-ES" />)}
+        </div>
+      ) : (
+        <div class="empty-state"><p>{t.empty}</p></div>
+      )}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container--narrow">
+      <SubscribeForm lang="es" />
+    </div>
+  </section>
+</BaseLayout>

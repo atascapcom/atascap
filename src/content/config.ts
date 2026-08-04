@@ -31,6 +31,10 @@ const notes = defineCollection({
     /** Ties translations of the same piece together, so each language can keep
      *  its own readable slug. Omit it for a note published in one language. */
     translationKey: z.string().optional(),
+    /** Card image for the listing grid, e.g. "/images/reasoning/foo.jpg".
+     *  Without one the card falls back to a typographic treatment. */
+    cover: z.string().optional(),
+    coverAlt: z.string().optional(),
     draft: z.boolean().default(false),
   }),
 });

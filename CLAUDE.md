@@ -58,8 +58,11 @@ npm run assets   # OG görseli + favicon.ico + apple-touch-icon üret
 
 - **Mektuplar** (`src/content/letters/*.md`) — altı ayda bir, numaralı, PDF'li.
   Üç dilde de yazılır. Dosya adı: `<dönem>-<dil>.md` (ör. `2027-h1-tr.md`).
-- **Yazılar** (`src/content/notes/*.md`) — mektuplar arasındaki kısa metinler.
-  Dönem/numara/PDF yok; **tek dilde yayınlanabilir**.
+- **Çıkarımlar** (`src/content/notes/*.md`) — mektuplar arasındaki kısa metinler.
+  Dönem/numara/PDF yok; **tek dilde yayınlanabilir**. Kendi menü öğesi ve
+  sayfası var: `/reasoning`, `/tr/cikarimlar`, `/es/razonamiento`.
+  Bölüm adı sitenin kendi tagline'ından türetildi ("…çıkarımı bozar" →
+  Çıkarımlar / Reasoning / Razonamiento).
 
 ```markdown
 ---
@@ -70,6 +73,13 @@ description: "Listede ve arama sonuçlarında görünen tek cümlelik özet."
 draft: false
 ---
 ```
+
+Çıkarımlarda iki opsiyonel alan daha var:
+- `translationKey` — çevirileri birbirine bağlar, böylece her dil kendi
+  okunabilir slug'ını tutar (`ucuz-cikarim-pahali-karar` / `cheap-inference-…`).
+  Tek dilde yayınlanan metinlerde gerekmez.
+- `cover: "/images/reasoning/dosya.jpg"` + `coverAlt` — kart görseli.
+  Verilmezse kart tipografik alternatife düşer (grid bozulmaz).
 
 Mektuplarda ek olarak `period: "2027-H1"` ve `pdf: "/pdf/2027-h1-tr.pdf"` alanları bulunur.
 Mektup numarası (`No. 02`) tarih sırasından otomatik hesaplanır, elle verilmez.

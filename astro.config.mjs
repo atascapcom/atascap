@@ -11,6 +11,8 @@ export default defineConfig({
     sitemap({
       // Subscribe status pages are noindex transactional pages; listing them in
       // the sitemap would contradict their robots meta.
+      // Subscribe status pages are noindex transactional pages; listing them in
+      // the sitemap would contradict their robots meta.
       filter: (page) => !/\/(subscribe-|tr\/kayit-|es\/suscripcion-)/.test(page),
       // build.format: 'file' means pages are served at /about.html, /es.html, etc.
       // The integration drops the extension, which would mismatch the canonical

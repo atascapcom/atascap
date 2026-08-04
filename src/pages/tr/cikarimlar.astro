@@ -1,0 +1,51 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { sortNotesDesc } from '@data/notes';
+import { LANGUAGES } from '@data/translations';
+import NoteCard from '@components/NoteCard.astro';
+import SubscribeForm from '@components/SubscribeForm.astro';
+
+const notes = sortNotesDesc(
+  await getCollection('notes', ({ data }) => data.lang === 'tr' && !data.draft)
+);
+const t = LANGUAGES['tr'].notes;
+---
+
+<BaseLayout
+  lang="tr"
+  pageKey="notes"
+  title="Çıkarımlar — Ataş Capital"
+  description="Yatırımcı mektuplarımız arasında yazılan kısa metinler: piyasalar, şirketler ve kararlarımızın ardındaki akıl yürütme."
+>
+  <section class="page-header">
+    <h1>{t.sectionTitle.toUpperCase()}</h1>
+    <p>Korku, açgözlülük, kibir ve aidiyet ihtiyacı çıkarımı bozar.</p>
+  </section>
+
+  <section class="section">
+    <div class="container--narrow">
+      <div class="content-block">
+        <p>{t.sectionIntro}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      {notes.length > 0 ? (
+        <div class="note-grid">
+          {notes.map((note) => <NoteCard note={note} lang="tr" locale="tr-TR" />)}
+        </div>
+      ) : (
+        <div class="empty-state"><p>{t.empty}</p></div>
+      )}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container--narrow">
+      <SubscribeForm lang="tr" />
+    </div>
+  </section>
+</BaseLayout>

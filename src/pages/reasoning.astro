@@ -1,0 +1,51 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { sortNotesDesc } from '@data/notes';
+import { LANGUAGES } from '@data/translations';
+import NoteCard from '@components/NoteCard.astro';
+import SubscribeForm from '@components/SubscribeForm.astro';
+
+const notes = sortNotesDesc(
+  await getCollection('notes', ({ data }) => data.lang === 'en' && !data.draft)
+);
+const t = LANGUAGES['en'].notes;
+---
+
+<BaseLayout
+  lang="en"
+  pageKey="notes"
+  title="Reasoning — Ataş Capital"
+  description="Shorter pieces between our investor letters: on markets, individual businesses, and the reasoning behind our decisions."
+>
+  <section class="page-header">
+    <h1>{t.sectionTitle.toUpperCase()}</h1>
+    <p>Fear, greed, pride, and the need to belong distort reasoning.</p>
+  </section>
+
+  <section class="section">
+    <div class="container--narrow">
+      <div class="content-block">
+        <p>{t.sectionIntro}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      {notes.length > 0 ? (
+        <div class="note-grid">
+          {notes.map((note) => <NoteCard note={note} lang="en" locale="en-US" />)}
+        </div>
+      ) : (
+        <div class="empty-state"><p>{t.empty}</p></div>
+      )}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container--narrow">
+      <SubscribeForm lang="en" />
+    </div>
+  </section>
+</BaseLayout>

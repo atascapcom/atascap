@@ -1,0 +1,45 @@
+---
+/**
+ * One card in the Reasoning grid.
+ *
+ * A cover image is optional on purpose. The rest of the site carries no
+ * photography, so rather than reach for stock imagery when a piece has none,
+ * the card falls back to a typographic panel — the grid stays even and the
+ * page keeps its own register.
+ */
+import { noteSlug, type NoteEntry } from '@data/notes';
+import { detailHref } from '@data/content';
+import { LANGUAGES } from '@data/translations';
+import type { Lang } from '@data/translations';
+
+interface Props {
+  note: NoteEntry;
+  lang: Lang;
+  locale: string;
+}
+
+const { note, lang, locale } = Astro.props;
+const t = LANGUAGES[lang].notes;
+const href = detailHref('notes', lang, noteSlug(note));
+const dateLabel = note.data.date.toLocaleDateString(locale, {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+---
+
+<article class="note-card">
+  <a class="note-card__media" href={href} tabindex="-1" aria-hidden="true">
+    {note.data.cover ? (
+      <img src={note.data.cover} alt={note.data.coverAlt ?? ''} loading="lazy" width="600" height="400" />
+    ) : (
+      <span class="note-card__fallback"><span class="note-card__mark">A</span></span>
+    )}
+  </a>
+
+  <p class="note-card__label">{t.sectionTitle}</p>
+  <p class="note-card__date">{dateLabel}</p>
+  <h3 class="note-card__title"><a href={href}>{note.data.title}</a></h3>
+  <p class="note-card__excerpt">{note.data.description}</p>
+  <p class="note-card__read"><a href={href}>{t.readLabel}</a></p>
+</article>

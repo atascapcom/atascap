@@ -3,19 +3,12 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { SITE } from '@data/site';
 import { sortLettersDesc, letterNumbers, letterSlug, periodLabel, letterNo } from '@data/letters';
-import { sortNotesDesc, noteSlug } from '@data/notes';
-import { detailHref } from '@data/content';
-import { LANGUAGES } from '@data/translations';
 import SubscribeForm from '@components/SubscribeForm.astro';
 
 const all = await getCollection('letters', ({ data }) => data.lang === 'es' && !data.draft);
 const numbers = letterNumbers(all);
 const letters = sortLettersDesc(all);
 
-const notes = sortNotesDesc(
-  await getCollection('notes', ({ data }) => data.lang === 'es' && !data.draft)
-);
-const t = LANGUAGES.es;
 ---
 
 <BaseLayout
@@ -68,30 +61,6 @@ const t = LANGUAGES.es;
     </div>
   </section>
 
-  {notes.length > 0 && (
-    <section class="section">
-      <div class="container--narrow">
-        <div class="section__header section__header--left">
-          <h2>{t.notes.sectionTitle}</h2>
-          <div class="divider divider--left"></div>
-          <p>{t.notes.sectionIntro}</p>
-        </div>
-        <ul class="notes-list">
-          {notes.map((note) => (
-            <li class="note-item">
-              <span class="note-item__date">
-                {note.data.date.toLocaleDateString('es-ES', { year: 'numeric', month: 'short', day: 'numeric' })}
-              </span>
-              <div class="note-item__content">
-                <h3><a href={detailHref('notes', 'es', noteSlug(note))}>{note.data.title}</a></h3>
-                <p>{note.data.description}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  )}
 
   <section class="section">
     <div class="container--narrow">

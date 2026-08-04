@@ -86,7 +86,7 @@ Mektuplarda ek olarak `period: "2027-H1"` ve `pdf: "/pdf/2027-h1-tr.pdf"` alanla
 Mektup numarası (`No. 02`) tarih sırasından otomatik hesaplanır, elle verilmez.
 İmza sayfa şablonundan basılır — gövdeye tekrar yazma.
 
-- **Site bilgileri**: `src/data/site.ts` → `SITE` ve `NEWSLETTER` sabitleri
+- **Site bilgileri**: `src/data/site.ts` → `SITE`, `NEWSLETTER` ve `ANALYTICS` sabitleri
 - **Performans verisi**: `src/data/performance.ts`
 
 ## Yayın Akışı
@@ -159,9 +159,11 @@ Bu projede kullanılacak ECC komutları:
 - OG görseli & ikonlar: `scripts/generate-assets.mjs` (kaynak SVG → PNG/ICO)
 - Yazı başına sosyal kart: `scripts/generate-og-cards.mjs` → `public/images/og/`;
   `BaseHead` `ogImage` propuyla bağlar, verilmezse genel karta düşer
-- Çerez onayı: `CookieBanner.astro`. `ANALYTICS.ga4Id` boşken yalnızca çerezsiz
-  analitik bildirimi çıkar. Dolduğunda gerçek onay bandına döner: **Google
-  etiketi onay verilmeden hiç yüklenmez** (dize olarak bile sayfada geçmez),
+- Analitik: yalnızca Google Analytics 4 (`G-0GHCN9QL9N`). Plausible kaldırıldı.
+- Çerez onayı: `CookieBanner.astro`. `ANALYTICS.ga4Id` boşken bant hiç render
+  edilmez (ölçüm yoksa çerez uyarısı da gereksizdir). Doluyken gerçek onay
+  bandı çıkar: **Google etiketi onay verilmeden hiç yüklenmez** (dize olarak
+  bile sayfada geçmez),
   "Reddet" ile "Kabul et" görsel olarak eşittir (AEPD karanlık desen sayar),
   tercih footer'daki bağlantıyla geri alınabilir. Gizlilik sayfalarındaki GA
   metinleri de aynı ayara bağlı — biri açıkken diğeri eksik kalamaz.
